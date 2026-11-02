@@ -1,0 +1,64 @@
+/// Grade WMS 10x10x4 por filial. FilialID e atributo; a filial chega a fOcupacaoArmazem materializada.
+table dPosicaoArmazem
+	lineageTag: 562173e0-c012-4921-9612-5c8f17ab5339
+
+	column PosicaoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 75d7729e-b971-4244-991b-90c7ddadb1f3
+		summarizeBy: none
+		sourceColumn: PosicaoID
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a856746f-9f78-4f51-aa29-4fe122f1b0b2
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column EnderecoWMS
+		dataType: string
+		lineageTag: ac2e9bfd-e4bd-4927-b493-e033afe42882
+		summarizeBy: none
+		sourceColumn: EnderecoWMS
+
+	column EixoX
+		dataType: int64
+		formatString: 0
+		lineageTag: d15dba99-ebf0-42e9-991a-3c493bba698b
+		summarizeBy: none
+		sourceColumn: EixoX
+
+	column EixoY
+		dataType: int64
+		formatString: 0
+		lineageTag: d084d917-2804-4863-9a91-fb34ec276667
+		summarizeBy: none
+		sourceColumn: EixoY
+
+	column EixoZ
+		dataType: int64
+		formatString: 0
+		lineageTag: 549b1b46-3242-4546-ad9c-7f4ad2c7f15f
+		summarizeBy: none
+		sourceColumn: EixoZ
+
+	column Zona
+		dataType: string
+		lineageTag: ab1d5439-a9e7-4a79-9f0c-d7b98357dda3
+		summarizeBy: none
+		sourceColumn: Zona
+
+	partition dPosicaoArmazem = m
+		mode: import
+		queryGroup: Dimensoes
+		source =
+				let
+				    Fonte = fxLerCsv("dPosicaoArmazem"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"PosicaoID", Int64.Type}, {"FilialID", Int64.Type}, {"EnderecoWMS", type text}, {"EixoX", Int64.Type}, {"EixoY", Int64.Type}, {"EixoZ", Int64.Type}, {"Zona", type text}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

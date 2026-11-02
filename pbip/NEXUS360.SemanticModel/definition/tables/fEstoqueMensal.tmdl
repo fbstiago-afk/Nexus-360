@@ -1,0 +1,92 @@
+/// Amostra de 200 SKUs por filial/mes. Snapshot: nao somar meses.
+table fEstoqueMensal
+	lineageTag: 530a7e0d-494e-4b2b-97bf-691e1bba2483
+
+	column EstoqueID
+		dataType: int64
+		formatString: 0
+		lineageTag: 73a7aa5a-fb14-41a1-9ca4-3e9307448b94
+		summarizeBy: none
+		sourceColumn: EstoqueID
+
+	column DataReferencia
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: a98e12cd-270d-4860-a394-f1c72bde538b
+		summarizeBy: none
+		sourceColumn: DataReferencia
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4690412c-7e65-4308-9212-6ac93b37d235
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 98a50fcc-20de-4b9c-9d80-0928b8f8bd2d
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column SaldoUnidades
+		dataType: int64
+		formatString: #,0
+		lineageTag: 440ad01f-430d-4675-893b-e9916499e781
+		summarizeBy: sum
+		sourceColumn: SaldoUnidades
+
+	column EstoqueMinimo
+		dataType: int64
+		formatString: #,0
+		lineageTag: 99db5d88-cb67-49fa-a861-b3fd8c043fe5
+		summarizeBy: none
+		sourceColumn: EstoqueMinimo
+
+	column ValorEstoque
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 5930334d-75df-4ce7-984e-a2ed7acc6327
+		summarizeBy: sum
+		sourceColumn: ValorEstoque
+
+	column Ruptura
+		dataType: int64
+		formatString: 0
+		lineageTag: 05b29c18-7648-4b5d-8dfc-c615c05e17e7
+		summarizeBy: none
+		sourceColumn: Ruptura
+
+	column DiasSemMovimento
+		dataType: int64
+		formatString: #,0
+		lineageTag: e873e55c-de1a-4542-9194-3579c2bd8f59
+		summarizeBy: none
+		sourceColumn: DiasSemMovimento
+
+	/// 1 quando DataReferencia <= pDataCorte
+	column ElegivelHistorico
+		dataType: int64
+		formatString: 0
+		lineageTag: cc4d0737-52c6-4691-8c05-2a7ad63d3502
+		summarizeBy: none
+		sourceColumn: ElegivelHistorico
+
+	partition fEstoqueMensal = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fEstoqueMensal"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"EstoqueID", Int64.Type}, {"DataReferencia", type date}, {"FilialID", Int64.Type}, {"ProdutoID", Int64.Type}, {"SaldoUnidades", Int64.Type}, {"EstoqueMinimo", Int64.Type}, {"ValorEstoque", Currency.Type}, {"Ruptura", Int64.Type}, {"DiasSemMovimento", Int64.Type}}, "en-US"),
+				    Elegivel = Table.AddColumn(Tipado, "ElegivelHistorico", each if [DataReferencia] <= pDataCorte then 1 else 0, Int64.Type)
+				in
+				    Elegivel
+
+	annotation PBI_ResultType = Table
+

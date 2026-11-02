@@ -1,0 +1,104 @@
+table fContasPagar
+	lineageTag: 79fc1e70-243b-416f-8786-598896d65f22
+
+	column PagamentoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0683a514-5351-4533-b15d-d0d86c53c3bd
+		summarizeBy: none
+		sourceColumn: PagamentoID
+
+	column CompraID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3f233ef9-ddcf-4849-929e-5be84f7c279d
+		summarizeBy: none
+		sourceColumn: CompraID
+
+	column ValorTitulo
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 4f027689-0ac7-46c5-994f-301ca6eba7cc
+		summarizeBy: sum
+		sourceColumn: ValorTitulo
+
+	column Vencimento
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 7f208be8-ec77-40de-9e3f-d2f374968ab2
+		summarizeBy: none
+		sourceColumn: Vencimento
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DataPagamento
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: b52c1c78-f930-477b-bf8d-478165be5c31
+		summarizeBy: none
+		sourceColumn: DataPagamento
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Materializado de fCompra
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2f5d4087-39b4-497d-9a94-08c9c42dada8
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	/// Materializado de fCompra
+	column FornecedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f57044e5-e3d9-4239-8c7e-5413d09a4bfc
+		summarizeBy: none
+		sourceColumn: FornecedorID
+
+	/// Materializado de fCompra
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f680995c-c9eb-4aa3-b829-8310f3c6a58f
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	/// Data da compra de origem
+	column DataCompra
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 8e18774b-acd8-40e1-aea5-1d76f04c6bfd
+		summarizeBy: none
+		sourceColumn: DataCompra
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// 1 quando DataCompra <= pDataCorte
+	column ElegivelHistorico
+		dataType: int64
+		formatString: 0
+		lineageTag: 736bab1e-c56a-49c2-a641-36abb2942a3b
+		summarizeBy: none
+		sourceColumn: ElegivelHistorico
+
+	partition fContasPagar = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fContasPagar"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"PagamentoID", Int64.Type}, {"CompraID", Int64.Type}, {"ValorTitulo", Currency.Type}, {"Vencimento", type date}, {"DataPagamento", type date}}, "en-US"),
+				    Mesclado = Table.NestedJoin(Tipado, {"CompraID"}, stgCompra, {"CompraID"}, "Ref", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(Mesclado, "Ref", {"FilialID", "FornecedorID", "ProdutoID", "DataCompra"}, {"FilialID", "FornecedorID", "ProdutoID", "DataCompra"}),
+				    Retipado = Table.TransformColumnTypes(Expandido, {{"FilialID", Int64.Type}, {"FornecedorID", Int64.Type}, {"ProdutoID", Int64.Type}, {"DataCompra", type date}}, "en-US"),
+				    Elegivel = Table.AddColumn(Retipado, "ElegivelHistorico", each if [DataCompra] <= pDataCorte then 1 else 0, Int64.Type)
+				in
+				    Elegivel
+
+	annotation PBI_ResultType = Table
+

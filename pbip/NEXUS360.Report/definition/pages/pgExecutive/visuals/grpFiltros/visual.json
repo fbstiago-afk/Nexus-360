@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "grpFiltros",
+  "position": {
+    "x": 1494,
+    "y": 212,
+    "z": 15000,
+    "height": 844,
+    "width": 380,
+    "tabOrder": 3000
+  },
+  "visualGroup": {
+    "displayName": "Painel Filtros",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

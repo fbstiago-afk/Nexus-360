@@ -1,0 +1,52 @@
+/// Metas filial-mes-indicador. Margem Bruta e OTIF sao razoes (C8).
+table fMeta
+	lineageTag: 51d46e6a-c743-40d6-9ff4-358bc36e2417
+
+	column MetaID
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d9f9ab9-dff6-4484-90cc-548620f3957c
+		summarizeBy: none
+		sourceColumn: MetaID
+
+	column DataReferencia
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 4994c474-e62e-479a-8f24-4538aab413f4
+		summarizeBy: none
+		sourceColumn: DataReferencia
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9d6c6cb3-d2df-41be-9e30-b4d1ceb8f45e
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column Indicador
+		dataType: string
+		lineageTag: 0076f8b9-1f59-4c6f-bb9e-094a9c5a1f10
+		summarizeBy: none
+		sourceColumn: Indicador
+
+	column ValorMeta
+		dataType: double
+		lineageTag: 992b213d-4ff4-4216-8f51-29f4e4956bf0
+		summarizeBy: none
+		sourceColumn: ValorMeta
+
+	partition fMeta = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fMeta"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"MetaID", Int64.Type}, {"DataReferencia", type date}, {"FilialID", Int64.Type}, {"Indicador", type text}, {"ValorMeta", type number}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

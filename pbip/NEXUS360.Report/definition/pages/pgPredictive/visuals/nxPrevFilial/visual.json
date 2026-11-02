@@ -1,0 +1,266 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "nxPrevFilial",
+  "position": {
+    "x": 962,
+    "y": 786,
+    "z": 1025,
+    "height": 270,
+    "width": 912,
+    "tabOrder": 1025
+  },
+  "visual": {
+    "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dFilial"
+                    }
+                  },
+                  "Property": "Cidade"
+                }
+              },
+              "queryRef": "dFilial.Cidade",
+              "nativeQueryRef": "Cidade",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Receita Prevista"
+                }
+              },
+              "queryRef": "_Medidas.Receita Prevista",
+              "nativeQueryRef": "Receita Prevista",
+              "active": false
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Receita Base Ano Anterior"
+                }
+              },
+              "queryRef": "_Medidas.Receita Base Ano Anterior",
+              "nativeQueryRef": "Receita Base Ano Anterior",
+              "active": false
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "vega": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'vegaLite'"
+                }
+              }
+            },
+            "jsonSpec": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\", \"data\": {\"name\": \"dataset\"}, \"width\": \"container\", \"height\": \"container\", \"transform\": [{\"filter\": \"datum[''Receita Base Ano Anterior''] > 0 && isValid(datum[''Receita Prevista''])\"}, {\"calculate\": \"datum[''Receita Prevista''] / datum[''Receita Base Ano Anterior''] - 1\", \"as\": \"cres\"}, {\"calculate\": \"datum.cres >= 0 ? ''Crescimento'' : ''Queda''\", \"as\": \"sit\"}], \"encoding\": {\"y\": {\"field\": \"Cidade\", \"type\": \"nominal\", \"sort\": {\"field\": \"cres\", \"op\": \"max\", \"order\": \"descending\"}, \"title\": null, \"axis\": {\"labelFontSize\": 12, \"labelColor\": \"#C9D6E3\"}}}, \"layer\": [{\"mark\": {\"type\": \"bar\", \"cornerRadiusEnd\": 2, \"height\": {\"band\": 0.6}}, \"encoding\": {\"x\": {\"field\": \"cres\", \"type\": \"quantitative\", \"title\": null, \"axis\": {\"format\": \"+.0%\", \"grid\": true, \"tickCount\": 5}}, \"color\": {\"field\": \"sit\", \"type\": \"nominal\", \"scale\": {\"domain\": [\"Crescimento\", \"Queda\"], \"range\": [\"#5FA8E6\", \"#FFC66D\"]}}, \"tooltip\": [{\"field\": \"Cidade\", \"title\": \"Filial\"}, {\"field\": \"Receita Prevista\", \"title\": \"Previsão 1º sem/27\", \"formatType\": \"pbiFormat\", \"format\": \"R$ #,0\"}, {\"field\": \"Receita Base Ano Anterior\", \"title\": \"Realizado 1º sem/26\", \"formatType\": \"pbiFormat\", \"format\": \"R$ #,0\"}, {\"field\": \"cres\", \"title\": \"Variação\", \"formatType\": \"pbiFormat\", \"format\": \"+0%;-0%\"}]}}, {\"mark\": {\"type\": \"rule\", \"color\": \"#A9B9CA\"}, \"encoding\": {\"x\": {\"datum\": 0}}}]}'"
+                }
+              }
+            },
+            "jsonConfig": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"autosize\": {\"type\": \"fit\", \"contains\": \"padding\"}, \"view\": {\"stroke\": null}, \"font\": \"Segoe UI\", \"background\": null, \"padding\": {\"left\": 4, \"right\": 12, \"top\": 6, \"bottom\": 4}, \"axis\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"titleColor\": \"#A9B9CA\", \"titleFont\": \"Segoe UI\", \"titleFontWeight\": 400, \"gridColor\": \"#173B5C\", \"gridDash\": [2, 3], \"domain\": false, \"ticks\": false, \"labelFontSize\": 12, \"titleFontSize\": 12}, \"legend\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"labelFontSize\": 12, \"orient\": \"top\", \"title\": null, \"symbolType\": \"circle\"}, \"text\": {\"fontSize\": 13}, \"title\": {\"fontSize\": 14}}'"
+                }
+              }
+            },
+            "renderMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'svg'"
+                }
+              }
+            },
+            "enableTooltips": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableContextMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'6.4.3'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stateManagement": [
+        {
+          "properties": {
+            "viewportHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "203D"
+                }
+              }
+            },
+            "viewportWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "882D"
+                }
+              }
+            },
+            "supportFieldConfiguration": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"Cidade\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":false,\"formatted\":false,\"names\":false},\"Receita Prevista\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":true,\"formatted\":true,\"names\":false},\"Receita Base Ano Anterior\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":true,\"formatted\":true,\"names\":false}}'"
+                }
+              }
+            },
+            "denebMetaVersion": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2'"
+                }
+              }
+            },
+            "consolidateFieldParameters": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "developer": [
+        {
+          "properties": {
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2.0.1.0'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Previsão da fonte para o 1º sem/2027 vs realizado do 1º sem/2026, por filial'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "f2027",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dCalendario"
+              }
+            },
+            "Property": "Ano"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "dCalendario",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "t"
+                          }
+                        },
+                        "Property": "Ano"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "2027L"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

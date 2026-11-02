@@ -1,0 +1,67 @@
+table fDespesa
+	lineageTag: 2aa38738-82ee-4eed-a72d-400be433ecf3
+
+	column DespesaID
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ef2e223-8bb3-41d9-b1e2-4588a1f3d8be
+		summarizeBy: none
+		sourceColumn: DespesaID
+
+	column DataReferencia
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: d94cc996-8974-4344-85af-27be922b0da0
+		summarizeBy: none
+		sourceColumn: DataReferencia
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 54db6a70-87fb-4eb9-82db-9e03516e274a
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column Conta
+		dataType: string
+		lineageTag: 3317b706-aaa2-4a4f-abf4-9585a2e3d096
+		summarizeBy: none
+		sourceColumn: Conta
+
+	column Tipo
+		dataType: string
+		lineageTag: 87a8dba7-644c-4fb6-8a4f-81092554d6f9
+		summarizeBy: none
+		sourceColumn: Tipo
+
+	column Valor
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: f6504efa-c8e0-476e-b708-3a5a2b4e009d
+		summarizeBy: sum
+		sourceColumn: Valor
+
+	/// 1 quando DataReferencia <= pDataCorte
+	column ElegivelHistorico
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ee109e0-a8f9-40d9-9be3-e7b42a9c8417
+		summarizeBy: none
+		sourceColumn: ElegivelHistorico
+
+	partition fDespesa = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fDespesa"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"DespesaID", Int64.Type}, {"DataReferencia", type date}, {"FilialID", Int64.Type}, {"Conta", type text}, {"Tipo", type text}, {"Valor", Currency.Type}}, "en-US"),
+				    Elegivel = Table.AddColumn(Tipado, "ElegivelHistorico", each if [DataReferencia] <= pDataCorte then 1 else 0, Int64.Type)
+				in
+				    Elegivel
+
+	annotation PBI_ResultType = Table
+

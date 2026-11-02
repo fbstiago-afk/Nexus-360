@@ -1,0 +1,22 @@
+/// Linhas da DRE gerencial simplificada (contas reais de fDespesa[Conta]). Eixo da medida [Valor DRE Gerencial].
+table dLinhaDRE
+	lineageTag: 7b8f1e58-0dc4-4c48-a09b-87aa8497effb
+
+	column Ordem
+		isHidden
+		lineageTag: 0a6f7daa-feec-4e0c-a0b9-e2469a72f9fa
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ordem]
+
+	column Linha
+		lineageTag: 1caf8aef-7a6f-4b24-bf07-a63cee169cc7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Linha]
+		sortByColumn: Ordem
+
+	partition dLinhaDRE = calculated
+		mode: import
+		source = DATATABLE ( "Ordem", INTEGER, "Linha", STRING, { { 1, "Receita Líquida" }, { 2, "CMV" }, { 3, "Pessoal" }, { 4, "Aluguel" }, { 5, "Energia" }, { 6, "Marketing" }, { 7, "TI" }, { 8, "Administrativo" } } )
+

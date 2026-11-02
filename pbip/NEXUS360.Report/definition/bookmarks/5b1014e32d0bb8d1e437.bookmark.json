@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Predictive Intelligence · Painel Informações",
+  "name": "5b1014e32d0bb8d1e437",
+  "options": {
+    "targetVisualNames": [],
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "pgPredictive",
+    "sections": {
+      "pgPredictive": {
+        "visualContainers": {},
+        "visualContainerGroups": {
+          "grpFiltros": {
+            "isHidden": true
+          },
+          "grpInfo": {
+            "isHidden": false
+          },
+          "grpNav": {
+            "isHidden": true
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

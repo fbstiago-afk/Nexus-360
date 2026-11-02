@@ -1,0 +1,21 @@
+/// Parametro de simulacao: Variacao da tarifa de frete.
+table 'Sim Frete'
+	lineageTag: 5e7c4e6c-0a55-4e24-9132-468f17b745ed
+
+	column 'Frete %'
+		dataType: double
+		formatString: +0%;-0%;0%
+		lineageTag: 3ba6f72a-d717-4a04-b6b4-a6addd41e1a1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Frete %]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+	partition 'Sim Frete' = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( -20, 20, 1 ), "Frete %", [Value] / 100 )
+

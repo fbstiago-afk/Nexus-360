@@ -1,0 +1,82 @@
+table fDevolucao
+	lineageTag: 121766bd-8878-4016-ab5e-cca90f9de994
+
+	column DevolucaoID
+		dataType: int64
+		formatString: 0
+		lineageTag: ca79a48d-5ace-4c6a-a9ff-46b307f03931
+		summarizeBy: none
+		sourceColumn: DevolucaoID
+
+	column PedidoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9b1f9e1a-c352-4add-b557-cbcf94c8d7a8
+		summarizeBy: none
+		sourceColumn: PedidoID
+
+	column DataDevolucao
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: c286c280-1ff6-4960-93e2-c14ed61c4403
+		summarizeBy: none
+		sourceColumn: DataDevolucao
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ValorDevolvido
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 8e5ff43e-071c-449d-b61e-cf6e95f91a79
+		summarizeBy: sum
+		sourceColumn: ValorDevolvido
+
+	column Motivo
+		dataType: string
+		lineageTag: 3f01a0ce-da93-40d6-bb1f-c7dd62ee5265
+		summarizeBy: none
+		sourceColumn: Motivo
+
+	/// Materializado de fPedido
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5fb9f1d3-7133-4d13-9d1c-c62863876214
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	/// Filial transacional do pedido
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e69b2e8a-68ca-44a6-b60b-b83d094bf992
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	/// Materializado de fPedido
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1e1b5184-4727-4b03-aa91-4f539948e0e1
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	partition fDevolucao = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fDevolucao"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"DevolucaoID", Int64.Type}, {"PedidoID", Int64.Type}, {"DataDevolucao", type date}, {"ValorDevolvido", Currency.Type}, {"Motivo", type text}}, "en-US"),
+				    Mesclado = Table.NestedJoin(Tipado, {"PedidoID"}, stgPedido, {"PedidoID"}, "Ref", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(Mesclado, "Ref", {"ClienteID", "FilialID", "VendedorID"}, {"ClienteID", "FilialID", "VendedorID"}),
+				    Retipado = Table.TransformColumnTypes(Expandido, {{"ClienteID", Int64.Type}, {"FilialID", Int64.Type}, {"VendedorID", Int64.Type}}, "en-US")
+				in
+				    Retipado
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,15 @@
+/// Parametro desconectado: dias maximos desde a ultima compra para o cliente ser Ativo (padrao 180).
+table 'Param Limite Ativo'
+	lineageTag: 7a88742d-ba13-4d66-93c6-eeadc72cbd1c
+
+	column Dias
+		formatString: 0
+		lineageTag: a6ebe970-b846-4afe-978b-72af4dd47dd2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Dias]
+
+	partition 'Param Limite Ativo' = calculated
+		mode: import
+		source = DATATABLE ( "Dias", INTEGER, { { 60 }, { 90 }, { 120 }, { 150 }, { 180 }, { 210 }, { 240 }, { 270 }, { 300 } } )
+

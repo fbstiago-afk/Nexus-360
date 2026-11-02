@@ -1,0 +1,284 @@
+﻿Pasta,Medida,Formato,Descricao,DAX
+09 Qualidade\Parametros,Data Corte,dd/MM/yyyy,Data maxima historica (parametro pDataCorte).,MAX ( _Parametros[DataCorte] )
+09 Qualidade\Parametros,Janela Churn (dias),0,"Janela de inatividade (parametro pJanelaChurnDias, PROPOSTA 90 dias).",MAX ( _Parametros[JanelaChurnDias] )
+09 Qualidade\Parametros,Data Referência,dd/MM/yyyy,"Ultima data do contexto, limitada a Data Corte. Base das medidas as-of.","VAR _max = MAX ( dCalendario[Data] )
+VAR _corte = [Data Corte]
+RETURN
+    IF ( ISBLANK ( _max ) || _max > _corte, _corte, _max )"
+00 Base,Receita Líquida,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Soma de fFaturamento[ReceitaLiquida]. Data ativa: DataFaturamento.,SUM ( fFaturamento[ReceitaLiquida] )
+00 Base,CMV,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,SUM ( fFaturamento[CMV] )
+00 Base,Impostos,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,SUM ( fFaturamento[Impostos] )
+00 Base,Margem Bruta,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,[Receita Líquida] - [CMV]
+00 Base,Margem Bruta %,0.00%;-0.00%;0.00%,,"DIVIDE ( [Margem Bruta], [Receita Líquida] )"
+00 Base,Faturas,"#,0",,COUNTROWS ( fFaturamento )
+00 Base,Ticket Médio Faturado,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"DIVIDE ( [Receita Líquida], [Faturas] )"
+00 Base,Pedidos,"#,0",Todos os status. Data ativa: DataPedido.,COUNTROWS ( fPedido )
+00 Base,Pedidos Faturados,"#,0",,"CALCULATE ( [Pedidos], KEEPFILTERS ( fPedido[StatusPedido] = ""Faturado"" ) )"
+00 Base,Pedidos Cancelados,"#,0",,"CALCULATE ( [Pedidos], KEEPFILTERS ( fPedido[StatusPedido] = ""Cancelado"" ) )"
+00 Base,Pedidos Pendentes,"#,0",,"CALCULATE ( [Pedidos], KEEPFILTERS ( fPedido[StatusPedido] = ""Pendente"" ) )"
+00 Base,Taxa de Cancelamento %,0.0%;-0.0%;0.0%,,"DIVIDE ( [Pedidos Cancelados], [Pedidos] )"
+00 Base,Valor Itens (todos os status),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Inclui pedidos cancelados e pendentes. Nao somar com Receita Liquida.,SUM ( fItemPedido[ValorLiquido] )
+00 Base,Valor Itens Faturados,"R$ #,0.00;-R$ #,0.00;R$ #,0.00","Igual a Receita Liquida no total (validado), porem datado por DataPedido.","CALCULATE ( [Valor Itens (todos os status)], KEEPFILTERS ( fItemPedido[StatusPedido] = ""Faturado"" ) )"
+00 Base,Custo Itens Faturados,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( SUM ( fItemPedido[CustoMercadoria] ), KEEPFILTERS ( fItemPedido[StatusPedido] = ""Faturado"" ) )"
+00 Base,Quantidade Itens Faturados,"#,0",,"CALCULATE ( SUM ( fItemPedido[Quantidade] ), KEEPFILTERS ( fItemPedido[StatusPedido] = ""Faturado"" ) )"
+00 Base,Margem Itens Faturados %,0.00%;-0.00%;0.00%,,"DIVIDE ( [Valor Itens Faturados] - [Custo Itens Faturados], [Valor Itens Faturados] )"
+00 Base,Valor Devolvido,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,SUM ( fDevolucao[ValorDevolvido] )
+00 Base,Devoluções,"#,0",,COUNTROWS ( fDevolucao )
+00 Base,Receita Ajustada por Devoluções,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Devolucoes deduzidas uma unica vez (data da devolucao).,[Receita Líquida] - [Valor Devolvido]
+00 Base,Devolução % Receita,0.00%;-0.00%;0.00%,,"DIVIDE ( [Valor Devolvido], [Receita Líquida] )"
+00 Base,Despesas Operacionais,"R$ #,0.00;-R$ #,0.00;R$ #,0.00","Apenas registros elegiveis (<= Data Corte). Despesas sinteticas, nao auditaveis.","CALCULATE ( SUM ( fDespesa[Valor] ), KEEPFILTERS ( fDespesa[ElegivelHistorico] = 1 ) )"
+00 Base,Resultado Gerencial Simplificado,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",DRE gerencial simplificada; nao contabil.,[Margem Bruta] - [Despesas Operacionais]
+00 Base,Resultado Gerencial %,0.00%;-0.00%;0.00%,,"DIVIDE ( [Resultado Gerencial Simplificado], [Receita Líquida] )"
+01 Comercial,Desconto Médio Ponderado %,0.00%;-0.00%;0.00%,Desconto do pedido ponderado pela receita faturada (desconto ja embutido no valor).,"DIVIDE ( SUMX ( fFaturamento, fFaturamento[ReceitaLiquida] * fFaturamento[DescontoPercentual] ), [Receita Líquida] )"
+01 Comercial,Clientes Positivados,"#,0",,DISTINCTCOUNT ( fFaturamento[ClienteID] )
+01 Comercial,Vendedores com Venda,"#,0",,DISTINCTCOUNT ( fFaturamento[VendedorID] )
+01 Comercial,Receita por Vendedor,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"DIVIDE ( [Receita Líquida], [Vendedores com Venda] )"
+01 Comercial,SKUs Vendidos,"#,0",,"CALCULATE ( DISTINCTCOUNT ( fItemPedido[ProdutoID] ), KEEPFILTERS ( fItemPedido[StatusPedido] = ""Faturado"" ) )"
+01 Comercial,Itens por Pedido Faturado,"#,0.00",,"DIVIDE ( CALCULATE ( COUNTROWS ( fItemPedido ), KEEPFILTERS ( fItemPedido[StatusPedido] = ""Faturado"" ) ), [Pedidos Faturados] )"
+01 Comercial,Participação Receita %,0.0%;-0.0%;0.0%,,"DIVIDE ( [Receita Líquida], CALCULATE ( [Receita Líquida], ALLSELECTED () ) )"
+02 Clientes,Clientes com Histórico,"#,0",Clientes com ao menos uma fatura ate a Data Referencia.,"VAR _ref = [Data Referência]
+RETURN
+    CALCULATE (
+        DISTINCTCOUNT ( fFaturamento[ClienteID] ),
+        REMOVEFILTERS ( dCalendario ),
+        dCalendario[Data] <= _ref
+    )"
+02 Clientes,Clientes Ativos (Janela),"#,0",Clientes com fatura nos ultimos N dias (janela) ate a Data Referencia.,"VAR _ref = [Data Referência]
+VAR _ini = _ref - [Janela Churn (dias)] + 1
+RETURN
+    CALCULATE (
+        DISTINCTCOUNT ( fFaturamento[ClienteID] ),
+        REMOVEFILTERS ( dCalendario ),
+        dCalendario[Data] >= _ini,
+        dCalendario[Data] <= _ref
+    )"
+02 Clientes,Clientes Inativos (Janela),"#,0",Com historico e sem fatura na janela. Cliente novo nunca entra aqui.,[Clientes com Histórico] - [Clientes Ativos (Janela)]
+02 Clientes,Churn % (Janela),0.0%;-0.0%;0.0%,,"DIVIDE ( [Clientes Inativos (Janela)], [Clientes com Histórico] )"
+02 Clientes,Clientes Novos,"#,0",Clientes cuja primeira fatura ocorre no periodo (DataCadastro nao e usada - C6).,"VAR _corte = [Data Corte]
+VAR _ini = MIN ( dCalendario[Data] )
+VAR _fim = MIN ( MAX ( dCalendario[Data] ), _corte )
+RETURN
+    CALCULATE (
+        DISTINCTCOUNT ( fFaturamento[ClienteID] ),
+        KEEPFILTERS ( dCalendario[Data] <= _corte ),
+        KEEPFILTERS ( dCliente[PrimeiraCompra] >= _ini ),
+        KEEPFILTERS ( dCliente[PrimeiraCompra] <= _fim )
+    )"
+02 Clientes,Clientes Reativados,"#,0",Compraram no periodo e estavam inativos no inicio dele (ultima fatura anterior ha mais de N dias).,"VAR _corte = [Data Corte]
+VAR _ini = MIN ( dCalendario[Data] )
+VAR _janela = [Janela Churn (dias)]
+VAR _clientes =
+    CALCULATETABLE ( VALUES ( fFaturamento[ClienteID] ), KEEPFILTERS ( dCalendario[Data] <= _corte ) )
+RETURN
+    COUNTROWS (
+        FILTER (
+            _clientes,
+            VAR _ultima =
+                CALCULATE (
+                    MAX ( fFaturamento[DataFaturamento] ),
+                    REMOVEFILTERS ( dCalendario ),
+                    dCalendario[Data] < _ini
+                )
+            RETURN
+                NOT ISBLANK ( _ultima ) && _ini - _ultima > _janela
+        )
+    )"
+03 Logistica,Entregas,"#,0",Todas as entregas (DataEntrega sem nulos: todas elegiveis). Data ativa: DataEntrega.,COUNTROWS ( fEntrega )
+03 Logistica,Entregas OTIF,"#,0",,"CALCULATE ( [Entregas], KEEPFILTERS ( fEntrega[NoPrazo] = 1 ), KEEPFILTERS ( fEntrega[InFull] = 1 ) )"
+03 Logistica,OTIF %,0.0%;-0.0%;0.0%,NoPrazo = 1 e InFull = 1 / entregas.,"DIVIDE ( [Entregas OTIF], [Entregas] )"
+03 Logistica,Entregas No Prazo,"#,0",,"CALCULATE ( [Entregas], KEEPFILTERS ( fEntrega[NoPrazo] = 1 ) )"
+03 Logistica,No Prazo %,0.0%;-0.0%;0.0%,,"DIVIDE ( [Entregas No Prazo], [Entregas] )"
+03 Logistica,Entregas In Full,"#,0",,"CALCULATE ( [Entregas], KEEPFILTERS ( fEntrega[InFull] = 1 ) )"
+03 Logistica,In Full %,0.0%;-0.0%;0.0%,,"DIVIDE ( [Entregas In Full], [Entregas] )"
+03 Logistica,Entregas com Ocorrência,"#,0",StatusEntrega independe de OTIF (M1).,"CALCULATE ( [Entregas], KEEPFILTERS ( fEntrega[StatusEntrega] = ""Ocorrência"" ) )"
+03 Logistica,Ocorrência %,0.0%;-0.0%;0.0%,,"DIVIDE ( [Entregas com Ocorrência], [Entregas] )"
+03 Logistica,Custo Frete,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,SUM ( fEntrega[CustoFrete] )
+03 Logistica,Frete por Entrega,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"DIVIDE ( [Custo Frete], [Entregas] )"
+03 Logistica,Frete % Receita,0.00%;-0.00%;0.00%,Frete datado por entrega e receita por faturamento (defasagem curta).,"DIVIDE ( [Custo Frete], [Receita Líquida] )"
+03 Logistica,Atraso Médio (dias),"#,0.0",Media de dias de atraso apenas das entregas fora do prazo.,"CALCULATE ( AVERAGE ( fEntrega[DiasAtraso] ), KEEPFILTERS ( fEntrega[NoPrazo] = 0 ) )"
+03 Logistica,Lead Time Médio (dias),"#,0.0",Pedido ate entrega. Inclui 7 casos negativos da fonte (C6).,AVERAGE ( fEntrega[LeadTimePedidoDias] )
+03 Logistica,Peso Entregue (kg),"#,0.0",,SUM ( fEntrega[PesoKg] )
+04 Estoque e WMS\Estoque,Data Último Snapshot Estoque,dd/MM/yyyy,,"CALCULATE ( MAX ( fEstoqueMensal[DataReferencia] ), KEEPFILTERS ( fEstoqueMensal[ElegivelHistorico] = 1 ) )"
+04 Estoque e WMS\Estoque,Saldo Estoque Amostra (un),"#,0",Snapshot do ultimo mes elegivel do contexto. Amostra de 200 SKUs por filial.,"VAR _d = [Data Último Snapshot Estoque]
+RETURN
+    CALCULATE ( SUM ( fEstoqueMensal[SaldoUnidades] ), KEEPFILTERS ( fEstoqueMensal[DataReferencia] = _d ) )"
+04 Estoque e WMS\Estoque,Valor Estoque Amostra,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"VAR _d = [Data Último Snapshot Estoque]
+RETURN
+    CALCULATE ( SUM ( fEstoqueMensal[ValorEstoque] ), KEEPFILTERS ( fEstoqueMensal[DataReferencia] = _d ) )"
+04 Estoque e WMS\Estoque,SKU-Filial Amostrados,"#,0",,"VAR _d = [Data Último Snapshot Estoque]
+RETURN
+    CALCULATE ( COUNTROWS ( fEstoqueMensal ), KEEPFILTERS ( fEstoqueMensal[DataReferencia] = _d ) )"
+04 Estoque e WMS\Estoque,SKUs em Ruptura (amostra),"#,0",,"VAR _d = [Data Último Snapshot Estoque]
+RETURN
+    CALCULATE ( COUNTROWS ( fEstoqueMensal ), KEEPFILTERS ( fEstoqueMensal[DataReferencia] = _d ), KEEPFILTERS ( fEstoqueMensal[Ruptura] = 1 ) )"
+04 Estoque e WMS\Estoque,Ruptura % (amostra),0.00%;-0.00%;0.00%,,"DIVIDE ( [SKUs em Ruptura (amostra)], [SKU-Filial Amostrados] )"
+04 Estoque e WMS\Estoque,SKUs Abaixo do Mínimo (amostra),"#,0",Saldo abaixo do estoque minimo (inclui rupturas).,"VAR _d = [Data Último Snapshot Estoque]
+RETURN
+    COUNTROWS (
+        FILTER (
+            CALCULATETABLE ( fEstoqueMensal, KEEPFILTERS ( fEstoqueMensal[DataReferencia] = _d ) ),
+            fEstoqueMensal[SaldoUnidades] < fEstoqueMensal[EstoqueMinimo]
+        )
+    )"
+04 Estoque e WMS\Estoque,Abaixo do Mínimo % (amostra),0.0%;-0.0%;0.0%,,"DIVIDE ( [SKUs Abaixo do Mínimo (amostra)], [SKU-Filial Amostrados] )"
+04 Estoque e WMS\Movimentacao,Entradas Estoque (un),"#,0",,"CALCULATE ( SUM ( fMovimentoEstoque[QuantidadeAssinada] ), KEEPFILTERS ( fMovimentoEstoque[QuantidadeAssinada] > 0 ), KEEPFILTERS ( fMovimentoEstoque[ElegivelHistorico] = 1 ) )"
+04 Estoque e WMS\Movimentacao,Saídas Estoque (un),"#,0","Saidas, ajustes e transferencias (quantidade assinada negativa), em valor absoluto.","- CALCULATE ( SUM ( fMovimentoEstoque[QuantidadeAssinada] ), KEEPFILTERS ( fMovimentoEstoque[QuantidadeAssinada] < 0 ), KEEPFILTERS ( fMovimentoEstoque[ElegivelHistorico] = 1 ) )"
+04 Estoque e WMS\Compras,Compras,"#,0",,"CALCULATE ( COUNTROWS ( fCompra ), KEEPFILTERS ( fCompra[ElegivelHistorico] = 1 ) )"
+04 Estoque e WMS\Compras,Valor Compras,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( SUM ( fCompra[ValorCompra] ), KEEPFILTERS ( fCompra[ElegivelHistorico] = 1 ) )"
+04 Estoque e WMS\Compras,Compras Atrasadas %,0.0%;-0.0%;0.0%,,"DIVIDE ( CALCULATE ( [Compras], KEEPFILTERS ( fCompra[StatusCompra] = ""Atrasado"" ) ), [Compras] )"
+04 Estoque e WMS\WMS,Data Último Snapshot WMS,dd/MM/yyyy,,"CALCULATE ( MAX ( fOcupacaoArmazem[DataReferencia] ), KEEPFILTERS ( fOcupacaoArmazem[ElegivelHistorico] = 1 ) )"
+04 Estoque e WMS\WMS,Registros WMS (amostra),"#,0",Registros posicao x produto do ultimo snapshot elegivel. Amostra; nao representa a filial (C9).,"VAR _d = [Data Último Snapshot WMS]
+RETURN
+    CALCULATE ( COUNTROWS ( fOcupacaoArmazem ), KEEPFILTERS ( fOcupacaoArmazem[DataReferencia] = _d ) )"
+04 Estoque e WMS\WMS,Posições Amostradas,"#,0",,"VAR _d = [Data Último Snapshot WMS]
+RETURN
+    CALCULATE ( DISTINCTCOUNT ( fOcupacaoArmazem[PosicaoID] ), KEEPFILTERS ( fOcupacaoArmazem[DataReferencia] = _d ) )"
+04 Estoque e WMS\WMS,Paletes (amostra),"#,0",,"VAR _d = [Data Último Snapshot WMS]
+RETURN
+    CALCULATE ( SUM ( fOcupacaoArmazem[Paletes] ), KEEPFILTERS ( fOcupacaoArmazem[DataReferencia] = _d ) )"
+04 Estoque e WMS\WMS,Registros Ocupada %,0.0%;-0.0%;0.0%,,"DIVIDE ( CALCULATE ( [Registros WMS (amostra)], KEEPFILTERS ( fOcupacaoArmazem[StatusPosicao] = ""Ocupada"" ) ), [Registros WMS (amostra)] )"
+04 Estoque e WMS\WMS,Registros Bloqueada %,0.0%;-0.0%;0.0%,,"DIVIDE ( CALCULATE ( [Registros WMS (amostra)], KEEPFILTERS ( fOcupacaoArmazem[StatusPosicao] = ""Bloqueada"" ) ), [Registros WMS (amostra)] )"
+04 Estoque e WMS\WMS,Registros Disponível %,0.0%;-0.0%;0.0%,,"DIVIDE ( CALCULATE ( [Registros WMS (amostra)], KEEPFILTERS ( fOcupacaoArmazem[StatusPosicao] = ""Disponível"" ) ), [Registros WMS (amostra)] )"
+05 Financeiro\Receber,Títulos,"#,0",Data ativa: Vencimento.,COUNTROWS ( fContasReceber )
+05 Financeiro\Receber,Valor Títulos,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,SUM ( fContasReceber[ValorTitulo] )
+05 Financeiro\Receber,Títulos Recebidos,"#,0",,"CALCULATE ( [Títulos], KEEPFILTERS ( fContasReceber[StatusRecebimento] = ""Recebido"" ) )"
+05 Financeiro\Receber,Valor Recebido Confirmado,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Somente titulos com valor pago > 0 E data de pagamento valida (>= faturamento). Regra D1.,"CALCULATE ( SUM ( fContasReceber[ValorPago] ), KEEPFILTERS ( fContasReceber[StatusRecebimento] = ""Recebido"" ) )"
+05 Financeiro\Receber,Títulos em Aberto,"#,0",,"CALCULATE ( [Títulos], KEEPFILTERS ( fContasReceber[StatusRecebimento] = ""Em aberto"" ) )"
+05 Financeiro\Receber,Valor em Aberto (status atual),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( [Valor Títulos], KEEPFILTERS ( fContasReceber[StatusRecebimento] = ""Em aberto"" ) )"
+05 Financeiro\Receber,Prazo Médio Recebimento (dias),"#,0.0",,"CALCULATE (
+    AVERAGEX ( fContasReceber, DATEDIFF ( fContasReceber[DataFaturamento], fContasReceber[DataPagamento], DAY ) ),
+    KEEPFILTERS ( fContasReceber[StatusRecebimento] = ""Recebido"" )
+)"
+05 Financeiro\Receber,Saldo Vencido em Aberto (Data Ref.),"R$ #,0.00;-R$ #,0.00;R$ #,0.00","As-of: faturado ate a Data Referencia, vencido antes dela e nao pago ate ela. Exclui Inconsistentes.","VAR _ref = [Data Referência]
+RETURN
+    CALCULATE (
+        SUM ( fContasReceber[ValorTitulo] ),
+        REMOVEFILTERS ( dCalendario ),
+        fContasReceber[DataFaturamento] <= _ref,
+        fContasReceber[Vencimento] < _ref,
+        FILTER (
+            ALL ( fContasReceber[StatusRecebimento], fContasReceber[DataPagamento] ),
+            fContasReceber[StatusRecebimento] = ""Em aberto""
+                || ( fContasReceber[StatusRecebimento] = ""Recebido"" && fContasReceber[DataPagamento] > _ref )
+        )
+    )"
+05 Financeiro\Receber,Saldo a Vencer em Aberto (Data Ref.),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"VAR _ref = [Data Referência]
+RETURN
+    CALCULATE (
+        SUM ( fContasReceber[ValorTitulo] ),
+        REMOVEFILTERS ( dCalendario ),
+        fContasReceber[DataFaturamento] <= _ref,
+        fContasReceber[Vencimento] >= _ref,
+        FILTER (
+            ALL ( fContasReceber[StatusRecebimento], fContasReceber[DataPagamento] ),
+            fContasReceber[StatusRecebimento] = ""Em aberto""
+                || ( fContasReceber[StatusRecebimento] = ""Recebido"" && fContasReceber[DataPagamento] > _ref )
+        )
+    )"
+05 Financeiro\Receber,Saldo em Aberto (Data Ref.),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,[Saldo Vencido em Aberto (Data Ref.)] + [Saldo a Vencer em Aberto (Data Ref.)]
+05 Financeiro\Receber,Valor Vencido até Data Ref. (base),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Denominador da inadimplencia: titulos validos vencidos ate a Data Referencia.,"VAR _ref = [Data Referência]
+RETURN
+    CALCULATE (
+        SUM ( fContasReceber[ValorTitulo] ),
+        REMOVEFILTERS ( dCalendario ),
+        fContasReceber[DataFaturamento] <= _ref,
+        fContasReceber[Vencimento] < _ref,
+        fContasReceber[StatusRecebimento] <> ""Inconsistente""
+    )"
+05 Financeiro\Receber,Inadimplência % (Data Ref.),0.00%;-0.00%;0.00%,,"DIVIDE ( [Saldo Vencido em Aberto (Data Ref.)], [Valor Vencido até Data Ref. (base)] )"
+05 Financeiro\Pagar,Valor Contas a Pagar,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Data ativa: Vencimento. Exclui titulos de compras pos-corte.,"CALCULATE ( SUM ( fContasPagar[ValorTitulo] ), KEEPFILTERS ( fContasPagar[ElegivelHistorico] = 1 ) )"
+05 Financeiro\Pagar,Valor Pago (CP),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( SUM ( fContasPagar[ValorTitulo] ), KEEPFILTERS ( fContasPagar[ElegivelHistorico] = 1 ), KEEPFILTERS ( NOT ISBLANK ( fContasPagar[DataPagamento] ) ) )"
+05 Financeiro\Pagar,Valor em Aberto (CP),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( SUM ( fContasPagar[ValorTitulo] ), KEEPFILTERS ( fContasPagar[ElegivelHistorico] = 1 ), KEEPFILTERS ( ISBLANK ( fContasPagar[DataPagamento] ) ) )"
+06 Planejamento,Meta Faturamento,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( SUM ( fMeta[ValorMeta] ), KEEPFILTERS ( fMeta[Indicador] = ""Faturamento"" ) )"
+06 Planejamento,Meta Faturamento (até corte),"R$ #,0.00;-R$ #,0.00;R$ #,0.00","Meta restrita a meses com realizado, para comparacao.","VAR _corte = [Data Corte]
+RETURN
+    CALCULATE ( [Meta Faturamento], KEEPFILTERS ( dCalendario[Data] <= _corte ) )"
+06 Planejamento,Atingimento Meta Faturamento %,0.0%;-0.0%;0.0%,,"DIVIDE ( [Receita Líquida], [Meta Faturamento (até corte)] )"
+06 Planejamento,Gap Meta Faturamento,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"IF ( NOT ISBLANK ( [Meta Faturamento (até corte)] ), [Receita Líquida] - [Meta Faturamento (até corte)] )"
+06 Planejamento,Meta Margem Bruta % (ponderada),0.00%;-0.00%;0.00%,Meta de margem (razao) ponderada pela meta de faturamento de cada filial-mes (C8).,"VAR _grao = SUMMARIZE ( fMeta, fMeta[DataReferencia], fMeta[FilialID] )
+VAR _num =
+    SUMX (
+        _grao,
+        CALCULATE ( SUM ( fMeta[ValorMeta] ), fMeta[Indicador] = ""Faturamento"" )
+            * CALCULATE ( SUM ( fMeta[ValorMeta] ), fMeta[Indicador] = ""Margem Bruta"" )
+    )
+VAR _den = SUMX ( _grao, CALCULATE ( SUM ( fMeta[ValorMeta] ), fMeta[Indicador] = ""Faturamento"" ) )
+RETURN
+    DIVIDE ( _num, _den )"
+06 Planejamento,Desvio Margem vs Meta (p.p.),+0.0;-0.0;0.0,,"VAR _corte = [Data Corte]
+VAR _meta = CALCULATE ( [Meta Margem Bruta % (ponderada)], KEEPFILTERS ( dCalendario[Data] <= _corte ) )
+RETURN
+    IF ( NOT ISBLANK ( _meta ) && NOT ISBLANK ( [Margem Bruta %] ), ( [Margem Bruta %] - _meta ) * 100 )"
+06 Planejamento,Meta OTIF % (média simples),0.0%;-0.0%;0.0%,Media simples das metas filial-mes; nao ponderada (sem base de ponderacao definida na fonte).,"CALCULATE ( AVERAGE ( fMeta[ValorMeta] ), KEEPFILTERS ( fMeta[Indicador] = ""OTIF"" ) )"
+06 Planejamento,Orçamento Receita,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Identico a Meta Faturamento em 100% das linhas (M8).,"CALCULATE ( SUM ( fOrcamento[ValorOrcado] ), KEEPFILTERS ( fOrcamento[Conta] = ""Receita"" ) )"
+06 Planejamento,Orçamento Despesa Operacional,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( SUM ( fOrcamento[ValorOrcado] ), KEEPFILTERS ( fOrcamento[Conta] = ""Despesa Operacional"" ) )"
+06 Planejamento,Desvio Despesa vs Orçamento,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"VAR _corte = [Data Corte]
+VAR _orc = CALCULATE ( [Orçamento Despesa Operacional], KEEPFILTERS ( dCalendario[Data] <= _corte ) )
+RETURN
+    IF ( NOT ISBLANK ( _orc ), [Despesas Operacionais] - _orc )"
+06 Planejamento,Receita Prevista,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Projecao sintetica (jan-jun/2027). Nunca somar ao realizado.,SUM ( fPrevisao[ReceitaPrevista] )
+06 Planejamento,Margem Erro Estimada (média),0.0%;-0.0%;0.0%,Semantica da fonte pendente de validacao; nao usar como intervalo de confianca.,AVERAGE ( fPrevisao[MargemErroEstimada] )
+07 Tempo,Receita LY,"R$ #,0.00;-R$ #,0.00;R$ #,0.00","Mesmo periodo do ano anterior, limitado as datas <= Data Corte (comparacao justa).","VAR _corte = [Data Corte]
+RETURN
+    CALCULATE (
+        CALCULATE ( [Receita Líquida], SAMEPERIODLASTYEAR ( dCalendario[Data] ) ),
+        KEEPFILTERS ( dCalendario[Data] <= _corte )
+    )"
+07 Tempo,Receita (até corte),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"VAR _corte = [Data Corte]
+RETURN
+    CALCULATE ( [Receita Líquida], KEEPFILTERS ( dCalendario[Data] <= _corte ) )"
+07 Tempo,Receita YoY %,0.0%;-0.0%;0.0%,,"DIVIDE ( [Receita (até corte)] - [Receita LY], [Receita LY] )"
+07 Tempo,Receita YoY Δ,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"IF ( NOT ISBLANK ( [Receita LY] ), [Receita (até corte)] - [Receita LY] )"
+07 Tempo,Receita Mês Anterior,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( [Receita Líquida], DATEADD ( dCalendario[Data], -1, MONTH ) )"
+07 Tempo,Receita MoM %,0.0%;-0.0%;0.0%,,"DIVIDE ( [Receita Líquida] - [Receita Mês Anterior], [Receita Mês Anterior] )"
+07 Tempo,Receita YTD,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"VAR _corte = [Data Corte]
+RETURN
+    CALCULATE (
+        CALCULATE ( [Receita Líquida], DATESYTD ( dCalendario[Data] ) ),
+        KEEPFILTERS ( dCalendario[Data] <= _corte )
+    )"
+07 Tempo,Receita YTD LY,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"VAR _corte = [Data Corte]
+RETURN
+    CALCULATE (
+        CALCULATE (
+            CALCULATE ( [Receita Líquida], DATESYTD ( dCalendario[Data] ) ),
+            SAMEPERIODLASTYEAR ( dCalendario[Data] )
+        ),
+        KEEPFILTERS ( dCalendario[Data] <= _corte )
+    )"
+07 Tempo,Margem Bruta % LY,0.00%;-0.00%;0.00%,,"VAR _corte = [Data Corte]
+RETURN
+    CALCULATE (
+        CALCULATE ( [Margem Bruta %], SAMEPERIODLASTYEAR ( dCalendario[Data] ) ),
+        KEEPFILTERS ( dCalendario[Data] <= _corte )
+    )"
+07 Tempo,Margem Bruta % YoY (p.p.),+0.0;-0.0;0.0,,"VAR _corte = [Data Corte]
+VAR _atual = CALCULATE ( [Margem Bruta %], KEEPFILTERS ( dCalendario[Data] <= _corte ) )
+VAR _ly = [Margem Bruta % LY]
+RETURN
+    IF ( NOT ISBLANK ( _ly ) && NOT ISBLANK ( _atual ), ( _atual - _ly ) * 100 )"
+09 Qualidade\Recebimento,Títulos Inconsistentes,"#,0",,"CALCULATE ( [Títulos], KEEPFILTERS ( fContasReceber[StatusRecebimento] = ""Inconsistente"" ) )"
+09 Qualidade\Recebimento,Valor Títulos Inconsistentes,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( [Valor Títulos], KEEPFILTERS ( fContasReceber[StatusRecebimento] = ""Inconsistente"" ) )"
+09 Qualidade\Recebimento,Valor Pago Declarado em Inconsistentes,"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( SUM ( fContasReceber[ValorPago] ), KEEPFILTERS ( fContasReceber[StatusRecebimento] = ""Inconsistente"" ) )"
+09 Qualidade\Recebimento,% Títulos Inconsistentes,0.00%;-0.00%;0.00%,,"DIVIDE ( [Títulos Inconsistentes], [Títulos] )"
+09 Qualidade\Recebimento,% Valor Inconsistente,0.00%;-0.00%;0.00%,,"DIVIDE ( [Valor Títulos Inconsistentes], [Valor Títulos] )"
+09 Qualidade\Corte temporal,Despesas Pós-Corte (qtd),"#,0",,"CALCULATE ( COUNTROWS ( fDespesa ), REMOVEFILTERS ( dCalendario ), fDespesa[ElegivelHistorico] = 0 )"
+09 Qualidade\Corte temporal,Despesas Pós-Corte (R$),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( SUM ( fDespesa[Valor] ), REMOVEFILTERS ( dCalendario ), fDespesa[ElegivelHistorico] = 0 )"
+09 Qualidade\Corte temporal,Compras Pós-Corte (qtd),"#,0",,"CALCULATE ( COUNTROWS ( fCompra ), REMOVEFILTERS ( dCalendario ), fCompra[ElegivelHistorico] = 0 )"
+09 Qualidade\Corte temporal,Compras Pós-Corte (R$),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",,"CALCULATE ( SUM ( fCompra[ValorCompra] ), REMOVEFILTERS ( dCalendario ), fCompra[ElegivelHistorico] = 0 )"
+09 Qualidade\Corte temporal,Contas a Pagar Pós-Corte (qtd),"#,0",,"CALCULATE ( COUNTROWS ( fContasPagar ), REMOVEFILTERS ( dCalendario ), fContasPagar[ElegivelHistorico] = 0 )"
+09 Qualidade\Corte temporal,Contas a Pagar Pós-Corte (R$),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Titulos de compras pos-corte (mesmo valor das compras; nao somar com Compras Pos-Corte).,"CALCULATE ( SUM ( fContasPagar[ValorTitulo] ), REMOVEFILTERS ( dCalendario ), fContasPagar[ElegivelHistorico] = 0 )"
+09 Qualidade\Corte temporal,Estoque Pós-Corte (qtd),"#,0","Snapshots; valor nao e somavel entre meses, por isso so contagem.","CALCULATE ( COUNTROWS ( fEstoqueMensal ), REMOVEFILTERS ( dCalendario ), fEstoqueMensal[ElegivelHistorico] = 0 )"
+09 Qualidade\Corte temporal,Movimentos Pós-Corte (qtd),"#,0",,"CALCULATE ( COUNTROWS ( fMovimentoEstoque ), REMOVEFILTERS ( dCalendario ), fMovimentoEstoque[ElegivelHistorico] = 0 )"
+09 Qualidade\Corte temporal,Ocupação WMS Pós-Corte (qtd),"#,0",,"CALCULATE ( COUNTROWS ( fOcupacaoArmazem ), REMOVEFILTERS ( dCalendario ), fOcupacaoArmazem[ElegivelHistorico] = 0 )"
+09 Qualidade\Corte temporal,Registros Pós-Corte (total),"#,0",,"[Despesas Pós-Corte (qtd)] + [Compras Pós-Corte (qtd)] + [Contas a Pagar Pós-Corte (qtd)]
+    + [Estoque Pós-Corte (qtd)] + [Movimentos Pós-Corte (qtd)] + [Ocupação WMS Pós-Corte (qtd)]"
+09 Qualidade\Corte temporal,Valor Financeiro Pós-Corte (R$),"R$ #,0.00;-R$ #,0.00;R$ #,0.00",Despesas + compras. Contas a pagar fora para nao duplicar as compras.,[Despesas Pós-Corte (R$)] + [Compras Pós-Corte (R$)]
+09 Qualidade\Corte temporal,Data Máxima Encontrada,dd/MM/yyyy,"Maior data nas fatos realizadas com registros pos-corte (previsao, metas e orcamento fora).","VAR _d1 = CALCULATE ( MAX ( fDespesa[DataReferencia] ), REMOVEFILTERS ( dCalendario ) )
+VAR _d2 = CALCULATE ( MAX ( fCompra[DataCompra] ), REMOVEFILTERS ( dCalendario ) )
+VAR _d3 = CALCULATE ( MAX ( fEstoqueMensal[DataReferencia] ), REMOVEFILTERS ( dCalendario ) )
+VAR _d4 = CALCULATE ( MAX ( fMovimentoEstoque[DataMovimento] ), REMOVEFILTERS ( dCalendario ) )
+VAR _d5 = CALCULATE ( MAX ( fOcupacaoArmazem[DataReferencia] ), REMOVEFILTERS ( dCalendario ) )
+RETURN
+    MAXX ( { _d1, _d2, _d3, _d4, _d5 }, [Value] )"
+09 Qualidade\Corte temporal,Data Máxima Previsão,dd/MM/yyyy,,"CALCULATE ( MAX ( fPrevisao[DataReferencia] ), REMOVEFILTERS ( dCalendario ) )"

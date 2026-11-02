@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Operations Calendar · Painel Informações",
+  "name": "177447060a124dbbe287",
+  "options": {
+    "targetVisualNames": [],
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "pgCalendar",
+    "sections": {
+      "pgCalendar": {
+        "visualContainers": {},
+        "visualContainerGroups": {
+          "grpFiltros": {
+            "isHidden": true
+          },
+          "grpInfo": {
+            "isHidden": false
+          },
+          "grpNav": {
+            "isHidden": true
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+table fFaturamento
+	lineageTag: c124dbe8-0411-4a2c-a5c2-af4f9ccd4981
+
+	column FaturaID
+		dataType: int64
+		formatString: 0
+		lineageTag: 5763ea82-0e31-4ec6-9fdc-8d557c314419
+		summarizeBy: none
+		sourceColumn: FaturaID
+
+	column PedidoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 90e952e1-8d42-4732-9cd3-5785e42ee4ba
+		summarizeBy: none
+		sourceColumn: PedidoID
+
+	column DataFaturamento
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 31efc299-8f18-4d24-b036-397e137d6748
+		summarizeBy: none
+		sourceColumn: DataFaturamento
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ReceitaLiquida
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: da270a6e-e13e-4de5-a2c1-617d6c745c18
+		summarizeBy: sum
+		sourceColumn: ReceitaLiquida
+
+	column Impostos
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: be2e73b2-91af-417f-8877-178615ccbec7
+		summarizeBy: sum
+		sourceColumn: Impostos
+
+	column CMV
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 3a968a36-99c1-496b-a6f3-f6426c526a6d
+		summarizeBy: sum
+		sourceColumn: CMV
+
+	/// Materializado de fPedido
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e3eff180-c55b-4f18-8802-a699427f687b
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	/// Filial transacional do pedido
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5eb81879-0fff-4693-b115-9731272ec2e3
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	/// Materializado de fPedido
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 997323f3-8481-4c3c-ae08-c7b481452363
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	/// Materializado de fPedido (C7)
+	column CampanhaID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: de39b5b2-8f24-4ca4-86f0-fe6056ace907
+		summarizeBy: none
+		sourceColumn: CampanhaID
+
+	/// Data do pedido (relacao inativa)
+	column DataPedido
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 3e6526ef-15f0-47dd-a767-372769e47095
+		summarizeBy: none
+		sourceColumn: DataPedido
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Desconto do pedido, atributo (M3)
+	column DescontoPercentual
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: 26d99f60-ca41-4275-8d61-645099e42e1a
+		summarizeBy: none
+		sourceColumn: DescontoPercentual
+
+	/// Canal do pedido
+	column Canal
+		dataType: string
+		lineageTag: fc0773d9-88c7-4b7c-bd6f-d83c7d756bfd
+		summarizeBy: none
+		sourceColumn: Canal
+
+	/// Fatura anterior do mesmo cliente (ordem DataFaturamento, FaturaID). Vazio na primeira compra.
+	column DataCompraAnterior
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 27b4439a-8db1-4944-b288-2faa22a23e22
+		summarizeBy: none
+		sourceColumn: DataCompraAnterior
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Dias desde a fatura anterior do mesmo cliente (0 = mesma data). Base de recompra e reativacao.
+	column DiasDesdeCompraAnterior
+		dataType: int64
+		formatString: #,0
+		lineageTag: f9048c6f-0e77-4618-973f-4cde2cbc7168
+		summarizeBy: none
+		sourceColumn: DiasDesdeCompraAnterior
+
+	partition fFaturamento = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fFaturamento"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"FaturaID", Int64.Type}, {"PedidoID", Int64.Type}, {"DataFaturamento", type date}, {"ReceitaLiquida", Currency.Type}, {"Impostos", Currency.Type}, {"CMV", Currency.Type}}, "en-US"),
+				    Mesclado = Table.NestedJoin(Tipado, {"PedidoID"}, stgPedido, {"PedidoID"}, "Ref", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(Mesclado, "Ref", {"ClienteID", "FilialID", "VendedorID", "CampanhaID", "DataPedido", "DescontoPercentual", "Canal"}, {"ClienteID", "FilialID", "VendedorID", "CampanhaID", "DataPedido", "DescontoPercentual", "Canal"}),
+				    Retipado = Table.TransformColumnTypes(Expandido, {{"ClienteID", Int64.Type}, {"FilialID", Int64.Type}, {"VendedorID", Int64.Type}, {"CampanhaID", Int64.Type}, {"DataPedido", type date}, {"DescontoPercentual", type number}, {"Canal", type text}}, "en-US"),
+				    Ordenado = Table.Buffer(Table.Sort(Retipado, {{"ClienteID", Order.Ascending}, {"DataFaturamento", Order.Ascending}, {"FaturaID", Order.Ascending}})),
+				    Indexado = Table.AddIndexColumn(Ordenado, "Idx", 0, 1, Int64.Type),
+				    ListaClientes = List.Buffer(Ordenado[ClienteID]),
+				    ListaDatas = List.Buffer(Ordenado[DataFaturamento]),
+				    ComAnterior = Table.AddColumn(Indexado, "DataCompraAnterior", each if [Idx] > 0 and ListaClientes{[Idx] - 1} = [ClienteID] then ListaDatas{[Idx] - 1} else null, type date),
+				    ComIntervalo = Table.AddColumn(ComAnterior, "DiasDesdeCompraAnterior", each if [DataCompraAnterior] = null then null else Duration.Days([DataFaturamento] - [DataCompraAnterior]), Int64.Type),
+				    SemIndice = Table.RemoveColumns(ComIntervalo, {"Idx"})
+				in
+				    SemIndice
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,21 @@
+/// Parametro de simulacao: Variacao do desconto medio em pontos percentuais.
+table 'Sim Desconto'
+	lineageTag: 43aad3cc-aef0-4106-99b4-56ab238d36fa
+
+	column 'Desconto p.p.'
+		dataType: double
+		formatString: +0" p.p.";-0" p.p.";0" p.p."
+		lineageTag: 26aacfe8-20b5-4ef0-83a6-d246b2e0c40d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Desconto p.p.]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+	partition 'Sim Desconto' = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( -5, 5, 1 ), "Desconto p.p.", [Value] / 1 )
+

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "grpNav",
+  "position": {
+    "x": 46,
+    "y": 212,
+    "z": 21018,
+    "height": 520,
+    "width": 340,
+    "tabOrder": 21018
+  },
+  "visualGroup": {
+    "displayName": "Painel Navegacao",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

@@ -1,0 +1,15 @@
+/// Eixo desconectado de meses desde a primeira compra (cohort de retencao).
+table dCohortOffset
+	lineageTag: b486e775-5dca-48bd-8139-6437110a3925
+
+	column 'Meses desde 1a Compra'
+		formatString: 0
+		lineageTag: 403a3f07-1ea4-4612-a6bf-1108a6b32000
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Meses desde 1a Compra]
+
+	partition dCohortOffset = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( 0, 33, 1 ), "Meses desde 1a Compra", [Value] )
+

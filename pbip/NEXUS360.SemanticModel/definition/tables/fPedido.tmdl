@@ -1,0 +1,82 @@
+table fPedido
+	lineageTag: 87868aee-17bc-44ed-b725-55edd4f259e2
+
+	column PedidoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b2c027a-58de-49e6-9de6-66610ff03a05
+		summarizeBy: none
+		sourceColumn: PedidoID
+
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e47d34fd-1c3b-41fc-bbf7-a06d81a4221f
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d8ec5692-38d6-4c40-8752-e6819e2c2890
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bbf867ae-dad7-40d8-8889-ff27da9c33ea
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	column DataPedido
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 207f3b1d-b765-4cf3-bade-e71af1f0e3c7
+		summarizeBy: none
+		sourceColumn: DataPedido
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column StatusPedido
+		dataType: string
+		lineageTag: d7718b94-2d94-4ff1-8901-45c9c3b10ffd
+		summarizeBy: none
+		sourceColumn: StatusPedido
+
+	column DescontoPercentual
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: 5f9f76e7-036d-4c96-be21-83e63bd4885e
+		summarizeBy: none
+		sourceColumn: DescontoPercentual
+
+	column CampanhaID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 864f4aee-9dcf-45a1-b9d1-725b9ff8958f
+		summarizeBy: none
+		sourceColumn: CampanhaID
+
+	column Canal
+		dataType: string
+		lineageTag: 8efa7c16-6b35-4d88-9782-47753acbe939
+		summarizeBy: none
+		sourceColumn: Canal
+
+	partition fPedido = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fPedido"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"PedidoID", Int64.Type}, {"ClienteID", Int64.Type}, {"FilialID", Int64.Type}, {"VendedorID", Int64.Type}, {"DataPedido", type date}, {"StatusPedido", type text}, {"DescontoPercentual", type number}, {"CampanhaID", Int64.Type}, {"Canal", type text}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

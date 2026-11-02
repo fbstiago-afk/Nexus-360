@@ -1,0 +1,239 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "nxTranspDisp",
+  "position": {
+    "x": 46,
+    "y": 712,
+    "z": 1028,
+    "height": 344,
+    "width": 700,
+    "tabOrder": 1028
+  },
+  "visual": {
+    "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dTransportadora"
+                    }
+                  },
+                  "Property": "Transportadora"
+                }
+              },
+              "queryRef": "dTransportadora.Transportadora",
+              "nativeQueryRef": "Transportadora",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dTransportadora"
+                    }
+                  },
+                  "Property": "Modal"
+                }
+              },
+              "queryRef": "dTransportadora.Modal",
+              "nativeQueryRef": "Modal",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Entregas"
+                }
+              },
+              "queryRef": "_Medidas.Entregas",
+              "nativeQueryRef": "Entregas",
+              "active": false
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "OTIF %"
+                }
+              },
+              "queryRef": "_Medidas.OTIF %",
+              "nativeQueryRef": "OTIF %",
+              "active": false
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Frete por Entrega"
+                }
+              },
+              "queryRef": "_Medidas.Frete por Entrega",
+              "nativeQueryRef": "Frete por Entrega",
+              "active": false
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "vega": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'vegaLite'"
+                }
+              }
+            },
+            "jsonSpec": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\", \"data\": {\"name\": \"dataset\"}, \"width\": \"container\", \"height\": \"container\", \"transform\": [{\"filter\": \"datum[''Entregas''] > 0\"}, {\"joinaggregate\": [{\"op\": \"median\", \"field\": \"OTIF %\", \"as\": \"mo\"}, {\"op\": \"median\", \"field\": \"Frete por Entrega\", \"as\": \"mf\"}]}, {\"calculate\": \"datum[''OTIF %''] < datum.mo && datum[''Frete por Entrega''] > datum.mf ? ''Caro e abaixo da mediana de OTIF'' : datum.Modal\", \"as\": \"grupo\"}], \"layer\": [{\"mark\": {\"type\": \"rule\", \"strokeDash\": [4, 4], \"color\": \"#6F86A0\"}, \"encoding\": {\"x\": {\"aggregate\": \"max\", \"field\": \"mf\", \"type\": \"quantitative\"}}}, {\"mark\": {\"type\": \"rule\", \"strokeDash\": [4, 4], \"color\": \"#6F86A0\"}, \"encoding\": {\"y\": {\"aggregate\": \"max\", \"field\": \"mo\", \"type\": \"quantitative\"}}}, {\"mark\": {\"type\": \"circle\", \"opacity\": 0.9, \"stroke\": \"#071528\", \"strokeWidth\": 0.8}, \"encoding\": {\"x\": {\"field\": \"Frete por Entrega\", \"type\": \"quantitative\", \"scale\": {\"zero\": false}, \"title\": \"Frete por entrega (R$)\", \"axis\": {\"format\": \",.0f\", \"grid\": true, \"tickCount\": 5}}, \"y\": {\"field\": \"OTIF %\", \"type\": \"quantitative\", \"scale\": {\"zero\": false}, \"title\": \"OTIF\", \"axis\": {\"format\": \".0%\", \"grid\": true, \"tickCount\": 5}}, \"size\": {\"field\": \"Entregas\", \"type\": \"quantitative\", \"scale\": {\"range\": [40, 320]}, \"legend\": null}, \"color\": {\"field\": \"grupo\", \"type\": \"nominal\", \"scale\": {\"domain\": [\"Frota própria\", \"Rodoviário\", \"Caro e abaixo da mediana de OTIF\"], \"range\": [\"#10D4C4\", \"#5FA8E6\", \"#FF7285\"]}}, \"tooltip\": [{\"field\": \"Transportadora\"}, {\"field\": \"Modal\"}, {\"field\": \"Entregas\", \"formatType\": \"pbiFormat\", \"format\": \"#,0\"}, {\"field\": \"OTIF %\", \"title\": \"OTIF\", \"formatType\": \"pbiFormat\", \"format\": \"0%\"}, {\"field\": \"Frete por Entrega\", \"title\": \"Frete/entrega\", \"formatType\": \"pbiFormat\", \"format\": \"R$ #,0\"}]}}, {\"mark\": {\"type\": \"text\", \"align\": \"left\", \"dx\": 7, \"fontSize\": 10.8, \"color\": \"#C9D6E3\"}, \"transform\": [{\"filter\": \"datum.grupo == ''Caro e abaixo da mediana de OTIF''\"}], \"encoding\": {\"x\": {\"field\": \"Frete por Entrega\", \"type\": \"quantitative\"}, \"y\": {\"field\": \"OTIF %\", \"type\": \"quantitative\"}, \"text\": {\"field\": \"Transportadora\"}}}]}'"
+                }
+              }
+            },
+            "jsonConfig": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"autosize\": {\"type\": \"fit\", \"contains\": \"padding\"}, \"view\": {\"stroke\": null}, \"font\": \"Segoe UI\", \"background\": null, \"padding\": {\"left\": 4, \"right\": 12, \"top\": 6, \"bottom\": 4}, \"axis\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"titleColor\": \"#A9B9CA\", \"titleFont\": \"Segoe UI\", \"titleFontWeight\": 400, \"gridColor\": \"#173B5C\", \"gridDash\": [2, 3], \"domain\": false, \"ticks\": false, \"labelFontSize\": 12, \"titleFontSize\": 12}, \"legend\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"labelFontSize\": 12, \"orient\": \"top\", \"title\": null, \"symbolType\": \"circle\"}, \"text\": {\"fontSize\": 13}, \"title\": {\"fontSize\": 14}}'"
+                }
+              }
+            },
+            "renderMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'svg'"
+                }
+              }
+            },
+            "enableTooltips": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableContextMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'6.4.3'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stateManagement": [
+        {
+          "properties": {
+            "viewportHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "277D"
+                }
+              }
+            },
+            "viewportWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "670D"
+                }
+              }
+            },
+            "supportFieldConfiguration": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"Transportadora\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":false,\"formatted\":false,\"names\":false},\"Modal\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":false,\"formatted\":false,\"names\":false},\"Entregas\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":true,\"formatted\":true,\"names\":false},\"OTIF %\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":true,\"formatted\":true,\"names\":false},\"Frete por Entrega\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":true,\"formatted\":true,\"names\":false}}'"
+                }
+              }
+            },
+            "denebMetaVersion": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2'"
+                }
+              }
+            },
+            "consolidateFieldParameters": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "developer": [
+        {
+          "properties": {
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2.0.1.0'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Transportadoras: frete por entrega × OTIF (tamanho = entregas)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

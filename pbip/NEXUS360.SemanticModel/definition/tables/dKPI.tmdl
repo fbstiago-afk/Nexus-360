@@ -1,0 +1,20 @@
+/// Tabela desconectada que parametriza a medida [UX Card KPI] (um card por KPI, via filtro de visual).
+table dKPI
+	isHidden
+	lineageTag: 212ee558-8001-494c-ada0-f0d4de68c593
+
+	column KPI
+		lineageTag: 30c4ba25-0643-42df-ae37-1fa36048dee1
+		isNameInferred
+		sourceColumn: [KPI]
+
+	column Ordem
+		lineageTag: 017744e7-c994-4e30-8358-9b191ae42ce3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ordem]
+
+	partition dKPI = calculated
+		mode: import
+		source = DATATABLE ( "KPI", STRING, "Ordem", INTEGER, { { "Receita", 1 }, { "Margem", 2 }, { "Resultado", 3 }, { "OTIF", 4 }, { "Clientes", 5 } } )
+

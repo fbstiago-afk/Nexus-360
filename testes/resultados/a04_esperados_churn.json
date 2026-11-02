@@ -1,0 +1,46 @@
+{
+ "intervalo_medio": 225.1207491982944,
+ "intervalo_mediano": 173.0,
+ "intervalos": 56754,
+ "status_20261031_180_365": {
+  "Churn": 11449,
+  "Ativo": 6287,
+  "Em risco": 8187,
+  "Reativado": 4759,
+  "Novo": 1543
+ },
+ "status_20251231_180_365": {
+  "Em risco": 8199,
+  "Ativo": 6320,
+  "Churn": 8368,
+  "Novo": 3288,
+  "Reativado": 2970
+ },
+ "status_20261031_90_180": {
+  "Churn": 19636,
+  "Reativado": 4367,
+  "Em risco": 5597,
+  "Ativo": 1941,
+  "Novo": 684
+ },
+ "reativados_2026": 7553,
+ "receita_recuperada_2026": 59393894.99,
+ "reativados_2025": 4261,
+ "receita_recuperada_2025": 32815544.75,
+ "churn_janelas_20261031": {
+  "90": 0.783026,
+  "180": 0.609341,
+  "270": 0.471901,
+  "365": 0.355283,
+  "540": 0.199876,
+  "730": 0.094957
+ },
+ "compras_por_cliente_2026": 1.4195891376226353,
+ "taxa_recompra_2026": 0.32874410537156484,
+ "cohort_2025_01": {
+  "tamanho": 1072,
+  "m0": 1072,
+  "m3": 61,
+  "m12": 78
+ }
+}

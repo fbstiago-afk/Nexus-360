@@ -1,0 +1,156 @@
+table fEntrega
+	lineageTag: d77f4992-2483-4116-81a9-d14bccd28f38
+
+	column EntregaID
+		dataType: int64
+		formatString: 0
+		lineageTag: dffd39f1-e468-4135-8d74-943a51edae58
+		summarizeBy: none
+		sourceColumn: EntregaID
+
+	column PedidoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 61f82971-bfe0-4ce9-9ddc-0a8fad076975
+		summarizeBy: none
+		sourceColumn: PedidoID
+
+	column TransportadoraID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6f9a0210-261c-4804-965b-82744ddec809
+		summarizeBy: none
+		sourceColumn: TransportadoraID
+
+	column DataPrometida
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 915df8e8-71c8-48ec-a576-f2db81dc0cd7
+		summarizeBy: none
+		sourceColumn: DataPrometida
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DataEntrega
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 43f0daa4-746a-4bfa-84c5-bbd38352a0b0
+		summarizeBy: none
+		sourceColumn: DataEntrega
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column PesoKg
+		dataType: double
+		lineageTag: 63fa893e-fa71-447f-b779-9fa4fb748148
+		summarizeBy: none
+		sourceColumn: PesoKg
+
+	column CustoFrete
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 700b496d-5cbf-493d-8da9-b8d706d4bf8e
+		summarizeBy: sum
+		sourceColumn: CustoFrete
+
+	column NoPrazo
+		dataType: int64
+		formatString: 0
+		lineageTag: eae198e5-5895-4866-a940-1b988045959c
+		summarizeBy: none
+		sourceColumn: NoPrazo
+
+	column InFull
+		dataType: int64
+		formatString: 0
+		lineageTag: ab9f9b3a-dd94-461a-860a-3e5020a306a6
+		summarizeBy: none
+		sourceColumn: InFull
+
+	column StatusEntrega
+		dataType: string
+		lineageTag: caf52e62-6e0e-454b-93fa-1a5c601b9d81
+		summarizeBy: none
+		sourceColumn: StatusEntrega
+
+	/// Materializado de fPedido
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ea6ff0ec-80a8-464e-8fcd-75fc271290ae
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	/// Filial transacional do pedido
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ea7a5fe2-b967-4f56-b2f8-fdaecdc3ee16
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	/// Materializado de fPedido
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 28842878-bc64-4a85-89e2-cd54922fa087
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	/// Data do pedido
+	column DataPedido
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: f1e90167-fa60-4b81-895e-a5005f700f5c
+		summarizeBy: none
+		sourceColumn: DataPedido
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// DataEntrega - DataPrometida em dias
+	column DiasAtraso
+		dataType: int64
+		formatString: #,0
+		lineageTag: c3331ad3-0034-4867-8e39-088ea0b7f86f
+		summarizeBy: none
+		sourceColumn: DiasAtraso
+
+	/// DataEntrega - DataPedido em dias (faturamento nao usado como base, C6)
+	column LeadTimePedidoDias
+		dataType: int64
+		formatString: #,0
+		lineageTag: b8b0b040-afb0-4b4e-b438-862cb3f76607
+		summarizeBy: none
+		sourceColumn: LeadTimePedidoDias
+
+	/// 1 quando NoPrazo = 1 e InFull = 1
+	column EntregaOTIF
+		dataType: int64
+		formatString: 0
+		lineageTag: 70848d85-5ca8-4e45-8a8a-1e9ff282ab9d
+		summarizeBy: none
+		sourceColumn: EntregaOTIF
+
+	partition fEntrega = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fEntrega"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"EntregaID", Int64.Type}, {"PedidoID", Int64.Type}, {"TransportadoraID", Int64.Type}, {"DataPrometida", type date}, {"DataEntrega", type date}, {"PesoKg", type number}, {"CustoFrete", Currency.Type}, {"NoPrazo", Int64.Type}, {"InFull", Int64.Type}, {"StatusEntrega", type text}}, "en-US"),
+				    Mesclado = Table.NestedJoin(Tipado, {"PedidoID"}, stgPedido, {"PedidoID"}, "Ref", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(Mesclado, "Ref", {"ClienteID", "FilialID", "VendedorID", "DataPedido"}, {"ClienteID", "FilialID", "VendedorID", "DataPedido"}),
+				    Retipado = Table.TransformColumnTypes(Expandido, {{"ClienteID", Int64.Type}, {"FilialID", Int64.Type}, {"VendedorID", Int64.Type}, {"DataPedido", type date}}, "en-US"),
+				    Atraso = Table.AddColumn(Retipado, "DiasAtraso", each Duration.Days([DataEntrega] - [DataPrometida]), Int64.Type),
+				    LeadTime = Table.AddColumn(Atraso, "LeadTimePedidoDias", each Duration.Days([DataEntrega] - [DataPedido]), Int64.Type),
+				    OTIF = Table.AddColumn(LeadTime, "EntregaOTIF", each if [NoPrazo] = 1 and [InFull] = 1 then 1 else 0, Int64.Type)
+				in
+				    OTIF
+
+	annotation PBI_ResultType = Table
+

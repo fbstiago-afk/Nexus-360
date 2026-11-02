@@ -1,0 +1,451 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 2583.5852478328306,
+            "y": 1192.2548656106892
+          },
+          "nodeIndex": "_Medidas",
+          "nodeLineageTag": "3164d10b-ed71-47a0-a3f3-df27edb10552",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2867.5852478328306,
+            "y": 1278.2548656106892
+          },
+          "nodeIndex": "_Parametros",
+          "nodeLineageTag": "2bbab9e3-c811-448e-810b-37dd5bb9ae68",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1127.8691128646169,
+            "y": 1120.7683338773722
+          },
+          "nodeIndex": "dCalendario",
+          "nodeLineageTag": "10b18b88-28c3-4260-9b6c-bd144d42693d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1186.5822528768649,
+            "y": -50
+          },
+          "nodeIndex": "dCampanha",
+          "nodeLineageTag": "c2523b0f-65a4-499b-ae47-9b6364b6d418",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 641.15740151840623,
+            "y": 534.99141382258949
+          },
+          "nodeIndex": "dCliente",
+          "nodeLineageTag": "d5a1db31-4c44-4c2b-88de-43333c9471c6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1440.7003135419379,
+            "y": 1164.863543031342
+          },
+          "nodeIndex": "dFilial",
+          "nodeLineageTag": "deadc5c5-ac55-4d08-a4cd-9e73052ffd9f",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1621.5337824500134,
+            "y": 2434.5097312213784
+          },
+          "nodeIndex": "dFornecedor",
+          "nodeLineageTag": "6acb5af7-13c2-4053-b6da-476e8198e056",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1917.6280700958378,
+            "y": 2141.4167992455382
+          },
+          "nodeIndex": "dPosicaoArmazem",
+          "nodeLineageTag": "562173e0-c012-4921-9612-5c8f17ab5339",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1759.6160926928394,
+            "y": 1420.2039483346325
+          },
+          "nodeIndex": "dProduto",
+          "nodeLineageTag": "6dbc9477-7088-482f-8b1f-ca325690040f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 536.927310037652,
+            "y": 1724.0678028029554
+          },
+          "nodeIndex": "dTransportadora",
+          "nodeLineageTag": "bd5e308d-409f-4a18-9446-3b6918f48b31",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 345.55362970073747,
+            "y": 808.54940671393024
+          },
+          "nodeIndex": "dVendedor",
+          "nodeLineageTag": "c9ad1538-db38-4b4d-aa63-2bf9e89f4867",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1974.6993271282927,
+            "y": 1784.0478724463039
+          },
+          "nodeIndex": "fCompra",
+          "nodeLineageTag": "b1ade313-51bf-42fb-a44f-d056e7ace423",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1630.987444459096,
+            "y": 1781.6291913514151
+          },
+          "nodeIndex": "fContasPagar",
+          "nodeLineageTag": "79fc1e70-243b-416f-8786-598896d65f22",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 539.35522108523617,
+            "y": 1218.2152469298439
+          },
+          "nodeIndex": "fContasReceber",
+          "nodeLineageTag": "7404e75c-fe34-48e6-b0e5-1c9c57dda343",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 852.58051864101344,
+            "y": 1701.0426226297302
+          },
+          "nodeIndex": "fDespesa",
+          "nodeLineageTag": "2aa38738-82ee-4eed-a72d-400be433ecf3",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 243.74975184576942,
+            "y": 1537.22741906381
+          },
+          "nodeIndex": "fDevolucao",
+          "nodeLineageTag": "121766bd-8878-4016-ab5e-cca90f9de994",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 1102.5494736860949
+          },
+          "nodeIndex": "fEntrega",
+          "nodeLineageTag": "d77f4992-2483-4116-81a9-d14bccd28f38",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1148.288996260982,
+            "y": 1485.157015225092
+          },
+          "nodeIndex": "fEstoqueMensal",
+          "nodeLineageTag": "530a7e0d-494e-4b2b-97bf-691e1bba2483",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 936.234701305352,
+            "y": 757.06813468724113
+          },
+          "nodeIndex": "fFaturamento",
+          "nodeLineageTag": "c124dbe8-0411-4a2c-a5c2-af4f9ccd4981",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1455.2450096518139,
+            "y": 234.16451558919243
+          },
+          "nodeIndex": "fInteracaoCampanha",
+          "nodeLineageTag": "5cb72130-ba0a-4933-8deb-9853c7e7f8c9",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1230.5393185147232,
+            "y": 757.09046422649885
+          },
+          "nodeIndex": "fItemPedido",
+          "nodeLineageTag": "3b89ec65-a1ba-4701-bb3b-b48c805e7d32",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2054.9740166140668,
+            "y": 1494.523173950337
+          },
+          "nodeIndex": "fMeta",
+          "nodeLineageTag": "51d46e6a-c743-40d6-9ff4-358bc36e2417",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2000.5806875906264,
+            "y": 1084.3988887729297
+          },
+          "nodeIndex": "fMovimentoEstoque",
+          "nodeLineageTag": "5cb6e833-d566-4a98-9771-74c0cfa3df69",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2349.5852478328306,
+            "y": 1404.0587349586149
+          },
+          "nodeIndex": "fOcupacaoArmazem",
+          "nodeLineageTag": "c446262c-6289-4082-bd2e-32ffacfc8777",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1335.3205505343606,
+            "y": 2005.2218298717253
+          },
+          "nodeIndex": "fOrcamento",
+          "nodeLineageTag": "8449cffe-8846-4f2e-83be-7018197cf586",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 892.3065773372507,
+            "y": 176.72029807200306
+          },
+          "nodeIndex": "fPedido",
+          "nodeLineageTag": "87868aee-17bc-44ed-b725-55edd4f259e2",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1714.0180357277241,
+            "y": 909.4743522998458
+          },
+          "nodeIndex": "fPrevisao",
+          "nodeLineageTag": "2ae7f622-fd6d-439b-a5f5-9f11126b5098",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 833.37042292975093,
+            "y": 1188.356275143512
+          },
+          "nodeIndex": "fVisitaComercial",
+          "nodeLineageTag": "6bc5c4c7-78b0-45a4-9b71-d729860f8b8d",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3101.5852478328306,
+            "y": 1242.2548656106892
+          },
+          "nodeIndex": "dCohortOffset",
+          "nodeLineageTag": "b486e775-5dca-48bd-8139-6437110a3925",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3385.5852478328306,
+            "y": 1266.2548656106892
+          },
+          "nodeIndex": "dStatusCliente",
+          "nodeLineageTag": "20f5b3e8-9cb1-44ba-87cd-1db292a3eb12",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3669.5852478328306,
+            "y": 1242.2548656106892
+          },
+          "nodeIndex": "Param Janela Comparativa",
+          "nodeLineageTag": "3020edd9-2157-4b17-bbb5-f336518cef8b",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3953.5852478328306,
+            "y": 1242.2548656106892
+          },
+          "nodeIndex": "Param Limite Ativo",
+          "nodeLineageTag": "7a88742d-ba13-4d66-93c6-eeadc72cbd1c",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4237.5852478328306,
+            "y": 1242.2548656106892
+          },
+          "nodeIndex": "Param Limite Churn",
+          "nodeLineageTag": "5f687b2b-19e2-42d6-982d-687173ed5c07",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

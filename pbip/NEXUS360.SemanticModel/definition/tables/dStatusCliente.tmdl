@@ -1,0 +1,28 @@
+/// Status atual do cliente (mutuamente exclusivos) na Data Referencia. Tabela desconectada usada pela medida [Clientes por Status].
+table dStatusCliente
+	lineageTag: 20f5b3e8-9cb1-44ba-87cd-1db292a3eb12
+
+	column Status
+		lineageTag: d7431110-6662-48e3-bae6-6290375c6b71
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Status]
+		sortByColumn: Ordem
+
+	column Ordem
+		isHidden
+		lineageTag: fac2f881-229c-4c7b-a732-c0c79a5ffddf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ordem]
+
+	column Grupo
+		lineageTag: b170e9d7-1ec5-4816-9fca-96d7a2df924e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Grupo]
+
+	partition dStatusCliente = calculated
+		mode: import
+		source = DATATABLE ( "Status", STRING, "Ordem", INTEGER, "Grupo", STRING, { { "Novo", 1, "Ativos" }, { "Ativo", 2, "Ativos" }, { "Reativado", 3, "Ativos" }, { "Em risco", 4, "Em risco" }, { "Churn", 5, "Churn" } } )
+

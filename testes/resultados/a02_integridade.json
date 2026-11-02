@@ -1,0 +1,1089 @@
+{
+ "pk": {
+  "dCalendario": 0,
+  "dCampanha": 0,
+  "dCliente": 0,
+  "dFilial": 0,
+  "dFornecedor": 0,
+  "dPosicaoArmazem": 0,
+  "dProduto": 0,
+  "dTransportadora": 0,
+  "dVendedor": 0,
+  "fCompra": 0,
+  "fContasPagar": 0,
+  "fContasReceber": 0,
+  "fDespesa": 0,
+  "fDevolucao": 0,
+  "fEntrega": 0,
+  "fEstoqueMensal": 0,
+  "fFaturamento": 0,
+  "fInteracaoCampanha": 0,
+  "fItemPedido": 0,
+  "fMeta": 0,
+  "fMovimentoEstoque": 0,
+  "fOcupacaoArmazem": 0,
+  "fOrcamento": 0,
+  "fPedido": 0,
+  "fPrevisao": 0,
+  "fVisitaComercial": 0
+ },
+ "fk": [
+  {
+   "rel": "fPedido[ClienteID] -> dCliente[ClienteID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fPedido[FilialID] -> dFilial[FilialID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fPedido[VendedorID] -> dVendedor[VendedorID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fPedido[CampanhaID] -> dCampanha[CampanhaID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 84903,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fItemPedido[PedidoID] -> fPedido[PedidoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fItemPedido[ProdutoID] -> dProduto[ProdutoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fFaturamento[PedidoID] -> fPedido[PedidoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fEntrega[PedidoID] -> fPedido[PedidoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fEntrega[TransportadoraID] -> dTransportadora[TransportadoraID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fContasReceber[PedidoID] -> fPedido[PedidoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fContasReceber[ClienteID] -> dCliente[ClienteID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fDevolucao[PedidoID] -> fPedido[PedidoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fCompra[FornecedorID] -> dFornecedor[FornecedorID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fCompra[ProdutoID] -> dProduto[ProdutoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fContasPagar[CompraID] -> fCompra[CompraID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fEstoqueMensal[ProdutoID] -> dProduto[ProdutoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fOcupacaoArmazem[PosicaoID] -> dPosicaoArmazem[PosicaoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fOcupacaoArmazem[ProdutoID] -> dProduto[ProdutoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fVisitaComercial[ClienteID] -> dCliente[ClienteID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fVisitaComercial[VendedorID] -> dVendedor[VendedorID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fInteracaoCampanha[CampanhaID] -> dCampanha[CampanhaID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fInteracaoCampanha[ClienteID] -> dCliente[ClienteID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fEstoqueMensal[FilialID] -> dFilial[FilialID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fCompra[FilialID] -> dFilial[FilialID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fMovimentoEstoque[FilialID] -> dFilial[FilialID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fOrcamento[FilialID] -> dFilial[FilialID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fMeta[FilialID] -> dFilial[FilialID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fDespesa[FilialID] -> dFilial[FilialID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fPrevisao[FilialID] -> dFilial[FilialID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fMovimentoEstoque[ProdutoID] -> dProduto[ProdutoID]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fOrcamento[DataReferencia] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fMeta[DataReferencia] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fDespesa[DataReferencia] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fPrevisao[DataReferencia] -> dCalendario[Data]",
+   "orfaos": 24,
+   "orfaos_distintos": 2,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fEstoqueMensal[DataReferencia] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fPedido[DataPedido] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fFaturamento[DataFaturamento] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fEntrega[DataEntrega] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fEntrega[DataPrometida] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fContasReceber[Vencimento] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fDevolucao[DataDevolucao] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fCompra[DataCompra] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fMovimentoEstoque[DataMovimento] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fVisitaComercial[DataVisita] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  },
+  {
+   "rel": "fInteracaoCampanha[DataInteracao] -> dCalendario[Data]",
+   "orfaos": 0,
+   "orfaos_distintos": 0,
+   "nulos_origem": 0,
+   "dup_destino": 0,
+   "obs": "Use relacionamento ativo apenas na data principal; USERELATIONSHIP para datas alternativas"
+  }
+ ],
+ "checks": {
+  "faturas_por_pedido_max": [
+   [
+    1
+   ]
+  ],
+  "faturaid_igual_pedidoid": [
+   [
+    88979,
+    88979
+   ]
+  ],
+  "status_pedido_x_fatura": [
+   [
+    "Cancelado",
+    3457,
+    0,
+    0,
+    0
+   ],
+   [
+    "Faturado",
+    88979,
+    88979,
+    88979,
+    88979
+   ],
+   [
+    "Pendente",
+    7564,
+    0,
+    0,
+    0
+   ]
+  ],
+  "pedidos_sem_item": [
+   [
+    0
+   ]
+  ],
+  "itens_por_pedido": [
+   [
+    1,
+    2.49976,
+    4
+   ]
+  ],
+  "receita_fatura_vs_itens": [
+   [
+    88979,
+    0,
+    3.637978807091713e-12,
+    0,
+    3.637978807091713e-12
+   ]
+  ],
+  "item_valor_vs_qtd_preco": [
+   [
+    249976,
+    0,
+    1.8189894035458565e-12
+   ]
+  ],
+  "item_preco_vs_tabela_desc": [
+   [
+    249976,
+    247312,
+    0.9104508426967632,
+    0.915100756072593
+   ]
+  ],
+  "titulo_vs_fatura": [
+   [
+    88979,
+    0
+   ]
+  ],
+  "titulo_cliente_vs_pedido": [
+   [
+    0
+   ]
+  ],
+  "cr_pagamento_coerencia": [
+   [
+    "com_data",
+    "integral",
+    73530
+   ],
+   [
+    "com_data",
+    "pago0",
+    7283
+   ],
+   [
+    "sem_data",
+    "integral",
+    7451
+   ],
+   [
+    "sem_data",
+    "pago0",
+    715
+   ]
+  ],
+  "cr_pago_antes_faturamento": [
+   [
+    38
+   ]
+  ],
+  "cr_venc_antes_fatur": [
+   [
+    0
+   ]
+  ],
+  "fatura_antes_pedido": [
+   [
+    0
+   ]
+  ],
+  "lag_faturamento_dias": [
+   [
+    0.0,
+    1.9962125894874072,
+    4.0
+   ]
+  ],
+  "entrega_antes_fatura": [
+   [
+    8076
+   ]
+  ],
+  "entrega_antes_pedido": [
+   [
+    7
+   ]
+  ],
+  "noprazo_coerencia": [
+   [
+    0,
+    0,
+    28276
+   ],
+   [
+    1,
+    60703,
+    0
+   ]
+  ],
+  "status_entrega_x_otif": [
+   [
+    "Entregue",
+    66588,
+    42486,
+    21184,
+    4269
+   ],
+   [
+    "Ocorrência",
+    22391,
+    14282,
+    7092,
+    1489
+   ]
+  ],
+  "pedido_antes_cadastro_cliente": [
+   [
+    31784,
+    18822
+   ]
+  ],
+  "pedido_cliente_inativo": [
+   [
+    0,
+    95273,
+    "2026-10-30"
+   ],
+   [
+    1,
+    4727,
+    "2026-10-30"
+   ]
+  ],
+  "pedido_antes_admissao_vendedor": [
+   [
+    14994
+   ]
+  ],
+  "pedido_filial_vs_vendedor_filial": [
+   [
+    91084,
+    100000
+   ]
+  ],
+  "pedido_filial_vs_cliente_filial": [
+   [
+    0,
+    100000
+   ]
+  ],
+  "pedido_campanha_fora_vigencia": [
+   [
+    15097,
+    14678
+   ]
+  ],
+  "devolucao_vs_fatura": [
+   [
+    3159,
+    0,
+    0,
+    0
+   ]
+  ],
+  "devolucao_status_pedido": [
+   [
+    "Faturado",
+    3159
+   ]
+  ],
+  "datas_pos_corte": [
+   [
+    "fPedido",
+    0
+   ],
+   [
+    "fFaturamento",
+    0
+   ],
+   [
+    "fCompra",
+    480
+   ],
+   [
+    "fDespesa",
+    144
+   ],
+   [
+    "fMeta",
+    72
+   ],
+   [
+    "fOrcamento",
+    48
+   ],
+   [
+    "fEstoqueMensal",
+    4800
+   ],
+   [
+    "fMovimentoEstoque",
+    1680
+   ],
+   [
+    "fOcupacaoArmazem",
+    840
+   ],
+   [
+    "fContasPagar_venc",
+    0
+   ],
+   [
+    "fPrevisao",
+    72
+   ]
+  ],
+  "compra_pos_corte_status": [
+   [
+    "Atrasado",
+    138
+   ],
+   [
+    "Parcial",
+    115
+   ],
+   [
+    "Recebido",
+    227
+   ]
+  ],
+  "cp_sem_pagamento": [
+   [
+    713,
+    666,
+    0
+   ]
+  ],
+  "cp_compra_pos_corte": [
+   [
+    480,
+    "2026-11-01",
+    "2026-10-31"
+   ]
+  ],
+  "meta_indicadores": [
+   [
+    "Faturamento",
+    432,
+    689258.9,
+    1707422.81
+   ],
+   [
+    "Margem Bruta",
+    432,
+    0.2303,
+    0.3398
+   ],
+   [
+    "OTIF",
+    432,
+    0.9102,
+    0.9699
+   ]
+  ],
+  "meta_grao_unico": [
+   [
+    0
+   ]
+  ],
+  "orc_grao_unico": [
+   [
+    0
+   ]
+  ],
+  "orc_receita_igual_meta_fat": [
+   [
+    432,
+    432
+   ]
+  ],
+  "estoque_200_por_filial_mes": [
+   [
+    200,
+    200
+   ]
+  ],
+  "estoque_ruptura_coerencia": [
+   [
+    0,
+    0,
+    12272,
+    86212
+   ],
+   [
+    1,
+    188,
+    188,
+    188
+   ]
+  ],
+  "estoque_grao_dup": [
+   [
+    0
+   ]
+  ],
+  "mov_sinal_coerencia": [
+   [
+    "Ajuste",
+    0,
+    7493
+   ],
+   [
+    "Entrada",
+    7740,
+    0
+   ],
+   [
+    "Saída",
+    0,
+    7480
+   ],
+   [
+    "Transferência",
+    0,
+    7527
+   ]
+  ],
+  "ocup_por_mes": [
+   [
+    420,
+    420
+   ]
+  ],
+  "ocup_por_filial_mes": [
+   [
+    35,
+    35,
+    432
+   ]
+  ],
+  "ocup_posicao_dup_mes": [
+   [
+    616
+   ]
+  ],
+  "ocup_status_paletes": [
+   [
+    "Bloqueada",
+    5046,
+    1,
+    4
+   ],
+   [
+    "Disponível",
+    4993,
+    1,
+    4
+   ],
+   [
+    "Ocupada",
+    5081,
+    1,
+    4
+   ]
+  ],
+  "posicoes_por_filial": [
+   [
+    400,
+    400
+   ]
+  ],
+  "endereco_unico_por_filial": [
+   [
+    0
+   ]
+  ],
+  "cal_continuidade": [
+   [
+    1216,
+    "2024-01-01",
+    "2027-04-30",
+    1216.0
+   ]
+  ],
+  "cal_diasemana": [
+   [
+    "2024-01-01",
+    1,
+    1
+   ],
+   [
+    "2024-01-06",
+    6,
+    0
+   ],
+   [
+    "2024-01-07",
+    7,
+    0
+   ],
+   [
+    "2026-10-31",
+    6,
+    0
+   ],
+   [
+    "2026-11-01",
+    7,
+    0
+   ]
+  ],
+  "cal_diautil_feriado": [
+   [
+    1216,
+    0,
+    0
+   ]
+  ],
+  "previsao_meses": [
+   [
+    "2027-01-31",
+    12,
+    12
+   ],
+   [
+    "2027-02-28",
+    12,
+    12
+   ],
+   [
+    "2027-03-31",
+    12,
+    12
+   ],
+   [
+    "2027-04-30",
+    12,
+    12
+   ],
+   [
+    "2027-05-31",
+    12,
+    0
+   ],
+   [
+    "2027-06-30",
+    12,
+    0
+   ]
+  ],
+  "previsao_vs_meta_jan27": [
+   [
+    0
+   ]
+  ],
+  "despesa_grao": [
+   [
+    6,
+    6
+   ]
+  ],
+  "datas_fim_mes": [
+   [
+    "fDespesa",
+    0
+   ],
+   [
+    "fMeta",
+    0
+   ],
+   [
+    "fEstoqueMensal",
+    0
+   ],
+   [
+    "fMovimentoEstoque",
+    0
+   ]
+  ],
+  "item_produto_descontinuado": [
+   [
+    0,
+    245208
+   ],
+   [
+    1,
+    4768
+   ]
+  ],
+  "margem_negativa_fatura": [
+   [
+    375,
+    88979
+   ]
+  ],
+  "impostos_pct": [
+   [
+    0.07439198855507868,
+    0.07499988984438631,
+    0.07594936708860758
+   ]
+  ],
+  "compras_vs_produtos": [
+   [
+    0
+   ]
+  ],
+  "visita_cliente_filial_vend": [
+   [
+    11387,
+    12500
+   ]
+  ]
+ },
+ "reconciliacoes": {
+  "receita_cmv_impostos": [
+   [
+    88979,
+    515283958.96,
+    376561791.51,
+    38646291.11,
+    138722167.45,
+    0.269215
+   ]
+  ],
+  "receita_por_ano": [
+   [
+    "2024",
+    31152,
+    178963796.55,
+    130766674.71
+   ],
+   [
+    "2025",
+    31637,
+    185241143.72,
+    135355106.11
+   ],
+   [
+    "2026",
+    26190,
+    151079018.69,
+    110440010.69
+   ]
+  ],
+  "receita_por_filial": [
+   [
+    1,
+    42647109.09
+   ],
+   [
+    2,
+    42630246.74
+   ],
+   [
+    3,
+    44519553.21
+   ],
+   [
+    4,
+    43308746.63
+   ],
+   [
+    5,
+    42938560.82
+   ],
+   [
+    6,
+    41768151.67
+   ],
+   [
+    7,
+    43350619.61
+   ],
+   [
+    8,
+    43136670.92
+   ],
+   [
+    9,
+    43588975.89
+   ],
+   [
+    10,
+    42380590.32
+   ],
+   [
+    11,
+    41048866.65
+   ],
+   [
+    12,
+    43965867.41
+   ]
+  ],
+  "pedidos": [
+   [
+    100000,
+    100000
+   ]
+  ],
+  "itens": [
+   [
+    249976,
+    579865662.52,
+    2373696
+   ]
+  ],
+  "otif": [
+   [
+    88979,
+    56768,
+    0.637993,
+    23043925.05
+   ]
+  ],
+  "devolucao": [
+   [
+    3159,
+    4984803.21
+   ]
+  ],
+  "despesa_ate_corte": [
+   [
+    71028404.16
+   ]
+  ],
+  "despesa_total": [
+   [
+    74791924.78
+   ]
+  ],
+  "clientes_com_pedido": [
+   [
+    32915
+   ]
+  ],
+  "clientes_com_fatura": [
+   [
+    32225
+   ]
+  ],
+  "receber_aberto": [
+   [
+    45969639.32
+   ]
+  ]
+ }
+}

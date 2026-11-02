@@ -1,0 +1,209 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "nxSimGrade",
+  "position": {
+    "x": 442,
+    "y": 698,
+    "z": 1033,
+    "height": 358,
+    "width": 1432,
+    "tabOrder": 1033
+  },
+  "visual": {
+    "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sim Grade Preço"
+                    }
+                  },
+                  "Property": "Preço grade %"
+                }
+              },
+              "queryRef": "Sim Grade Preço.Preço grade %",
+              "nativeQueryRef": "Preço grade %",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sim Grade Volume"
+                    }
+                  },
+                  "Property": "Volume grade %"
+                }
+              },
+              "queryRef": "Sim Grade Volume.Volume grade %",
+              "nativeQueryRef": "Volume grade %",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Sim Δ Resultado (grade)"
+                }
+              },
+              "queryRef": "_Medidas.Sim Δ Resultado (grade)",
+              "nativeQueryRef": "Sim Δ Resultado (grade)",
+              "active": false
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "vega": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'vegaLite'"
+                }
+              }
+            },
+            "jsonSpec": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\", \"data\": {\"name\": \"dataset\"}, \"width\": \"container\", \"height\": \"container\", \"transform\": [{\"filter\": \"isValid(datum[''Sim Δ Resultado (grade)''])\"}, {\"calculate\": \"datum[''Sim Δ Resultado (grade)''] / 1000000\", \"as\": \"mi\"}], \"encoding\": {\"x\": {\"field\": \"Preço grade %\", \"type\": \"ordinal\", \"title\": \"Variação de preço\", \"axis\": {\"format\": \"+.0%\", \"labelAngle\": 0, \"orient\": \"top\"}}, \"y\": {\"field\": \"Volume grade %\", \"type\": \"ordinal\", \"title\": \"Variação de volume\", \"sort\": \"descending\", \"axis\": {\"format\": \"+.0%\"}}}, \"layer\": [{\"mark\": {\"type\": \"rect\", \"cornerRadius\": 3, \"stroke\": \"#071528\", \"strokeWidth\": 2}, \"encoding\": {\"color\": {\"field\": \"mi\", \"type\": \"quantitative\", \"title\": \"Δ resultado (R$ mi)\", \"scale\": {\"type\": \"symlog\", \"domainMid\": 0, \"range\": [\"#FF7285\", \"#12304F\", \"#45D5A1\"]}, \"legend\": {\"orient\": \"right\", \"direction\": \"vertical\", \"gradientLength\": 180, \"format\": \",.0f\"}}, \"tooltip\": [{\"field\": \"Preço grade %\", \"title\": \"Preço\", \"format\": \"+.0%\"}, {\"field\": \"Volume grade %\", \"title\": \"Volume\", \"format\": \"+.0%\"}, {\"field\": \"Sim Δ Resultado (grade)\", \"title\": \"Δ resultado\", \"formatType\": \"pbiFormat\", \"format\": \"R$ #,0\"}]}}, {\"mark\": {\"type\": \"text\", \"fontSize\": 12}, \"encoding\": {\"text\": {\"field\": \"mi\", \"type\": \"quantitative\", \"format\": \"+,.0f\"}, \"color\": {\"condition\": {\"test\": \"abs(datum.mi) < 1\", \"value\": \"#A9B9CA\"}, \"value\": \"#FFFFFF\"}}}]}'"
+                }
+              }
+            },
+            "jsonConfig": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"autosize\": {\"type\": \"fit\", \"contains\": \"padding\"}, \"view\": {\"stroke\": null}, \"font\": \"Segoe UI\", \"background\": null, \"padding\": {\"left\": 4, \"right\": 12, \"top\": 6, \"bottom\": 4}, \"axis\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"titleColor\": \"#A9B9CA\", \"titleFont\": \"Segoe UI\", \"titleFontWeight\": 400, \"gridColor\": \"#173B5C\", \"gridDash\": [2, 3], \"domain\": false, \"ticks\": false, \"labelFontSize\": 12, \"titleFontSize\": 12}, \"legend\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"labelFontSize\": 12, \"orient\": \"top\", \"title\": null, \"symbolType\": \"circle\"}, \"text\": {\"fontSize\": 13}, \"title\": {\"fontSize\": 14}}'"
+                }
+              }
+            },
+            "renderMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'svg'"
+                }
+              }
+            },
+            "enableTooltips": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableContextMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'6.4.3'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stateManagement": [
+        {
+          "properties": {
+            "viewportHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "291D"
+                }
+              }
+            },
+            "viewportWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "1402D"
+                }
+              }
+            },
+            "supportFieldConfiguration": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"Preço grade %\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":false,\"formatted\":false,\"names\":false},\"Volume grade %\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":false,\"formatted\":false,\"names\":false},\"Sim Δ Resultado (grade)\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":true,\"formatted\":true,\"names\":false}}'"
+                }
+              }
+            },
+            "denebMetaVersion": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2'"
+                }
+              }
+            },
+            "consolidateFieldParameters": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "developer": [
+        {
+          "properties": {
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2.0.1.0'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Sensibilidade: variação do resultado operacional por preço × volume (R$ mi), com desconto, custo, frete e despesas dos controles'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

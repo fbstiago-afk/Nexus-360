@@ -1,0 +1,282 @@
+relationship 7827cc47-bdce-414e-8e34-2c5e41d7aaa5
+	fromColumn: fPedido.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship c206806b-b582-4471-adf0-b151955e389a
+	fromColumn: fPedido.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 4cdb0c75-7ea3-41e4-93d7-722c43aa89f8
+	fromColumn: fPedido.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship a2f430d6-a990-4997-b9d9-19976bf9dfc8
+	fromColumn: fPedido.CampanhaID
+	toColumn: dCampanha.CampanhaID
+
+relationship 00aa065d-cddb-4fe1-a01d-f209f11f0a48
+	fromColumn: fItemPedido.ProdutoID
+	toColumn: dProduto.ProdutoID
+
+relationship 63a8e0c7-d1d2-4115-8178-d0028fce159d
+	fromColumn: fItemPedido.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship f0a7c6e6-6c7c-4ec5-aeeb-1802f120690d
+	fromColumn: fItemPedido.FilialID
+	toColumn: dFilial.FilialID
+
+relationship ffae85e2-6084-4a47-9e22-35f400171fe6
+	fromColumn: fItemPedido.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship ce36924a-df5d-4d99-a23d-c5e23b74891c
+	fromColumn: fItemPedido.CampanhaID
+	toColumn: dCampanha.CampanhaID
+
+relationship d568d2d3-830e-4be3-b2b9-440e4236203a
+	fromColumn: fFaturamento.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship d464efd6-67ae-40a8-9b20-e24ac3c44502
+	fromColumn: fFaturamento.FilialID
+	toColumn: dFilial.FilialID
+
+relationship cc6673f4-690c-4436-81ef-5020ab770827
+	fromColumn: fFaturamento.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship 0832e01c-a3d0-446f-8ef8-c046e597f66e
+	fromColumn: fFaturamento.CampanhaID
+	toColumn: dCampanha.CampanhaID
+
+relationship 2fa7da61-1eca-4966-a7f9-7defe99d3e9c
+	fromColumn: fEntrega.TransportadoraID
+	toColumn: dTransportadora.TransportadoraID
+
+relationship 33d909c2-7a3b-448d-8880-3a2e03ab5008
+	fromColumn: fEntrega.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship e553b07d-908a-47b8-b768-ce9b7e02931b
+	fromColumn: fEntrega.FilialID
+	toColumn: dFilial.FilialID
+
+relationship a2bd2fce-5b13-483d-a4a1-fac2e4736ea5
+	fromColumn: fEntrega.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship 762925a9-005a-42b7-8542-d38bcd543a47
+	fromColumn: fContasReceber.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship 1d6cff0b-535b-4665-b654-3f44401b1915
+	fromColumn: fContasReceber.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 70c9f149-dc9e-4492-8809-97c854d3e01d
+	fromColumn: fContasReceber.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship 29de29b2-a95c-42a1-a736-8bc1a354eea3
+	fromColumn: fDevolucao.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship 955dcf23-94b9-4901-960d-dbf82802fddb
+	fromColumn: fDevolucao.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 6e361935-36f8-4a98-9421-101094bb3c74
+	fromColumn: fDevolucao.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship 7feb658a-ee5c-4a7d-a075-682f1d2de35b
+	fromColumn: fCompra.FornecedorID
+	toColumn: dFornecedor.FornecedorID
+
+relationship 96fcf68b-01d5-482c-a0bf-9c66fb751580
+	fromColumn: fCompra.FilialID
+	toColumn: dFilial.FilialID
+
+relationship ff5f6a0e-b1c7-45c5-9602-c13bad1a0e67
+	fromColumn: fCompra.ProdutoID
+	toColumn: dProduto.ProdutoID
+
+relationship d705ce8c-4c7b-4b34-9a84-3a30a27386da
+	fromColumn: fContasPagar.FornecedorID
+	toColumn: dFornecedor.FornecedorID
+
+relationship da0153a7-e35b-4f68-ba27-2852cd915ddc
+	fromColumn: fContasPagar.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 7363ff85-b65a-4fe2-a2ff-952c55631a79
+	fromColumn: fContasPagar.ProdutoID
+	toColumn: dProduto.ProdutoID
+
+relationship a5b40cba-0bad-47a1-a42c-c99227bc28d6
+	fromColumn: fDespesa.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 40b738f0-8aae-4f83-bde8-8927ac56a514
+	fromColumn: fMeta.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 5ec33e81-3314-4f7e-8539-4ef9ed4b3635
+	fromColumn: fOrcamento.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 5e7bda8d-76a1-49b6-b4a7-fcaf9ae9a9a3
+	fromColumn: fPrevisao.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 978c223c-eaf3-47ec-8ae5-8ad0eab2989e
+	fromColumn: fEstoqueMensal.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 6bc37b21-14ae-4dec-9cbe-3e621091f700
+	fromColumn: fEstoqueMensal.ProdutoID
+	toColumn: dProduto.ProdutoID
+
+relationship 7d0205ed-16be-4581-9361-8f6bf336b1db
+	fromColumn: fMovimentoEstoque.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 94e7417b-cf92-440d-bc4d-0101baffecba
+	fromColumn: fMovimentoEstoque.ProdutoID
+	toColumn: dProduto.ProdutoID
+
+relationship 8131b28e-98a7-426d-b8bf-69db766692cd
+	fromColumn: fOcupacaoArmazem.PosicaoID
+	toColumn: dPosicaoArmazem.PosicaoID
+
+relationship 40a9b18f-c8c2-40c4-b1fa-faaaba618b9d
+	fromColumn: fOcupacaoArmazem.ProdutoID
+	toColumn: dProduto.ProdutoID
+
+relationship fbbeff83-5613-4a90-8c25-1c22c99b8b10
+	fromColumn: fOcupacaoArmazem.FilialID
+	toColumn: dFilial.FilialID
+
+relationship f7a75db1-2850-43d1-bb72-3ada035bedb5
+	fromColumn: fVisitaComercial.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship fcff95a9-93a7-42c4-88ad-641ef4c80796
+	fromColumn: fVisitaComercial.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship eb702fb9-d572-438c-b4a9-2bc981af4749
+	fromColumn: fVisitaComercial.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 46150d41-9f19-48c7-9a01-c9ec017184ae
+	fromColumn: fInteracaoCampanha.CampanhaID
+	toColumn: dCampanha.CampanhaID
+
+relationship 888165d4-be1c-411a-b24a-15fb1bc8b0e0
+	fromColumn: fInteracaoCampanha.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship 54ac663b-5fc4-4e00-9987-9d5664025615
+	fromColumn: fInteracaoCampanha.FilialID
+	toColumn: dFilial.FilialID
+
+relationship dd61069f-acb0-4716-94fb-8788e99e62f5
+	fromColumn: fPedido.DataPedido
+	toColumn: dCalendario.Data
+
+relationship 2ed1f2c2-d502-4a74-b142-2a64e3139548
+	fromColumn: fItemPedido.DataPedido
+	toColumn: dCalendario.Data
+
+relationship 1fab8e40-9999-4679-a1e2-7c6fe296cdb6
+	fromColumn: fFaturamento.DataFaturamento
+	toColumn: dCalendario.Data
+
+relationship 37ecfaab-22d5-4c31-8e79-228287d7e9fc
+	isActive: false
+	fromColumn: fFaturamento.DataPedido
+	toColumn: dCalendario.Data
+
+relationship bd8a6caf-5d18-45aa-99eb-c306703978c4
+	fromColumn: fEntrega.DataEntrega
+	toColumn: dCalendario.Data
+
+relationship a6ee151b-f846-4871-9711-e16c40ca1f6c
+	isActive: false
+	fromColumn: fEntrega.DataPrometida
+	toColumn: dCalendario.Data
+
+relationship eb9c55a5-0009-4639-9111-93ebe9fc264e
+	fromColumn: fContasReceber.Vencimento
+	toColumn: dCalendario.Data
+
+relationship e06d41bd-2bb6-4de0-9c4e-bdc258011879
+	isActive: false
+	fromColumn: fContasReceber.DataPagamento
+	toColumn: dCalendario.Data
+
+relationship 84fb4b45-db60-41fc-a40e-87f1a16f73b2
+	isActive: false
+	fromColumn: fContasReceber.DataFaturamento
+	toColumn: dCalendario.Data
+
+relationship 6b82ee28-ec3a-4905-9234-71f612338547
+	fromColumn: fDevolucao.DataDevolucao
+	toColumn: dCalendario.Data
+
+relationship cc9ff5b4-0b35-45da-a0e9-a138a192c7cf
+	fromColumn: fCompra.DataCompra
+	toColumn: dCalendario.Data
+
+relationship 5ef4ed73-1768-4087-a352-7bff6fc0c534
+	fromColumn: fContasPagar.Vencimento
+	toColumn: dCalendario.Data
+
+relationship babfe9d0-396c-4d09-ab65-b70a9cc1b98b
+	isActive: false
+	fromColumn: fContasPagar.DataPagamento
+	toColumn: dCalendario.Data
+
+relationship e0a4cc26-993f-4156-a425-3b7332a46161
+	fromColumn: fDespesa.DataReferencia
+	toColumn: dCalendario.Data
+
+relationship 15241512-8143-40f4-9fb7-4345fe8df435
+	fromColumn: fMeta.DataReferencia
+	toColumn: dCalendario.Data
+
+relationship a33e5ede-ac51-4e31-9ac7-a34eafe7c79d
+	fromColumn: fOrcamento.DataReferencia
+	toColumn: dCalendario.Data
+
+relationship 5ec01508-95ca-4dff-b45f-d59fea6e4048
+	fromColumn: fPrevisao.DataReferencia
+	toColumn: dCalendario.Data
+
+relationship a11248f1-0965-49cb-a38b-1f92d6694a52
+	fromColumn: fEstoqueMensal.DataReferencia
+	toColumn: dCalendario.Data
+
+relationship 2cbfc132-2e90-4cee-88f9-b2c2cf5188d3
+	fromColumn: fMovimentoEstoque.DataMovimento
+	toColumn: dCalendario.Data
+
+relationship 8bfea195-3732-4ed6-bd80-e8cff95c54d8
+	fromColumn: fOcupacaoArmazem.DataReferencia
+	toColumn: dCalendario.Data
+
+relationship d55eec89-6ee9-47e4-b564-e34d3a79d3bc
+	fromColumn: fVisitaComercial.DataVisita
+	toColumn: dCalendario.Data
+
+relationship fc6262d4-43fe-42ce-b357-4eb68d2823d0
+	fromColumn: fInteracaoCampanha.DataInteracao
+	toColumn: dCalendario.Data
+
+relationship fItemPedido_DataFaturamento_dCalendario_Data
+	isActive: false
+	fromColumn: fItemPedido.DataFaturamento
+	toColumn: dCalendario.Data
+

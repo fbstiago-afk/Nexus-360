@@ -1,0 +1,75 @@
+table fMovimentoEstoque
+	lineageTag: 5cb6e833-d566-4a98-9771-74c0cfa3df69
+
+	column MovimentoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 673375a8-6328-40f1-92de-b6bf37b86f2f
+		summarizeBy: none
+		sourceColumn: MovimentoID
+
+	column DataMovimento
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: f7e5b4b0-1471-4daa-990d-82ba88eb1ebe
+		summarizeBy: none
+		sourceColumn: DataMovimento
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3daf40ce-0504-4472-89a7-04034c879c76
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 002f68ba-b56c-483d-b404-53ee3ed47643
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column TipoMovimento
+		dataType: string
+		lineageTag: 8c348148-12f8-4923-8030-cacf788598c8
+		summarizeBy: none
+		sourceColumn: TipoMovimento
+
+	column QuantidadeAssinada
+		dataType: int64
+		formatString: #,0
+		lineageTag: 18f6c084-4593-4fd2-a79f-4463096261ce
+		summarizeBy: sum
+		sourceColumn: QuantidadeAssinada
+
+	column Origem
+		dataType: string
+		lineageTag: 4ca0a3b0-25a5-4df2-99c9-7b032cd75b8f
+		summarizeBy: none
+		sourceColumn: Origem
+
+	/// 1 quando DataMovimento <= pDataCorte
+	column ElegivelHistorico
+		dataType: int64
+		formatString: 0
+		lineageTag: 970c9dfa-0638-4dc2-ba06-4a68f1193d4e
+		summarizeBy: none
+		sourceColumn: ElegivelHistorico
+
+	partition fMovimentoEstoque = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fMovimentoEstoque"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"MovimentoID", Int64.Type}, {"DataMovimento", type date}, {"FilialID", Int64.Type}, {"ProdutoID", Int64.Type}, {"TipoMovimento", type text}, {"QuantidadeAssinada", Int64.Type}, {"Origem", type text}}, "en-US"),
+				    Elegivel = Table.AddColumn(Tipado, "ElegivelHistorico", each if [DataMovimento] <= pDataCorte then 1 else 0, Int64.Type)
+				in
+				    Elegivel
+
+	annotation PBI_ResultType = Table
+

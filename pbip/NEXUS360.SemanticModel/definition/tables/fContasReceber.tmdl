@@ -1,0 +1,126 @@
+/// 1 titulo por pedido faturado. StatusRecebimento aplica a regra D1.
+table fContasReceber
+	lineageTag: 7404e75c-fe34-48e6-b0e5-1c9c57dda343
+
+	column TituloID
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d55ea22-c376-443b-8897-44cbba0bacae
+		summarizeBy: none
+		sourceColumn: TituloID
+
+	column PedidoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7e358f95-08b1-4284-94b4-91db510343eb
+		summarizeBy: none
+		sourceColumn: PedidoID
+
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 49879e57-d8aa-4669-8484-915bfdd3775f
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	column ValorTitulo
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 42d4ec9d-d5c6-4203-9bbf-0dd21ab7e0fb
+		summarizeBy: sum
+		sourceColumn: ValorTitulo
+
+	column Vencimento
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 20035f41-e5f2-4d8a-a154-dc080a747d74
+		summarizeBy: none
+		sourceColumn: Vencimento
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DataPagamento
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: cf938ea9-6c19-48ce-a913-3da4c0689450
+		summarizeBy: none
+		sourceColumn: DataPagamento
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ValorPago
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 266f98f1-3ae4-479e-81ea-32e26635398c
+		summarizeBy: sum
+		sourceColumn: ValorPago
+
+	column FormaPagamento
+		dataType: string
+		lineageTag: b4f19b80-12ff-4760-a1d3-7257aeec7478
+		summarizeBy: none
+		sourceColumn: FormaPagamento
+
+	/// Materializado de fPedido
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f289d281-c238-4d30-9e10-5e6f90e8f318
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	/// Materializado de fPedido
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1dd25367-6cb2-49a5-8b38-ca200f58f89e
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	/// Data da fatura do pedido (relacao inativa)
+	column DataFaturamento
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 415fb1bd-1948-4f03-995f-235f2bce2e51
+		summarizeBy: none
+		sourceColumn: DataFaturamento
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Recebido | Em aberto | Inconsistente (regra D1)
+	column StatusRecebimento
+		dataType: string
+		lineageTag: b3940e32-3113-4747-830b-36553e7ea1b0
+		summarizeBy: none
+		sourceColumn: StatusRecebimento
+
+	/// Motivo quando StatusRecebimento = Inconsistente
+	column MotivoInconsistencia
+		dataType: string
+		lineageTag: baed7646-fe3a-43cc-b9a8-fa8870616d85
+		summarizeBy: none
+		sourceColumn: MotivoInconsistencia
+
+	partition fContasReceber = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fContasReceber"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"TituloID", Int64.Type}, {"PedidoID", Int64.Type}, {"ClienteID", Int64.Type}, {"ValorTitulo", Currency.Type}, {"Vencimento", type date}, {"DataPagamento", type date}, {"ValorPago", Currency.Type}, {"FormaPagamento", type text}}, "en-US"),
+				    MescladoP = Table.NestedJoin(Tipado, {"PedidoID"}, stgPedido, {"PedidoID"}, "P", JoinKind.LeftOuter),
+				    ExpandidoP = Table.ExpandTableColumn(MescladoP, "P", {"FilialID", "VendedorID"}, {"FilialID", "VendedorID"}),
+				    MescladoF = Table.NestedJoin(ExpandidoP, {"PedidoID"}, stgFaturaData, {"PedidoID"}, "F", JoinKind.LeftOuter),
+				    ExpandidoF = Table.ExpandTableColumn(MescladoF, "F", {"DataFaturamento"}, {"DataFaturamento"}),
+				    Retipado = Table.TransformColumnTypes(ExpandidoF, {{"FilialID", Int64.Type}, {"VendedorID", Int64.Type}, {"DataFaturamento", type date}}),
+				    Status = Table.AddColumn(Retipado, "StatusRecebimento", each if [ValorPago] > 0 and [DataPagamento] <> null and [DataPagamento] >= [DataFaturamento] then "Recebido" else if [ValorPago] = 0 and [DataPagamento] = null then "Em aberto" else "Inconsistente", type text),
+				    Motivo = Table.AddColumn(Status, "MotivoInconsistencia", each if [StatusRecebimento] <> "Inconsistente" then null else if [ValorPago] = 0 then "Data de pagamento sem valor pago" else if [DataPagamento] = null then "Valor pago sem data de pagamento" else "Pagamento anterior ao faturamento", type text)
+				in
+				    Motivo
+
+	annotation PBI_ResultType = Table
+

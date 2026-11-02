@@ -1,0 +1,101 @@
+/// Clientes. FilialID e atributo cadastral sem relacao. PrimeiraCompra = 1a fatura (C6).
+table dCliente
+	lineageTag: d5a1db31-4c44-4c2b-88de-43333c9471c6
+
+	column ClienteID
+		dataType: int64
+		formatString: 0
+		lineageTag: 3561dd0e-387f-44b4-ad13-df99dfd40eef
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	column RazaoSocial
+		dataType: string
+		lineageTag: 7df8a9e0-2010-4b2d-aa9e-92443044e351
+		summarizeBy: none
+		sourceColumn: RazaoSocial
+
+	column Segmento
+		dataType: string
+		lineageTag: be7b46e6-c542-4119-bac5-0e141aacb7e5
+		summarizeBy: none
+		sourceColumn: Segmento
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: edc79ff5-2df5-4e77-bfce-66ae88bd86d8
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column ClassePotencial
+		dataType: string
+		lineageTag: 9bfbd51f-4abe-4cea-9488-58bd3dca81d6
+		summarizeBy: none
+		sourceColumn: ClassePotencial
+
+	column DataCadastro
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 6302ccdd-2ef6-49dd-83c2-2ed22b478715
+		summarizeBy: none
+		sourceColumn: DataCadastro
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LimiteCredito
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 936c1702-e9eb-4f3f-9334-8cdca39211f7
+		summarizeBy: none
+		sourceColumn: LimiteCredito
+
+	column CondicaoPagamento
+		dataType: string
+		lineageTag: c808f2df-42af-4670-9f35-04179106db73
+		summarizeBy: none
+		sourceColumn: CondicaoPagamento
+
+	column Inativo
+		dataType: int64
+		formatString: 0
+		lineageTag: a903ef75-13d7-4be2-a669-b573ade52212
+		summarizeBy: none
+		sourceColumn: Inativo
+
+	/// Data da primeira fatura do cliente (base de Clientes Novos; DataCadastro e invalida - C6)
+	column PrimeiraCompra = CALCULATE ( MIN ( fFaturamento[DataFaturamento] ) )
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: f3591925-794c-47f3-afb2-e1721e54b2dd
+		summarizeBy: none
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Primeiro dia do mes da primeira fatura (cohort).
+	column CohortInicio = IF ( NOT ISBLANK ( dCliente[PrimeiraCompra] ), DATE ( YEAR ( dCliente[PrimeiraCompra] ), MONTH ( dCliente[PrimeiraCompra] ), 1 ) )
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 3b5c14ad-23f3-46f1-ae74-03e0ed8a93a8
+		summarizeBy: none
+
+	/// Cohort de aquisicao (AAAA-MM da primeira fatura).
+	column Cohort = IF ( NOT ISBLANK ( dCliente[PrimeiraCompra] ), FORMAT ( dCliente[PrimeiraCompra], "yyyy-mm" ) )
+		dataType: string
+		lineageTag: 0049d441-9e6c-4c0a-8b36-ed2b8200e014
+		summarizeBy: none
+		sortByColumn: CohortInicio
+
+	partition dCliente = m
+		mode: import
+		queryGroup: Dimensoes
+		source =
+				let
+				    Fonte = fxLerCsv("dCliente"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"ClienteID", Int64.Type}, {"RazaoSocial", type text}, {"Segmento", type text}, {"FilialID", Int64.Type}, {"ClassePotencial", type text}, {"DataCadastro", type date}, {"LimiteCredito", Currency.Type}, {"CondicaoPagamento", type text}, {"Inativo", Int64.Type}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

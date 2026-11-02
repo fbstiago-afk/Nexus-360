@@ -1,0 +1,3157 @@
+{
+ "perfil": {
+  "dCalendario": {
+   "linhas": 1216,
+   "colunas": [
+    "Data",
+    "Ano",
+    "Mes",
+    "NomeMes",
+    "Trimestre",
+    "DiaSemana",
+    "DiaUtil",
+    "SemanaISO"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "Data": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1216,
+     "min": "2024-01-01",
+     "max": "2027-04-30",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Ano": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 4,
+     "min": 2024.0,
+     "max": 2027.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "2024",
+      "2025",
+      "2026",
+      "2027"
+     ]
+    },
+    "Mes": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "NomeMes": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 12,
+     "min": "April",
+     "max": "September",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "April",
+      "August",
+      "December",
+      "February",
+      "January",
+      "July",
+      "June",
+      "March",
+      "May",
+      "November",
+      "October",
+      "September"
+     ]
+    },
+    "Trimestre": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 4,
+     "min": 1.0,
+     "max": 4.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "2",
+      "3",
+      "4"
+     ]
+    },
+    "DiaSemana": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 7,
+     "min": 1.0,
+     "max": 7.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+     ]
+    },
+    "DiaUtil": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 2,
+     "min": 0.0,
+     "max": 1.0,
+     "negativos": 0,
+     "zeros": 346,
+     "datas_invalidas": 0,
+     "dominio": [
+      "0",
+      "1"
+     ]
+    },
+    "SemanaISO": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 53,
+     "min": 1.0,
+     "max": 53.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "Data",
+    "Ano",
+    "Mes",
+    "NomeMes",
+    "Trimestre",
+    "DiaSemana",
+    "DiaUtil",
+    "SemanaISO"
+   ],
+   "dic_linhas": 1216
+  },
+  "dCampanha": {
+   "linhas": 72,
+   "colunas": [
+    "CampanhaID",
+    "Campanha",
+    "Inicio",
+    "Fim",
+    "Canal",
+    "InvestimentoPrevisto"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "CampanhaID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 72,
+     "min": 1.0,
+     "max": 72.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Campanha": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 72,
+     "min": "Campanha 001",
+     "max": "Campanha 072",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Inicio": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 68,
+     "min": "2024-01-16",
+     "max": "2026-10-05",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Fim": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 72,
+     "min": "2024-02-07",
+     "max": "2026-10-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Canal": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Digital",
+     "max": "Trade",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Digital",
+      "Equipe Comercial",
+      "Trade"
+     ]
+    },
+    "InvestimentoPrevisto": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 72,
+     "min": 3132.0,
+     "max": 99308.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "CampanhaID",
+    "Campanha",
+    "Inicio",
+    "Fim",
+    "Canal",
+    "InvestimentoPrevisto"
+   ],
+   "dic_linhas": 72
+  },
+  "dCliente": {
+   "linhas": 35000,
+   "colunas": [
+    "ClienteID",
+    "RazaoSocial",
+    "Segmento",
+    "FilialID",
+    "ClassePotencial",
+    "DataCadastro",
+    "LimiteCredito",
+    "CondicaoPagamento",
+    "Inativo"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "ClienteID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 35000,
+     "min": 1.0,
+     "max": 35000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "RazaoSocial": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 35000,
+     "min": "Atacadista Aurora 00075",
+     "max": "Rede Vértice 34945",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Segmento": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 6,
+     "min": "Atacado",
+     "max": "Varejo Alimentar",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Atacado",
+      "Conveniência",
+      "Farmácias",
+      "Horeca",
+      "Indústria",
+      "Varejo Alimentar"
+     ]
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "ClassePotencial": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "A",
+     "max": "C",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "A",
+      "B",
+      "C"
+     ]
+    },
+    "DataCadastro": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 651,
+     "min": "2024-01-01",
+     "max": "2025-10-12",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "LimiteCredito": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 30353,
+     "min": 2000.0,
+     "max": 119998.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "CondicaoPagamento": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 4,
+     "min": "30 dias",
+     "max": "À vista",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "30 dias",
+      "45 dias",
+      "60 dias",
+      "À vista"
+     ]
+    },
+    "Inativo": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 2,
+     "min": 0.0,
+     "max": 1.0,
+     "negativos": 0,
+     "zeros": 33365,
+     "datas_invalidas": 0,
+     "dominio": [
+      "0",
+      "1"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "ClienteID",
+    "RazaoSocial",
+    "Segmento",
+    "FilialID",
+    "ClassePotencial",
+    "DataCadastro",
+    "LimiteCredito",
+    "CondicaoPagamento",
+    "Inativo"
+   ],
+   "dic_linhas": 35000
+  },
+  "dFilial": {
+   "linhas": 12,
+   "colunas": [
+    "FilialID",
+    "Filial",
+    "Cidade",
+    "UF",
+    "Regiao",
+    "Latitude",
+    "Longitude",
+    "CapacidadePaletes"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "Filial": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 12,
+     "min": "Unidade Belo Horizonte",
+     "max": "Unidade São Paulo",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Unidade Belo Horizonte",
+      "Unidade Brasília",
+      "Unidade Campinas",
+      "Unidade Curitiba",
+      "Unidade Goiânia",
+      "Unidade Joinville",
+      "Unidade Maringá",
+      "Unidade Porto Alegre",
+      "Unidade Ribeirão Preto",
+      "Unidade Rio de Janeiro",
+      "Unidade Sorocaba",
+      "Unidade São Paulo"
+     ]
+    },
+    "Cidade": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 12,
+     "min": "Belo Horizonte",
+     "max": "São Paulo",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Belo Horizonte",
+      "Brasília",
+      "Campinas",
+      "Curitiba",
+      "Goiânia",
+      "Joinville",
+      "Maringá",
+      "Porto Alegre",
+      "Ribeirão Preto",
+      "Rio de Janeiro",
+      "Sorocaba",
+      "São Paulo"
+     ]
+    },
+    "UF": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 8,
+     "min": "DF",
+     "max": "SP",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "DF",
+      "GO",
+      "MG",
+      "PR",
+      "RJ",
+      "RS",
+      "SC",
+      "SP"
+     ]
+    },
+    "Regiao": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Centro-Oeste",
+     "max": "Sul",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Centro-Oeste",
+      "Sudeste",
+      "Sul"
+     ]
+    },
+    "Latitude": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 12,
+     "min": -30.0346,
+     "max": -15.7939,
+     "negativos": 12,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "-15.7939",
+      "-16.6869",
+      "-19.9167",
+      "-21.1699",
+      "-22.9056",
+      "-22.9068",
+      "-23.4205",
+      "-23.5015",
+      "-23.5505",
+      "-25.4284",
+      "-26.3044",
+      "-30.0346"
+     ]
+    },
+    "Longitude": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 12,
+     "min": -51.9331,
+     "max": -43.1729,
+     "negativos": 12,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "-43.1729",
+      "-43.9345",
+      "-46.6333",
+      "-47.0608",
+      "-47.4526",
+      "-47.8099",
+      "-47.8828",
+      "-48.8487",
+      "-49.2648",
+      "-49.2733",
+      "-51.2177",
+      "-51.9331"
+     ]
+    },
+    "CapacidadePaletes": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 3028.0,
+     "max": 5951.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "3028",
+      "3467",
+      "3593",
+      "3718",
+      "3833",
+      "3888",
+      "4030",
+      "4038",
+      "4476",
+      "4568",
+      "4732",
+      "5951"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "FilialID",
+    "Filial",
+    "Cidade",
+    "UF",
+    "Regiao",
+    "Latitude",
+    "Longitude",
+    "CapacidadePaletes"
+   ],
+   "dic_linhas": 12
+  },
+  "dFornecedor": {
+   "linhas": 150,
+   "colunas": [
+    "FornecedorID",
+    "Fornecedor",
+    "UF",
+    "LeadTimeMedio",
+    "Confiabilidade"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "FornecedorID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 150,
+     "min": 1.0,
+     "max": 150.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Fornecedor": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 150,
+     "min": "Fornecedor Estratégico 001",
+     "max": "Fornecedor Estratégico 150",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "UF": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 5,
+     "min": "GO",
+     "max": "SP",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "GO",
+      "MG",
+      "PR",
+      "SC",
+      "SP"
+     ]
+    },
+    "LeadTimeMedio": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 23,
+     "min": 3.0,
+     "max": 25.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "Confiabilidade": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 104,
+     "min": 0.781,
+     "max": 0.99,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "FornecedorID",
+    "Fornecedor",
+    "UF",
+    "LeadTimeMedio",
+    "Confiabilidade"
+   ],
+   "dic_linhas": 150
+  },
+  "dPosicaoArmazem": {
+   "linhas": 4800,
+   "colunas": [
+    "PosicaoID",
+    "FilialID",
+    "EnderecoWMS",
+    "EixoX",
+    "EixoY",
+    "EixoZ",
+    "Zona"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "PosicaoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 4800,
+     "min": 1.0,
+     "max": 4800.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "EnderecoWMS": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 400,
+     "min": "R01-C01-N1",
+     "max": "R10-C10-N4",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "EixoX": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 10,
+     "min": 1.0,
+     "max": 10.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "EixoY": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 10,
+     "min": 1.0,
+     "max": 10.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "EixoZ": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 4,
+     "min": 1.0,
+     "max": 4.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "2",
+      "3",
+      "4"
+     ]
+    },
+    "Zona": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Expedição",
+     "max": "Pulmão",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Expedição",
+      "Picking",
+      "Pulmão"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "PosicaoID",
+    "FilialID",
+    "EnderecoWMS",
+    "EixoX",
+    "EixoY",
+    "EixoZ",
+    "Zona"
+   ],
+   "dic_linhas": 4800
+  },
+  "dProduto": {
+   "linhas": 15000,
+   "colunas": [
+    "ProdutoID",
+    "Produto",
+    "Categoria",
+    "Subcategoria",
+    "Marca",
+    "Unidade",
+    "CustoReferencia",
+    "PrecoTabela",
+    "LeadTimeDias",
+    "Descontinuado"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "ProdutoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 15000,
+     "min": 1.0,
+     "max": 15000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Produto": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 15000,
+     "min": "Acessórios Atena SKU00009",
+     "max": "Águas Vitta SKU14897",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Categoria": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 5,
+     "min": "Alimentos",
+     "max": "Pet",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Alimentos",
+      "Bebidas",
+      "Farmácia",
+      "Higiene",
+      "Pet"
+     ]
+    },
+    "Subcategoria": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 13,
+     "min": "Acessórios",
+     "max": "Águas",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Acessórios",
+      "Conservas",
+      "Cuidados Pessoais",
+      "Energéticos",
+      "Grãos",
+      "Laticínios",
+      "Limpeza",
+      "Massas",
+      "OTC",
+      "Rações",
+      "Sucos",
+      "Suplementos",
+      "Águas"
+     ]
+    },
+    "Marca": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 10,
+     "min": "Atena",
+     "max": "Vitta",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Atena",
+      "Fortis",
+      "Ideal",
+      "Lumina",
+      "Max",
+      "Natural",
+      "Norte",
+      "Prime",
+      "SaborMais",
+      "Vitta"
+     ]
+    },
+    "Unidade": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "CX",
+     "max": "UN",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "CX",
+      "FD",
+      "UN"
+     ]
+    },
+    "CustoReferencia": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 12187,
+     "min": 4.0,
+     "max": 349.99,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "PrecoTabela": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 13133,
+     "min": 5.3,
+     "max": 644.79,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "LeadTimeDias": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 33,
+     "min": 3.0,
+     "max": 35.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Descontinuado": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 2,
+     "min": 0.0,
+     "max": 1.0,
+     "negativos": 0,
+     "zeros": 14715,
+     "datas_invalidas": 0,
+     "dominio": [
+      "0",
+      "1"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "ProdutoID",
+    "Produto",
+    "Categoria",
+    "Subcategoria",
+    "Marca",
+    "Unidade",
+    "CustoReferencia",
+    "PrecoTabela",
+    "LeadTimeDias",
+    "Descontinuado"
+   ],
+   "dic_linhas": 15000
+  },
+  "dTransportadora": {
+   "linhas": 30,
+   "colunas": [
+    "TransportadoraID",
+    "Transportadora",
+    "Modal",
+    "IndiceServico"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "TransportadoraID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 30,
+     "min": 1.0,
+     "max": 30.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Transportadora": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 30,
+     "min": "Transportes 01",
+     "max": "Transportes 30",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Modal": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 2,
+     "min": "Frota própria",
+     "max": "Rodoviário",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Frota própria",
+      "Rodoviário"
+     ]
+    },
+    "IndiceServico": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 27,
+     "min": 0.782,
+     "max": 0.979,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "TransportadoraID",
+    "Transportadora",
+    "Modal",
+    "IndiceServico"
+   ],
+   "dic_linhas": 30
+  },
+  "dVendedor": {
+   "linhas": 180,
+   "colunas": [
+    "VendedorID",
+    "Vendedor",
+    "FilialID",
+    "Equipe",
+    "DataAdmissao",
+    "Ativo"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "VendedorID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 180,
+     "min": 1.0,
+     "max": 180.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Vendedor": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 180,
+     "min": "Consultor 001",
+     "max": "Consultor 180",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "Equipe": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Farmer",
+     "max": "Key Account",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Farmer",
+      "Hunter",
+      "Key Account"
+     ]
+    },
+    "DataAdmissao": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 131,
+     "min": "2024-01-02",
+     "max": "2024-10-27",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Ativo": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 2,
+     "min": 0.0,
+     "max": 1.0,
+     "negativos": 0,
+     "zeros": 7,
+     "datas_invalidas": 0,
+     "dominio": [
+      "0",
+      "1"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "VendedorID",
+    "Vendedor",
+    "FilialID",
+    "Equipe",
+    "DataAdmissao",
+    "Ativo"
+   ],
+   "dic_linhas": 180
+  },
+  "fCompra": {
+   "linhas": 8640,
+   "colunas": [
+    "CompraID",
+    "FornecedorID",
+    "FilialID",
+    "ProdutoID",
+    "DataCompra",
+    "Quantidade",
+    "ValorCompra",
+    "StatusCompra"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "CompraID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 8640,
+     "min": 1.0,
+     "max": 8640.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FornecedorID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 150,
+     "min": 1.0,
+     "max": 150.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "ProdutoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 6527,
+     "min": 1.0,
+     "max": 14998.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataCompra": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1096,
+     "min": "2024-01-01",
+     "max": "2026-12-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Quantidade": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 471,
+     "min": 30.0,
+     "max": 500.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ValorCompra": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 8620,
+     "min": 189.2,
+     "max": 172647.68,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "StatusCompra": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Atrasado",
+     "max": "Recebido",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Atrasado",
+      "Parcial",
+      "Recebido"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "CompraID",
+    "FornecedorID",
+    "FilialID",
+    "ProdutoID",
+    "DataCompra",
+    "Quantidade",
+    "ValorCompra",
+    "StatusCompra"
+   ],
+   "dic_linhas": 8640
+  },
+  "fContasPagar": {
+   "linhas": 8640,
+   "colunas": [
+    "PagamentoID",
+    "CompraID",
+    "ValorTitulo",
+    "Vencimento",
+    "DataPagamento"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "PagamentoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 8640,
+     "min": 1.0,
+     "max": 8640.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "CompraID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 8640,
+     "min": 1.0,
+     "max": 8640.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ValorTitulo": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 8620,
+     "min": 189.2,
+     "max": 172647.68,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Vencimento": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1005,
+     "min": "2024-01-31",
+     "max": "2026-10-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataPagamento": {
+     "tipo_inferido": "date",
+     "vazios": 713,
+     "distintos": 1005,
+     "min": "2024-01-28",
+     "max": "2026-10-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "PagamentoID",
+    "CompraID",
+    "ValorTitulo",
+    "Vencimento",
+    "DataPagamento"
+   ],
+   "dic_linhas": 8640
+  },
+  "fContasReceber": {
+   "linhas": 88979,
+   "colunas": [
+    "TituloID",
+    "PedidoID",
+    "ClienteID",
+    "ValorTitulo",
+    "Vencimento",
+    "DataPagamento",
+    "ValorPago",
+    "FormaPagamento"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "TituloID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 88979,
+     "min": 1.0,
+     "max": 88979.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "PedidoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 88979,
+     "min": 1.0,
+     "max": 99999.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ClienteID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 32225,
+     "min": 1.0,
+     "max": 35000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ValorTitulo": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 85292,
+     "min": 4.74,
+     "max": 29574.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Vencimento": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1020,
+     "min": "2024-01-16",
+     "max": "2026-10-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataPagamento": {
+     "tipo_inferido": "date",
+     "vazios": 8166,
+     "distintos": 1022,
+     "min": "2024-01-14",
+     "max": "2026-10-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ValorPago": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 77889,
+     "min": 0.0,
+     "max": 29574.0,
+     "negativos": 0,
+     "zeros": 7998,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FormaPagamento": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Boleto",
+     "max": "Transferência",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Boleto",
+      "PIX",
+      "Transferência"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "TituloID",
+    "PedidoID",
+    "ClienteID",
+    "ValorTitulo",
+    "Vencimento",
+    "DataPagamento",
+    "ValorPago",
+    "FormaPagamento"
+   ],
+   "dic_linhas": 88979
+  },
+  "fDespesa": {
+   "linhas": 2592,
+   "colunas": [
+    "DespesaID",
+    "DataReferencia",
+    "FilialID",
+    "Conta",
+    "Tipo",
+    "Valor"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "DespesaID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 2592,
+     "min": 1.0,
+     "max": 2592.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataReferencia": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 36,
+     "min": "2024-01-31",
+     "max": "2026-12-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "Conta": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 6,
+     "min": "Administrativo",
+     "max": "TI",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Administrativo",
+      "Aluguel",
+      "Energia",
+      "Marketing",
+      "Pessoal",
+      "TI"
+     ]
+    },
+    "Tipo": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 1,
+     "min": "Saída",
+     "max": "Saída",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Saída"
+     ]
+    },
+    "Valor": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 2592,
+     "min": 4534.59,
+     "max": 123357.11,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "DespesaID",
+    "DataReferencia",
+    "FilialID",
+    "Conta",
+    "Tipo",
+    "Valor"
+   ],
+   "dic_linhas": 2592
+  },
+  "fDevolucao": {
+   "linhas": 3159,
+   "colunas": [
+    "DevolucaoID",
+    "PedidoID",
+    "DataDevolucao",
+    "ValorDevolvido",
+    "Motivo"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "DevolucaoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 3159,
+     "min": 1.0,
+     "max": 3159.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "PedidoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 3159,
+     "min": 203.0,
+     "max": 99999.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataDevolucao": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 975,
+     "min": "2024-01-09",
+     "max": "2026-10-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ValorDevolvido": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 3147,
+     "min": 1.41,
+     "max": 10514.67,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Motivo": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 4,
+     "min": "Avaria",
+     "max": "Vencimento",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Avaria",
+      "Desacordo Comercial",
+      "Erro Separação",
+      "Vencimento"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "DevolucaoID",
+    "PedidoID",
+    "DataDevolucao",
+    "ValorDevolvido",
+    "Motivo"
+   ],
+   "dic_linhas": 3159
+  },
+  "fEntrega": {
+   "linhas": 88979,
+   "colunas": [
+    "EntregaID",
+    "PedidoID",
+    "TransportadoraID",
+    "DataPrometida",
+    "DataEntrega",
+    "PesoKg",
+    "CustoFrete",
+    "NoPrazo",
+    "InFull",
+    "StatusEntrega"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "EntregaID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 88979,
+     "min": 1.0,
+     "max": 88979.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "PedidoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 88979,
+     "min": 1.0,
+     "max": 99999.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "TransportadoraID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 30,
+     "min": 1.0,
+     "max": 30.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataPrometida": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1033,
+     "min": "2024-01-03",
+     "max": "2026-10-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataEntrega": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1035,
+     "min": "2024-01-01",
+     "max": "2026-10-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "PesoKg": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 26595,
+     "min": 0.2,
+     "max": 550.35,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "CustoFrete": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 33452,
+     "min": 70.15,
+     "max": 470.74,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "NoPrazo": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 2,
+     "min": 0.0,
+     "max": 1.0,
+     "negativos": 0,
+     "zeros": 28276,
+     "datas_invalidas": 0,
+     "dominio": [
+      "0",
+      "1"
+     ]
+    },
+    "InFull": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 2,
+     "min": 0.0,
+     "max": 1.0,
+     "negativos": 0,
+     "zeros": 5758,
+     "datas_invalidas": 0,
+     "dominio": [
+      "0",
+      "1"
+     ]
+    },
+    "StatusEntrega": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 2,
+     "min": "Entregue",
+     "max": "Ocorrência",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Entregue",
+      "Ocorrência"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "EntregaID",
+    "PedidoID",
+    "TransportadoraID",
+    "DataPrometida",
+    "DataEntrega",
+    "PesoKg",
+    "CustoFrete",
+    "NoPrazo",
+    "InFull",
+    "StatusEntrega"
+   ],
+   "dic_linhas": 88979
+  },
+  "fEstoqueMensal": {
+   "linhas": 86400,
+   "colunas": [
+    "EstoqueID",
+    "DataReferencia",
+    "FilialID",
+    "ProdutoID",
+    "SaldoUnidades",
+    "EstoqueMinimo",
+    "ValorEstoque",
+    "Ruptura",
+    "DiasSemMovimento"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "EstoqueID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 86400,
+     "min": 1.0,
+     "max": 86400.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataReferencia": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 36,
+     "min": "2024-01-31",
+     "max": "2026-12-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "ProdutoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 15000,
+     "min": 1.0,
+     "max": 15000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "SaldoUnidades": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 451,
+     "min": 0.0,
+     "max": 450.0,
+     "negativos": 0,
+     "zeros": 188,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "EstoqueMinimo": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 111,
+     "min": 10.0,
+     "max": 120.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ValorEstoque": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 84112,
+     "min": 0.0,
+     "max": 156602.22,
+     "negativos": 0,
+     "zeros": 188,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Ruptura": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 2,
+     "min": 0.0,
+     "max": 1.0,
+     "negativos": 0,
+     "zeros": 86212,
+     "datas_invalidas": 0,
+     "dominio": [
+      "0",
+      "1"
+     ]
+    },
+    "DiasSemMovimento": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 110,
+     "min": 1.0,
+     "max": 110.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "EstoqueID",
+    "DataReferencia",
+    "FilialID",
+    "ProdutoID",
+    "SaldoUnidades",
+    "EstoqueMinimo",
+    "ValorEstoque",
+    "Ruptura",
+    "DiasSemMovimento"
+   ],
+   "dic_linhas": 86400
+  },
+  "fFaturamento": {
+   "linhas": 88979,
+   "colunas": [
+    "FaturaID",
+    "PedidoID",
+    "DataFaturamento",
+    "ReceitaLiquida",
+    "Impostos",
+    "CMV"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "FaturaID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 88979,
+     "min": 1.0,
+     "max": 99999.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "PedidoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 88979,
+     "min": 1.0,
+     "max": 99999.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataFaturamento": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1035,
+     "min": "2024-01-01",
+     "max": "2026-10-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ReceitaLiquida": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 85292,
+     "min": 4.74,
+     "max": 29574.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Impostos": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 58877,
+     "min": 0.36,
+     "max": 2218.05,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "CMV": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 84925,
+     "min": 3.93,
+     "max": 20459.8,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "FaturaID",
+    "PedidoID",
+    "DataFaturamento",
+    "ReceitaLiquida",
+    "Impostos",
+    "CMV"
+   ],
+   "dic_linhas": 88979
+  },
+  "fInteracaoCampanha": {
+   "linhas": 6724,
+   "colunas": [
+    "InteracaoID",
+    "CampanhaID",
+    "ClienteID",
+    "DataInteracao",
+    "TipoInteracao"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "InteracaoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 6724,
+     "min": 1.0,
+     "max": 6724.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "CampanhaID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 72,
+     "min": 1.0,
+     "max": 72.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ClienteID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 6081,
+     "min": 17.0,
+     "max": 34987.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataInteracao": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1034,
+     "min": "2024-01-01",
+     "max": "2026-10-30",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "TipoInteracao": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Clique",
+     "max": "Conversão",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Clique",
+      "Contato",
+      "Conversão"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "InteracaoID",
+    "CampanhaID",
+    "ClienteID",
+    "DataInteracao",
+    "TipoInteracao"
+   ],
+   "dic_linhas": 6724
+  },
+  "fItemPedido": {
+   "linhas": 249976,
+   "colunas": [
+    "ItemPedidoID",
+    "PedidoID",
+    "ProdutoID",
+    "Quantidade",
+    "PrecoUnitario",
+    "ValorLiquido",
+    "CustoMercadoria",
+    "Tributacao"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "ItemPedidoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 249976,
+     "min": 1.0,
+     "max": 249976.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "PedidoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 100000,
+     "min": 1.0,
+     "max": 100000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ProdutoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 15000,
+     "min": 1.0,
+     "max": 15000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Quantidade": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 18,
+     "min": 1.0,
+     "max": 18.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "PrecoUnitario": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 54586,
+     "min": 4.32,
+     "max": 657.53,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ValorLiquido": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 166516,
+     "min": 4.68,
+     "max": 11586.42,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "CustoMercadoria": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 183228,
+     "min": 3.79,
+     "max": 6835.98,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Tributacao": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Isento",
+     "max": "Tributado",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Isento",
+      "Substituição Tributária",
+      "Tributado"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "ItemPedidoID",
+    "PedidoID",
+    "ProdutoID",
+    "Quantidade",
+    "PrecoUnitario",
+    "ValorLiquido",
+    "CustoMercadoria",
+    "Tributacao"
+   ],
+   "dic_linhas": 249976
+  },
+  "fMeta": {
+   "linhas": 1296,
+   "colunas": [
+    "MetaID",
+    "DataReferencia",
+    "FilialID",
+    "Indicador",
+    "ValorMeta"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "MetaID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 1296,
+     "min": 1.0,
+     "max": 1296.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataReferencia": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 36,
+     "min": "2024-01-31",
+     "max": "2026-12-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "Indicador": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Faturamento",
+     "max": "OTIF",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Faturamento",
+      "Margem Bruta",
+      "OTIF"
+     ]
+    },
+    "ValorMeta": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 1087,
+     "min": 0.2303,
+     "max": 1707422.81,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "MetaID",
+    "DataReferencia",
+    "FilialID",
+    "Indicador",
+    "ValorMeta"
+   ],
+   "dic_linhas": 1296
+  },
+  "fMovimentoEstoque": {
+   "linhas": 30240,
+   "colunas": [
+    "MovimentoID",
+    "DataMovimento",
+    "FilialID",
+    "ProdutoID",
+    "TipoMovimento",
+    "QuantidadeAssinada",
+    "Origem"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "MovimentoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 30240,
+     "min": 1.0,
+     "max": 30240.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataMovimento": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 36,
+     "min": "2024-01-31",
+     "max": "2026-12-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "ProdutoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 13035,
+     "min": 3.0,
+     "max": 15000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "TipoMovimento": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 4,
+     "min": "Ajuste",
+     "max": "Transferência",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Ajuste",
+      "Entrada",
+      "Saída",
+      "Transferência"
+     ]
+    },
+    "QuantidadeAssinada": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 300,
+     "min": -150.0,
+     "max": 150.0,
+     "negativos": 22500,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Origem": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 4,
+     "min": "Compra",
+     "max": "Venda",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Compra",
+      "Inventário",
+      "Transferência",
+      "Venda"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "MovimentoID",
+    "DataMovimento",
+    "FilialID",
+    "ProdutoID",
+    "TipoMovimento",
+    "QuantidadeAssinada",
+    "Origem"
+   ],
+   "dic_linhas": 30240
+  },
+  "fOcupacaoArmazem": {
+   "linhas": 15120,
+   "colunas": [
+    "OcupacaoID",
+    "DataReferencia",
+    "PosicaoID",
+    "ProdutoID",
+    "Paletes",
+    "StatusPosicao"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "OcupacaoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 15120,
+     "min": 1.0,
+     "max": 15120.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataReferencia": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 36,
+     "min": "2024-01-31",
+     "max": "2026-12-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "PosicaoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 4593,
+     "min": 1.0,
+     "max": 4800.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ProdutoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 9490,
+     "min": 1.0,
+     "max": 15000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Paletes": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 4,
+     "min": 1.0,
+     "max": 4.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "2",
+      "3",
+      "4"
+     ]
+    },
+    "StatusPosicao": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Bloqueada",
+     "max": "Ocupada",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Bloqueada",
+      "Disponível",
+      "Ocupada"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "OcupacaoID",
+    "DataReferencia",
+    "PosicaoID",
+    "ProdutoID",
+    "Paletes",
+    "StatusPosicao"
+   ],
+   "dic_linhas": 15120
+  },
+  "fOrcamento": {
+   "linhas": 864,
+   "colunas": [
+    "OrcamentoID",
+    "DataReferencia",
+    "FilialID",
+    "Conta",
+    "ValorOrcado"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "OrcamentoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 864,
+     "min": 1.0,
+     "max": 864.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataReferencia": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 36,
+     "min": "2024-01-31",
+     "max": "2026-12-31",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "Conta": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 2,
+     "min": "Despesa Operacional",
+     "max": "Receita",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Despesa Operacional",
+      "Receita"
+     ]
+    },
+    "ValorOrcado": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 864,
+     "min": 96496.25,
+     "max": 1707422.81,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "OrcamentoID",
+    "DataReferencia",
+    "FilialID",
+    "Conta",
+    "ValorOrcado"
+   ],
+   "dic_linhas": 864
+  },
+  "fPedido": {
+   "linhas": 100000,
+   "colunas": [
+    "PedidoID",
+    "ClienteID",
+    "FilialID",
+    "VendedorID",
+    "DataPedido",
+    "StatusPedido",
+    "DescontoPercentual",
+    "CampanhaID",
+    "Canal"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "PedidoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 100000,
+     "min": 1.0,
+     "max": 100000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ClienteID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 32915,
+     "min": 1.0,
+     "max": 35000.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "VendedorID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 180,
+     "min": 1.0,
+     "max": 180.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataPedido": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1034,
+     "min": "2024-01-01",
+     "max": "2026-10-30",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "StatusPedido": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Cancelado",
+     "max": "Pendente",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Cancelado",
+      "Faturado",
+      "Pendente"
+     ]
+    },
+    "DescontoPercentual": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 1701,
+     "min": 0.0,
+     "max": 0.17,
+     "negativos": 0,
+     "zeros": 31,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "CampanhaID": {
+     "tipo_inferido": "int",
+     "vazios": 84903,
+     "distintos": 72,
+     "min": 1.0,
+     "max": 72.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "Canal": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 4,
+     "min": "EDI",
+     "max": "Televendas",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "EDI",
+      "Portal B2B",
+      "Representante",
+      "Televendas"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "PedidoID",
+    "ClienteID",
+    "FilialID",
+    "VendedorID",
+    "DataPedido",
+    "StatusPedido",
+    "DescontoPercentual",
+    "CampanhaID",
+    "Canal"
+   ],
+   "dic_linhas": 100000
+  },
+  "fPrevisao": {
+   "linhas": 72,
+   "colunas": [
+    "PrevisaoID",
+    "DataReferencia",
+    "FilialID",
+    "ReceitaPrevista",
+    "MargemErroEstimada"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "PrevisaoID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 72,
+     "min": 1.0,
+     "max": 72.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataReferencia": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 6,
+     "min": "2027-01-31",
+     "max": "2027-06-30",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "2027-01-31",
+      "2027-02-28",
+      "2027-03-31",
+      "2027-04-30",
+      "2027-05-31",
+      "2027-06-30"
+     ]
+    },
+    "FilialID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12,
+     "min": 1.0,
+     "max": 12.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": [
+      "1",
+      "10",
+      "11",
+      "12",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "ReceitaPrevista": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 72,
+     "min": 860794.67,
+     "max": 1390670.01,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "MargemErroEstimada": {
+     "tipo_inferido": "decimal",
+     "vazios": 0,
+     "distintos": 50,
+     "min": 0.09,
+     "max": 0.159,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    }
+   },
+   "dic_colunas": [
+    "PrevisaoID",
+    "DataReferencia",
+    "FilialID",
+    "ReceitaPrevista",
+    "MargemErroEstimada"
+   ],
+   "dic_linhas": 72
+  },
+  "fVisitaComercial": {
+   "linhas": 12500,
+   "colunas": [
+    "VisitaID",
+    "VendedorID",
+    "ClienteID",
+    "DataVisita",
+    "TipoContato",
+    "Resultado"
+   ],
+   "bom": true,
+   "linhas_malformadas": 0,
+   "perfil": {
+    "VisitaID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 12500,
+     "min": 1.0,
+     "max": 12500.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "VendedorID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 180,
+     "min": 1.0,
+     "max": 180.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "ClienteID": {
+     "tipo_inferido": "int",
+     "vazios": 0,
+     "distintos": 10554,
+     "min": 3.0,
+     "max": 34997.0,
+     "negativos": 0,
+     "zeros": 0,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "DataVisita": {
+     "tipo_inferido": "date",
+     "vazios": 0,
+     "distintos": 1034,
+     "min": "2024-01-01",
+     "max": "2026-10-30",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": null
+    },
+    "TipoContato": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 3,
+     "min": "Presencial",
+     "max": "Vídeo",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Presencial",
+      "Telefone",
+      "Vídeo"
+     ]
+    },
+    "Resultado": {
+     "tipo_inferido": "text",
+     "vazios": 0,
+     "distintos": 4,
+     "min": "Follow-up",
+     "max": "Sem interesse",
+     "negativos": null,
+     "zeros": null,
+     "datas_invalidas": 0,
+     "dominio": [
+      "Follow-up",
+      "Pedido",
+      "Proposta",
+      "Sem interesse"
+     ]
+    }
+   },
+   "dic_colunas": [
+    "VisitaID",
+    "VendedorID",
+    "ClienteID",
+    "DataVisita",
+    "TipoContato",
+    "Resultado"
+   ],
+   "dic_linhas": 12500
+  }
+ },
+ "sha256_csv": {
+  "dCalendario.csv": "cb08c3f65da488ae3bea85f31eebe49d7db54aa84b3188d7edb161b3c067a4ce",
+  "dCampanha.csv": "7253e86f98732d349e07b20b9194899bc26f106576f777a86026fc0c1aa286d0",
+  "dCliente.csv": "f18a98e27a0d7b0b16f50259c6204612657c62daedc59b25d267a6d342c7b497",
+  "dFilial.csv": "f341fdd0163602c72502c8ea28e061dd2d4a95f4f582f9616114570d47497106",
+  "dFornecedor.csv": "ac9d3d2722e6946bffe6b7d80b1b83abb42eec46a3d1192f056c887921c7ca66",
+  "dPosicaoArmazem.csv": "a5ffcb50cfdde14c0bae0e6725aba82afb0b0165a59304c0e5a74d411684227a",
+  "dProduto.csv": "e06018abce615b8c3abd30028ccfde62b160b3be11f0cc9be3086e86e4861b13",
+  "dTransportadora.csv": "252aecf3b2c6e3019dbe84d01adff59d8980242a337bf61dc154209e66e0085e",
+  "dVendedor.csv": "6e25ba60e4ca799ffbaa1f3ca743006a9e511a9a4acbc36cae52a4c2c2deaa18",
+  "fCompra.csv": "7c186cd8aebb416d3f66c0cbc888f1201d31002ababd8aa77728bd858c7829df",
+  "fContasPagar.csv": "299d0bae8971715bfd13706997d02073ff1335d85d565de8446a8ce678bf2190",
+  "fContasReceber.csv": "576fa6e40c761eef912e13c865f4f60bf503a06e253cdd758853df20dc1ecb8e",
+  "fDespesa.csv": "adb85bea5edf4ef7ad7e3796c81f95a682f8f175f350338dfa1cbf920faf555c",
+  "fDevolucao.csv": "6537f6526fdc83daf12f6e49a59ba308fffdbed492f5258fc22c6c51b74d1e8c",
+  "fEntrega.csv": "d94c2c2f5b255fc314e6f119d51a1f4bb82ba50dd75db58807947fd503dec9a2",
+  "fEstoqueMensal.csv": "80f0fb04ae0a9c9e879c5286aa3f30a69ed34771fcda3d55023f4f2674738ad1",
+  "fFaturamento.csv": "52f8adca57da53c2af297f5bbaa88e51d6564608d4851f8fd52d18623d260f27",
+  "fInteracaoCampanha.csv": "492fb8e6fcd28ef981f8194dddd5780a06c580272e797841d7b96fd838ec81c6",
+  "fItemPedido.csv": "31d39c9bdfb3004824e95d84bd6fff81a7f58a47d2959a391beda9727a907972",
+  "fMeta.csv": "44712ee673edd4982517c93ffed3b6ad5accc52de44316ff4e5d7b37e3c2d958",
+  "fMovimentoEstoque.csv": "cf9701b00dc879bd82aa3e23842b3d6be096f0cfff6eb6b33bf1013fe889cf81",
+  "fOcupacaoArmazem.csv": "e3e7f2bf9e37f71f0d962ed4a103dad33d9ff6bff5834194c684daa075368eee",
+  "fOrcamento.csv": "d3065bb07c88c49777b01ff8a3848abe0977a58b3158d246bc5c0a7abdac79e3",
+  "fPedido.csv": "69ae766de1d4f2e4837422491bb39634526b59832724c9bcb6ff28c28eefc07a",
+  "fPrevisao.csv": "68ee0f83e7767fe3286382b9ed1a10cd7dab3596be271886cd8a726f95c3d97f",
+  "fVisitaComercial.csv": "881e91bcb7c3172a48da82eb920ff7306510ce7a644563e018230668991b85f0"
+ }
+}

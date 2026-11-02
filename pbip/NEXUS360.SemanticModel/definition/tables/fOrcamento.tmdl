@@ -1,0 +1,52 @@
+table fOrcamento
+	lineageTag: 8449cffe-8846-4f2e-83be-7018197cf586
+
+	column OrcamentoID
+		dataType: int64
+		formatString: 0
+		lineageTag: e220fc3e-7100-4e6b-acc1-89fedffa1700
+		summarizeBy: none
+		sourceColumn: OrcamentoID
+
+	column DataReferencia
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: a5711d7f-68f8-4907-a7bd-bbadd723e75b
+		summarizeBy: none
+		sourceColumn: DataReferencia
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4de2f121-fd06-4358-bb2e-b39ae88be7e7
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column Conta
+		dataType: string
+		lineageTag: aacbde6c-546e-4e45-beaa-249ed16289c4
+		summarizeBy: none
+		sourceColumn: Conta
+
+	column ValorOrcado
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 6a76f20e-aa1c-411b-aa48-3b8b8b1e81ad
+		summarizeBy: sum
+		sourceColumn: ValorOrcado
+
+	partition fOrcamento = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fOrcamento"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"OrcamentoID", Int64.Type}, {"DataReferencia", type date}, {"FilialID", Int64.Type}, {"Conta", type text}, {"ValorOrcado", Currency.Type}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

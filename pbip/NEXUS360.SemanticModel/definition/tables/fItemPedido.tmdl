@@ -1,0 +1,164 @@
+table fItemPedido
+	lineageTag: 3b89ec65-a1ba-4701-bb3b-b48c805e7d32
+
+	column ItemPedidoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 5cb39343-1049-4ca9-b1eb-b0a6edb5b40f
+		summarizeBy: none
+		sourceColumn: ItemPedidoID
+
+	column PedidoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eae9cfdb-7679-4c2b-a8a0-0965d7632a64
+		summarizeBy: none
+		sourceColumn: PedidoID
+
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c2f1373b-d779-4183-a6da-0e62d2586e50
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column Quantidade
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8cff31a6-b631-4e45-8d2a-10a492b2c504
+		summarizeBy: sum
+		sourceColumn: Quantidade
+
+	column PrecoUnitario
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 5887df90-e610-4c8d-8834-9aa6d2714cb2
+		summarizeBy: sum
+		sourceColumn: PrecoUnitario
+
+	column ValorLiquido
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: f9f1cfc3-a009-48cc-a1f2-e23f48c17962
+		summarizeBy: sum
+		sourceColumn: ValorLiquido
+
+	column CustoMercadoria
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 32a53f73-b9a5-4cb5-9784-baaa7b8daa8d
+		summarizeBy: sum
+		sourceColumn: CustoMercadoria
+
+	column Tributacao
+		dataType: string
+		lineageTag: ce646584-295d-46ae-b14f-8b2258fea1f9
+		summarizeBy: none
+		sourceColumn: Tributacao
+
+	/// Materializado de fPedido (1:1 por PedidoID)
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b18de385-8b59-4beb-bbc7-abc7093a3487
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	/// Filial transacional do pedido
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3fab2d1d-9850-4799-b859-eef56125ee5f
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	/// Materializado de fPedido
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 277707bb-ceb0-48ad-b620-c44892a16e8b
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	/// Materializado de fPedido; atribuicao de campanha nao confiavel (C7)
+	column CampanhaID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 796bf37a-2d7f-4b14-90e0-0250c9d5e571
+		summarizeBy: none
+		sourceColumn: CampanhaID
+
+	/// Data do pedido (data ativa desta fato)
+	column DataPedido
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: f0d358b8-ccd4-4b62-a3e5-2e4e2c8fa6aa
+		summarizeBy: none
+		sourceColumn: DataPedido
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Status do pedido
+	column StatusPedido
+		dataType: string
+		lineageTag: 46faabe9-a955-4648-b614-e14e68e27322
+		summarizeBy: none
+		sourceColumn: StatusPedido
+
+	/// Canal do pedido
+	column Canal
+		dataType: string
+		lineageTag: ba71ca06-c6df-42d9-8947-f759cb8683d9
+		summarizeBy: none
+		sourceColumn: Canal
+
+	/// Desconto do pedido materializado no item (atributo; ja embutido no ValorLiquido).
+	column DescontoPercentual
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: 7f1fde50-4b87-4ac7-a17e-9a3493867f65
+		summarizeBy: none
+		sourceColumn: DescontoPercentual
+
+	/// Fatura do pedido (vazio para pedidos cancelados/pendentes).
+	column FaturaID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 110405e9-4ce2-457a-8049-095f5f3e4f64
+		summarizeBy: none
+		sourceColumn: FaturaID
+
+	/// Data da fatura do pedido (relacao inativa com dCalendario; ativada nas medidas de receita). Vazio para nao faturados.
+	column DataFaturamento
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 64d2abb8-d692-444c-8dec-c308308cfa7d
+		summarizeBy: none
+		sourceColumn: DataFaturamento
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fItemPedido = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fItemPedido"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"ItemPedidoID", Int64.Type}, {"PedidoID", Int64.Type}, {"ProdutoID", Int64.Type}, {"Quantidade", Int64.Type}, {"PrecoUnitario", Currency.Type}, {"ValorLiquido", Currency.Type}, {"CustoMercadoria", Currency.Type}, {"Tributacao", type text}}, "en-US"),
+				    Mesclado = Table.NestedJoin(Tipado, {"PedidoID"}, stgPedido, {"PedidoID"}, "Ref", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(Mesclado, "Ref", {"ClienteID", "FilialID", "VendedorID", "CampanhaID", "DataPedido", "StatusPedido", "Canal", "DescontoPercentual"}, {"ClienteID", "FilialID", "VendedorID", "CampanhaID", "DataPedido", "StatusPedido", "Canal", "DescontoPercentual"}),
+				    MescladoF = Table.NestedJoin(Expandido, {"PedidoID"}, stgFaturaData, {"PedidoID"}, "F", JoinKind.LeftOuter),
+				    ExpandidoF = Table.ExpandTableColumn(MescladoF, "F", {"FaturaID", "DataFaturamento"}, {"FaturaID", "DataFaturamento"}),
+				    Retipado = Table.TransformColumnTypes(ExpandidoF, {{"ClienteID", Int64.Type}, {"FilialID", Int64.Type}, {"VendedorID", Int64.Type}, {"CampanhaID", Int64.Type}, {"DataPedido", type date}, {"StatusPedido", type text}, {"Canal", type text}, {"DescontoPercentual", type number}, {"FaturaID", Int64.Type}, {"DataFaturamento", type date}}, "en-US")
+				in
+				    Retipado
+
+	annotation PBI_ResultType = Table
+

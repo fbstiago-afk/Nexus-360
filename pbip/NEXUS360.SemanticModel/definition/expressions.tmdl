@@ -1,0 +1,104 @@
+expression pPastaDados = "E:\Projetos BI\18 - Nexus 360\dados\NEXUS360\csv\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 15b01ad8-e641-4cdd-9f77-e71ed5e9640e
+	queryGroup: Parametros
+
+	annotation PBI_ResultType = Text
+
+expression pDataCorte = #date(2026, 10, 31) meta [IsParameterQuery=true, Type="Date", IsParameterQueryRequired=true]
+	lineageTag: a675997d-7cc4-4a33-a1cb-617896d5bfbc
+	queryGroup: Parametros
+
+	annotation PBI_ResultType = Date
+
+expression fxLerCsv =
+		(nome as text) as table =>
+		let
+		    Arquivo = File.Contents(pPastaDados & nome & ".csv"),
+		    Csv = Csv.Document(Arquivo, [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+		    Cabecalho = Table.PromoteHeaders(Csv, [PromoteAllScalars = true]),
+		    SemBOM = Table.TransformColumnNames(Cabecalho, each Text.Replace(_, Character.FromNumber(65279), "")),
+		    VaziosNulos = Table.ReplaceValue(SemBOM, "", null, Replacer.ReplaceValue, Table.ColumnNames(SemBOM))
+		in
+		    VaziosNulos
+	lineageTag: 3e7053b5-afd9-4ea9-be0a-eea7f8fee430
+	queryGroup: Funcoes
+
+	annotation PBI_ResultType = Function
+
+expression stgPedido =
+		let
+		    Fonte = fxLerCsv("fPedido"),
+		    Selecionado = Table.SelectColumns(Fonte, {"PedidoID", "ClienteID", "FilialID", "VendedorID", "DataPedido", "StatusPedido", "DescontoPercentual", "CampanhaID", "Canal"}),
+		    Tipado = Table.TransformColumnTypes(Selecionado, {{"PedidoID", Int64.Type}, {"ClienteID", Int64.Type}, {"FilialID", Int64.Type}, {"VendedorID", Int64.Type}, {"DataPedido", type date}, {"StatusPedido", type text}, {"DescontoPercentual", type number}, {"CampanhaID", Int64.Type}, {"Canal", type text}}, "en-US"),
+		    Buffer = Table.Buffer(Tipado)
+		in
+		    Buffer
+	lineageTag: dcdb8fa2-88d8-41da-a5db-dfe0716ff377
+	queryGroup: Staging
+
+	annotation PBI_ResultType = Table
+
+expression stgFaturaData =
+		let
+		    Fonte = fxLerCsv("fFaturamento"),
+		    Selecionado = Table.SelectColumns(Fonte, {"FaturaID", "PedidoID", "DataFaturamento"}),
+		    Tipado = Table.TransformColumnTypes(Selecionado, {{"FaturaID", Int64.Type}, {"PedidoID", Int64.Type}, {"DataFaturamento", type date}}, "en-US"),
+		    Buffer = Table.Buffer(Tipado)
+		in
+		    Buffer
+	lineageTag: fa3cbaf3-2aa8-493f-839e-397c3a02cd73
+	queryGroup: Staging
+
+	annotation PBI_ResultType = Table
+
+expression stgCompra =
+		let
+		    Fonte = fxLerCsv("fCompra"),
+		    Selecionado = Table.SelectColumns(Fonte, {"CompraID", "FornecedorID", "FilialID", "ProdutoID", "DataCompra"}),
+		    Tipado = Table.TransformColumnTypes(Selecionado, {{"CompraID", Int64.Type}, {"FornecedorID", Int64.Type}, {"FilialID", Int64.Type}, {"ProdutoID", Int64.Type}, {"DataCompra", type date}}, "en-US"),
+		    Buffer = Table.Buffer(Tipado)
+		in
+		    Buffer
+	lineageTag: 55b51fe3-22cc-49d1-b4ae-8d19ff91bd72
+	queryGroup: Staging
+
+	annotation PBI_ResultType = Table
+
+expression stgPosicao =
+		let
+		    Fonte = fxLerCsv("dPosicaoArmazem"),
+		    Selecionado = Table.SelectColumns(Fonte, {"PosicaoID", "FilialID"}),
+		    Tipado = Table.TransformColumnTypes(Selecionado, {{"PosicaoID", Int64.Type}, {"FilialID", Int64.Type}}, "en-US"),
+		    Buffer = Table.Buffer(Tipado)
+		in
+		    Buffer
+	lineageTag: 525be976-a3a5-4071-aee2-bf20aa59a1e2
+	queryGroup: Staging
+
+	annotation PBI_ResultType = Table
+
+expression stgClienteFilial =
+		let
+		    Fonte = fxLerCsv("dCliente"),
+		    Selecionado = Table.SelectColumns(Fonte, {"ClienteID", "FilialID"}),
+		    Tipado = Table.TransformColumnTypes(Selecionado, {{"ClienteID", Int64.Type}, {"FilialID", Int64.Type}}, "en-US"),
+		    Buffer = Table.Buffer(Tipado)
+		in
+		    Buffer
+	lineageTag: e8a4bfbb-66db-4718-947f-e5a109c0a7e5
+	queryGroup: Staging
+
+	annotation PBI_ResultType = Table
+
+expression stgPrevisaoDatas =
+		let
+		    Fonte = fxLerCsv("fPrevisao"),
+		    Tipado = Table.TransformColumnTypes(Fonte, {{"DataReferencia", type date}}, "en-US"),
+		    Datas = List.Distinct(Tipado[DataReferencia])
+		in
+		    Datas
+	lineageTag: 9fb9053e-e36b-460c-8948-9f6314e89313
+	queryGroup: Staging
+
+	annotation PBI_ResultType = List
+

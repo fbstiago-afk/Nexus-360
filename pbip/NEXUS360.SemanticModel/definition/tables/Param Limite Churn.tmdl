@@ -1,0 +1,15 @@
+/// Parametro desconectado: dias sem compra a partir dos quais o cliente e Churn (padrao 365).
+table 'Param Limite Churn'
+	lineageTag: 5f687b2b-19e2-42d6-982d-687173ed5c07
+
+	column Dias
+		formatString: 0
+		lineageTag: c49f948c-f828-4eb2-ac31-b350c5dddb4f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Dias]
+
+	partition 'Param Limite Churn' = calculated
+		mode: import
+		source = DATATABLE ( "Dias", INTEGER, { { 180 }, { 270 }, { 365 }, { 450 }, { 540 }, { 730 } } )
+

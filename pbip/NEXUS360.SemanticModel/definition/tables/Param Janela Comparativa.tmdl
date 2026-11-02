@@ -1,0 +1,15 @@
+/// Eixo desconectado para comparar a taxa de churn sob diferentes janelas.
+table 'Param Janela Comparativa'
+	lineageTag: 3020edd9-2157-4b17-bbb5-f336518cef8b
+
+	column 'Janela (dias)'
+		formatString: 0
+		lineageTag: 94df7443-99e2-47ed-abec-3c0af90eb1a4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Janela (dias)]
+
+	partition 'Param Janela Comparativa' = calculated
+		mode: import
+		source = DATATABLE ( "Janela (dias)", INTEGER, { { 90 }, { 180 }, { 270 }, { 365 }, { 540 }, { 730 } } )
+

@@ -1,0 +1,16 @@
+/// Eixo de preco da grade de sensibilidade.
+table 'Sim Grade Preço'
+	lineageTag: b8556c7d-5e33-47d5-8522-95c3754a5a67
+
+	column 'Preço grade %'
+		dataType: double
+		formatString: +0%;-0%;0%
+		lineageTag: 0dcda901-0569-4bd4-8656-27074a050b70
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Preço grade %]
+
+	partition 'Sim Grade Preço' = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( -10, 10, 2 ), "Preço grade %", [Value] / 100 )
+

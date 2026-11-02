@@ -1,0 +1,59 @@
+table dCampanha
+	lineageTag: c2523b0f-65a4-499b-ae47-9b6364b6d418
+
+	column CampanhaID
+		dataType: int64
+		formatString: 0
+		lineageTag: d2856fee-e0b1-4e27-9f20-22993c1bf31e
+		summarizeBy: none
+		sourceColumn: CampanhaID
+
+	column Campanha
+		dataType: string
+		lineageTag: ac8b7319-4637-4c20-8699-672c7f00ced4
+		summarizeBy: none
+		sourceColumn: Campanha
+
+	column Inicio
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: b36469a8-8009-457e-a104-93259e5504d8
+		summarizeBy: none
+		sourceColumn: Inicio
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Fim
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 4e913d62-0e40-47e6-9d77-6a776db4c20e
+		summarizeBy: none
+		sourceColumn: Fim
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Canal
+		dataType: string
+		lineageTag: c274d11c-070a-4c83-b825-ef7ada16d57a
+		summarizeBy: none
+		sourceColumn: Canal
+
+	column InvestimentoPrevisto
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: b6bf70f4-7626-40fc-a755-2a6eff2dd630
+		summarizeBy: none
+		sourceColumn: InvestimentoPrevisto
+
+	partition dCampanha = m
+		mode: import
+		queryGroup: Dimensoes
+		source =
+				let
+				    Fonte = fxLerCsv("dCampanha"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"CampanhaID", Int64.Type}, {"Campanha", type text}, {"Inicio", type date}, {"Fim", type date}, {"Canal", type text}, {"InvestimentoPrevisto", Currency.Type}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

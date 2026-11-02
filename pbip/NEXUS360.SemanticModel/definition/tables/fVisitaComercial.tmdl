@@ -1,0 +1,71 @@
+table fVisitaComercial
+	lineageTag: 6bc5c4c7-78b0-45a4-9b71-d729860f8b8d
+
+	column VisitaID
+		dataType: int64
+		formatString: 0
+		lineageTag: 61e92da6-a1e1-4485-8cf0-d503f492394f
+		summarizeBy: none
+		sourceColumn: VisitaID
+
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4f755180-7039-4242-ac29-ca2e2c7b1210
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3ef6b5ea-1290-4bc7-8ed3-4b0f4a0288da
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	column DataVisita
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 8243cd58-c6ee-4e6e-a14d-92eb74a3bc08
+		summarizeBy: none
+		sourceColumn: DataVisita
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TipoContato
+		dataType: string
+		lineageTag: 7c799c65-3bde-412b-ad83-0100ab03c39c
+		summarizeBy: none
+		sourceColumn: TipoContato
+
+	column Resultado
+		dataType: string
+		lineageTag: 3220eeb8-9998-40d5-931c-2d4ee0d5abdc
+		summarizeBy: none
+		sourceColumn: Resultado
+
+	/// Filial cadastral do cliente (= filial transacional em 100% dos pedidos)
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 99fb8f98-1143-472e-8cf2-4565bbec9672
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	partition fVisitaComercial = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fVisitaComercial"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"VisitaID", Int64.Type}, {"VendedorID", Int64.Type}, {"ClienteID", Int64.Type}, {"DataVisita", type date}, {"TipoContato", type text}, {"Resultado", type text}}, "en-US"),
+				    Mesclado = Table.NestedJoin(Tipado, {"ClienteID"}, stgClienteFilial, {"ClienteID"}, "Ref", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(Mesclado, "Ref", {"FilialID"}, {"FilialID"}),
+				    Retipado = Table.TransformColumnTypes(Expandido, {{"FilialID", Int64.Type}}, "en-US")
+				in
+				    Retipado
+
+	annotation PBI_ResultType = Table
+

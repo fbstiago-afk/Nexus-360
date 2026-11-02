@@ -1,0 +1,21 @@
+/// Parametro de simulacao: Variacao das despesas operacionais (nao escalam com volume).
+table 'Sim Despesas'
+	lineageTag: ed57ab96-3b9e-4698-977a-98dc7c11fa16
+
+	column 'Despesas %'
+		dataType: double
+		formatString: +0%;-0%;0%
+		lineageTag: 1237c0ca-4231-4a4c-bbc7-f8329fe81882
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Despesas %]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+	partition 'Sim Despesas' = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( -20, 20, 1 ), "Despesas %", [Value] / 100 )
+

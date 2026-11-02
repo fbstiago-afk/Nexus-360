@@ -1,0 +1,67 @@
+table dFilial
+	lineageTag: deadc5c5-ac55-4d08-a4cd-9e73052ffd9f
+
+	column FilialID
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b94db7e-eba7-4606-8e2a-40a78a0c3dec
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column Filial
+		dataType: string
+		lineageTag: 90ed5128-3ce0-4d9c-98b5-4238dea93ee3
+		summarizeBy: none
+		sourceColumn: Filial
+
+	column Cidade
+		dataType: string
+		lineageTag: 57b3565b-a9fc-4148-8474-8c44561be011
+		summarizeBy: none
+		sourceColumn: Cidade
+
+	column UF
+		dataType: string
+		lineageTag: fa135fc8-1fbe-4f78-894f-573ed99b98ee
+		summarizeBy: none
+		sourceColumn: UF
+
+	column Regiao
+		dataType: string
+		lineageTag: 661685d4-84c0-4d01-ac0b-7d4fb2248573
+		summarizeBy: none
+		sourceColumn: Regiao
+
+	column Latitude
+		dataType: double
+		lineageTag: 1b3b5bbe-da32-420f-abbd-f87433c86493
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: Latitude
+
+	column Longitude
+		dataType: double
+		lineageTag: 2590b92c-d4d3-4384-9d41-cb24c5fbf675
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: Longitude
+
+	column CapacidadePaletes
+		dataType: int64
+		formatString: #,0
+		lineageTag: b93feead-43cd-471f-8fe6-b0740892f901
+		summarizeBy: none
+		sourceColumn: CapacidadePaletes
+
+	partition dFilial = m
+		mode: import
+		queryGroup: Dimensoes
+		source =
+				let
+				    Fonte = fxLerCsv("dFilial"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"FilialID", Int64.Type}, {"Filial", type text}, {"Cidade", type text}, {"UF", type text}, {"Regiao", type text}, {"Latitude", type number}, {"Longitude", type number}, {"CapacidadePaletes", Int64.Type}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

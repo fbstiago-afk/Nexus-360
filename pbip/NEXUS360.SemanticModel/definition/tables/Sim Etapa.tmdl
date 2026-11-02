@@ -1,0 +1,24 @@
+/// Etapas da ponte do resultado simulado (cascata).
+table 'Sim Etapa'
+	lineageTag: 276a918b-25cf-4f67-93f5-153b279abc99
+
+	column Ordem
+		dataType: int64
+		formatString: 0
+		lineageTag: d176d9fd-ea6f-4317-bf46-8f8853adb7f0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ordem]
+
+	column Etapa
+		dataType: string
+		lineageTag: 9ef86577-f130-4fc7-a336-3c27b24bbb32
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Etapa]
+		sortByColumn: Ordem
+
+	partition 'Sim Etapa' = calculated
+		mode: import
+		source = DATATABLE ( "Ordem", INTEGER, "Etapa", STRING, { { 1, "Resultado base" }, { 2, "Preço" }, { 3, "Desconto" }, { 4, "Volume" }, { 5, "Custo da mercadoria" }, { 6, "Frete" }, { 7, "Despesas" } } )
+

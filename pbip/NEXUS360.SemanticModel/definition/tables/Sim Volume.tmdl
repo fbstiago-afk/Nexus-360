@@ -1,0 +1,21 @@
+/// Parametro de simulacao: Variacao de volume (escala receita, CMV e frete).
+table 'Sim Volume'
+	lineageTag: 9041d902-07ba-4055-ae27-d8cc0bfa270a
+
+	column 'Volume %'
+		dataType: double
+		formatString: +0%;-0%;0%
+		lineageTag: 9eab2abc-d2c1-466b-9e54-ba0b4479f089
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Volume %]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+	partition 'Sim Volume' = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( -20, 20, 1 ), "Volume %", [Value] / 100 )
+

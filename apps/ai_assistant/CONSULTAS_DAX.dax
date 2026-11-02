@@ -1,0 +1,121 @@
+// NEXUS 360 - Consultas DAX governadas do AI Decision Assistant
+// Placeholders {x} sao preenchidos pelo orquestrador APOS validacao do schema; nunca por texto livre do LLM.
+
+// ===== resumo_executivo: Receita, margem, atingimento da meta, resultado gerencial e churn do periodo.
+DEFINE
+VAR _ini = DATEVALUE ( "{inicio}" )
+VAR _fim = DATEVALUE ( "{fim}" )
+VAR _per = DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+VAR _fil = {fil_expr}
+EVALUATE
+CALCULATETABLE (
+    ROW (
+        "Receita", [Receita Líquida], "Margem Bruta %", [Margem Bruta %], "Meta", [Meta Faturamento],
+        "Atingimento %", [Atingimento Meta Faturamento %], "Resultado Gerencial", [Resultado Gerencial Simplificado],
+        "Taxa de Churn %", [Taxa de Churn %], "OTIF %", [OTIF %]
+    ),
+    _per, _fil
+)
+
+// ===== ranking_filiais: Ranking de filiais por uma metrica permitida (allowlist).
+DEFINE
+VAR _ini = DATEVALUE ( "{inicio}" )
+VAR _fim = DATEVALUE ( "{fim}" )
+EVALUATE
+TOPN (
+    {top_n},
+    CALCULATETABLE ( ADDCOLUMNS ( VALUES ( dFilial[Cidade] ), "Valor", [{metrica}] ), DATESBETWEEN ( dCalendario[Data], _ini, _fim ) ),
+    [Valor], {ordem_dax}
+)
+ORDER BY [Valor] {ordem_dax}
+
+// ===== clientes_em_risco: Clientes em risco (180 a 364 dias sem compra) ordenados pela receita dos ultimos 12 meses.
+DEFINE
+VAR _ref = DATEVALUE ( "{data_referencia}" )
+VAR _fil = {fil_expr}
+VAR _t =
+    CALCULATETABLE (
+        FILTER (
+            ADDCOLUMNS ( VALUES ( dCliente[ClienteID] ), "Dias sem compra", [Dias sem Compra (Data Ref.)], "Receita 12M", [Receita 12M (Data Ref.)] ),
+            [Dias sem compra] >= 180 && [Dias sem compra] < 365
+        ),
+        dCalendario[Data] <= _ref, _fil
+    )
+EVALUATE TOPN ( {top_n}, _t, [Receita 12M], DESC )
+ORDER BY [Receita 12M] DESC
+
+// ===== desempenho_vendedores: Receita, margem e desconto por vendedor.
+DEFINE
+VAR _ini = DATEVALUE ( "{inicio}" )
+VAR _fim = DATEVALUE ( "{fim}" )
+VAR _per = DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+VAR _fil = {fil_expr}
+EVALUATE
+TOPN (
+    {top_n},
+    CALCULATETABLE (
+        ADDCOLUMNS ( VALUES ( dVendedor[Vendedor] ), "Receita", [Receita Líquida], "Margem %", [Margem Bruta %], "Desconto %", [Desconto Médio Ponderado %] ),
+        _per, _fil
+    ),
+    [Receita], DESC
+)
+ORDER BY [Receita] DESC
+
+// ===== otif_transportadoras: OTIF, atraso medio e frete por transportadora (minimo de entregas para entrar no ranking).
+DEFINE
+VAR _ini = DATEVALUE ( "{inicio}" )
+VAR _fim = DATEVALUE ( "{fim}" )
+EVALUATE
+TOPN (
+    {top_n},
+    FILTER (
+        CALCULATETABLE (
+            ADDCOLUMNS ( VALUES ( dTransportadora[Transportadora] ), "Entregas", [Entregas], "OTIF %", [OTIF %], "Atraso médio", [Atraso Médio (dias)], "Frete/entrega", [Frete por Entrega] ),
+            DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+        ),
+        [Entregas] >= {min_entregas}
+    ),
+    [OTIF %], ASC
+)
+ORDER BY [OTIF %] ASC
+
+// ===== dre_gerencial: DRE gerencial por linha, com ano anterior.
+DEFINE
+VAR _ini = DATEVALUE ( "{inicio}" )
+VAR _fim = DATEVALUE ( "{fim}" )
+VAR _per = DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+VAR _fil = {fil_expr}
+EVALUATE
+CALCULATETABLE (
+    ADDCOLUMNS ( VALUES ( dLinhaDRE[Linha] ), "Valor", [Valor DRE Gerencial], "Ano anterior", [Valor DRE Gerencial LY] ),
+    _per, _fil
+)
+
+// ===== projecao_receita: Projecao sazonal mensal apos o corte, com faixa de 90% (metodo documentado na pagina Predictive).
+DEFINE
+VAR _fil = {fil_expr}
+EVALUATE
+CALCULATETABLE (
+    FILTER (
+        ADDCOLUMNS ( VALUES ( dCalendario[AnoMes] ), "Projeção", [Projeção Sazonal Receita], "Inferior 90%", [Projeção Limite Inferior 90%], "Superior 90%", [Projeção Limite Superior 90%] ),
+        NOT ISBLANK ( [Projeção] )
+    ),
+    _fil
+)
+ORDER BY dCalendario[AnoMes]
+
+// ===== simular_cenario: Resultado operacional sob premissas (preco, desconto, volume, custo, frete, despesas). Nao e previsao.
+DEFINE
+VAR _ini = DATEVALUE ( "{inicio}" )
+VAR _fim = DATEVALUE ( "{fim}" )
+VAR _per = DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+VAR _fil = {fil_expr}
+EVALUATE
+CALCULATETABLE (
+    ADDCOLUMNS ( SUMMARIZE ( 'Sim Etapa', 'Sim Etapa'[Ordem], 'Sim Etapa'[Etapa] ), "Efeito", [Sim Valor Etapa] ),
+    _per, _fil,
+    'Sim Preço'[Preço %] = {preco}, 'Sim Desconto'[Desconto p.p.] = {desconto_pp}, 'Sim Volume'[Volume %] = {volume},
+    'Sim Custo'[Custo %] = {custo}, 'Sim Frete'[Frete %] = {frete}, 'Sim Despesas'[Despesas %] = {despesas}
+)
+ORDER BY 'Sim Etapa'[Ordem]
+

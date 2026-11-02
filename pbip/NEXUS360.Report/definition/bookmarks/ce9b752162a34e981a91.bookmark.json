@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Painel Filtros",
+  "name": "ce9b752162a34e981a91",
+  "options": {
+    "targetVisualNames": [],
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "pgExecutive",
+    "sections": {
+      "pgExecutive": {
+        "visualContainers": {},
+        "visualContainerGroups": {
+          "grpFiltros": {
+            "isHidden": false
+          },
+          "grpInfo": {
+            "isHidden": true
+          },
+          "grpNav": {
+            "isHidden": true
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

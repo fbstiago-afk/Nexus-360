@@ -1,0 +1,109 @@
+{
+ "receita": 515283958.96,
+ "cmv": 376561791.51,
+ "impostos": 38646291.11,
+ "faturas": 88979,
+ "pedidos": 100000,
+ "pedidos_faturados": 88979,
+ "pedidos_cancelados": 3457,
+ "pedidos_pendentes": 7564,
+ "valor_itens_todos": 579865662.52,
+ "valor_itens_faturados": 515283958.96,
+ "qtd_itens_faturados": 2109893,
+ "valor_devolvido": 4984803.21,
+ "devolucoes": 3159,
+ "despesas_elegiveis": 71028404.16,
+ "desconto_ponderado": 0.08214020398567314,
+ "clientes_positivados": 32225,
+ "entregas": 88979,
+ "otif": 56768,
+ "no_prazo": 60703,
+ "in_full": 83221,
+ "ocorrencia": 22391,
+ "frete": 23043925.05,
+ "atraso_medio": 1.973298910737021,
+ "lead_time_medio": 5.322873936546825,
+ "recebimento": {
+  "Em aberto": {
+   "qtd": 715,
+   "valor_titulo": 4155054.32,
+   "valor_pago": 0.0
+  },
+  "Inconsistente": {
+   "qtd": 14768,
+   "valor_titulo": 85302231.77,
+   "valor_pago": 43487646.77
+  },
+  "Recebido": {
+   "qtd": 73496,
+   "valor_titulo": 425826672.87,
+   "valor_pago": 425826672.87
+  }
+ },
+ "motivos": {
+  "Data de pagamento sem valor pago": 7283,
+  "Pagamento anterior ao faturamento": 34,
+  "Valor pago sem data de pagamento": 7451
+ },
+ "saldo_vencido_aberto_corte": 4009005.05,
+ "saldo_a_vencer_aberto_corte": 146049.27,
+ "base_vencido_corte": 414768613.21,
+ "saldo_vencido_aberto_20251231": 5496038.68,
+ "pos_corte": {
+  "despesas_qtd_valor": [
+   144,
+   3763520.62
+  ],
+  "compras_qtd_valor": [
+   480,
+   22212197.33
+  ],
+  "cp_qtd_valor": [
+   480,
+   22212197.33
+  ],
+  "estoque_qtd": 4800,
+  "mov_qtd": 1680,
+  "ocup_qtd": 840,
+  "data_max": "2026-12-31"
+ },
+ "clientes_historico_corte": 32225,
+ "clientes_ativos_90d_corte": 6992,
+ "clientes_novos_2026": 3080,
+ "clientes_novos_2025": 8514,
+ "clientes_reativados_2026": 11628,
+ "estoque_snapshot_out26": [
+  544128,
+  95274368.97,
+  2400,
+  6,
+  333
+ ],
+ "wms_snapshot_out26": [
+  420,
+  398,
+  1049,
+  134
+ ],
+ "compras_elegiveis": [
+  8160,
+  381878644.53
+ ],
+ "cp_elegivel": [
+  381878644.53,
+  350253148.72,
+  31625495.81
+ ],
+ "meta_fat_total": 494870779.94,
+ "meta_fat_ate_corte": 470000292.87,
+ "meta_margem_ponderada_ate_corte": 0.2829832236218601,
+ "meta_otif_media": 0.9381868055555552,
+ "receita_2025": 185241143.72,
+ "receita_2026": 151079018.69,
+ "receita_2025_jan_out": 154406313.04,
+ "receita_set26": 14856924.9,
+ "receita_out26": 15649875.62,
+ "receita_filial1": 42647109.09,
+ "receita_categoria_alimentos_itens": 155769780.8,
+ "previsao_total": 82242367.18
+}

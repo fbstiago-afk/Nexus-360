@@ -1,0 +1,84 @@
+table fCompra
+	lineageTag: b1ade313-51bf-42fb-a44f-d056e7ace423
+
+	column CompraID
+		dataType: int64
+		formatString: 0
+		lineageTag: b7bf9d9a-e455-4a17-a192-9898387a9ff3
+		summarizeBy: none
+		sourceColumn: CompraID
+
+	column FornecedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 865fd005-3db3-4dfb-a84c-78b13dc80402
+		summarizeBy: none
+		sourceColumn: FornecedorID
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d96e78ef-81f9-4cec-aed7-0ed5dfba444f
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: abbe2302-d9b3-4bda-a254-cab00937c5c4
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column DataCompra
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 5f09095a-0280-4a9d-b989-bf6460c2aa39
+		summarizeBy: none
+		sourceColumn: DataCompra
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Quantidade
+		dataType: int64
+		formatString: #,0
+		lineageTag: b58d5c38-3537-4bab-b14e-afe8dde6007f
+		summarizeBy: sum
+		sourceColumn: Quantidade
+
+	column ValorCompra
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 9b6f4999-fc3f-4c81-8a5a-94db0fd4aa98
+		summarizeBy: sum
+		sourceColumn: ValorCompra
+
+	column StatusCompra
+		dataType: string
+		lineageTag: 3bbc2b31-3faf-4fcb-8daf-44d006b8dfc1
+		summarizeBy: none
+		sourceColumn: StatusCompra
+
+	/// 1 quando DataCompra <= pDataCorte
+	column ElegivelHistorico
+		dataType: int64
+		formatString: 0
+		lineageTag: 35ae59d1-c11f-4785-93ee-30eddb02e6d9
+		summarizeBy: none
+		sourceColumn: ElegivelHistorico
+
+	partition fCompra = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fCompra"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"CompraID", Int64.Type}, {"FornecedorID", Int64.Type}, {"FilialID", Int64.Type}, {"ProdutoID", Int64.Type}, {"DataCompra", type date}, {"Quantidade", Int64.Type}, {"ValorCompra", Currency.Type}, {"StatusCompra", type text}}, "en-US"),
+				    Elegivel = Table.AddColumn(Tipado, "ElegivelHistorico", each if [DataCompra] <= pDataCorte then 1 else 0, Int64.Type)
+				in
+				    Elegivel
+
+	annotation PBI_ResultType = Table
+

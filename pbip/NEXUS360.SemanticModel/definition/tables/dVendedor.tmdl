@@ -1,0 +1,59 @@
+/// Vendedores. FilialID = filial de lotacao, sem relacao (M2).
+table dVendedor
+	lineageTag: c9ad1538-db38-4b4d-aa63-2bf9e89f4867
+
+	column VendedorID
+		dataType: int64
+		formatString: 0
+		lineageTag: b48506c2-74e7-472c-90b8-2f9f6d308a21
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	column Vendedor
+		dataType: string
+		lineageTag: 3f4f5208-93dc-42eb-baba-f9a88b8547ff
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 80e6ba63-eca9-43d4-b5c1-4406068b8030
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column Equipe
+		dataType: string
+		lineageTag: 5d3e7bcb-c7ad-448e-beca-a643bf4bf66a
+		summarizeBy: none
+		sourceColumn: Equipe
+
+	column DataAdmissao
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 263988ae-fb2f-4622-b75d-2374c9732230
+		summarizeBy: none
+		sourceColumn: DataAdmissao
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ativo
+		dataType: int64
+		formatString: 0
+		lineageTag: 430a8141-ef3d-4a6e-87e2-fcff9276496b
+		summarizeBy: none
+		sourceColumn: Ativo
+
+	partition dVendedor = m
+		mode: import
+		queryGroup: Dimensoes
+		source =
+				let
+				    Fonte = fxLerCsv("dVendedor"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"VendedorID", Int64.Type}, {"Vendedor", type text}, {"FilialID", Int64.Type}, {"Equipe", type text}, {"DataAdmissao", type date}, {"Ativo", Int64.Type}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

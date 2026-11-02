@@ -1,0 +1,276 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "nxCohort",
+  "position": {
+    "x": 492.86783042394018,
+    "y": 211.42144638403991,
+    "z": 1025,
+    "height": 385.13715710723193,
+    "width": 888.77805486284285,
+    "tabOrder": 1025
+  },
+  "visual": {
+    "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dCliente"
+                    }
+                  },
+                  "Property": "Cohort"
+                }
+              },
+              "queryRef": "dCliente.Cohort",
+              "nativeQueryRef": "Cohort",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dCohortOffset"
+                    }
+                  },
+                  "Property": "Meses desde 1a Compra"
+                }
+              },
+              "queryRef": "dCohortOffset.Meses desde 1a Compra",
+              "nativeQueryRef": "Meses desde 1a Compra",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Retenção Cohort %"
+                }
+              },
+              "queryRef": "_Medidas.Retenção Cohort %",
+              "nativeQueryRef": "Retenção Cohort %",
+              "active": false
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Tamanho Cohort"
+                }
+              },
+              "queryRef": "_Medidas.Tamanho Cohort",
+              "nativeQueryRef": "Tamanho Cohort",
+              "active": false
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "vega": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'vegaLite'"
+                }
+              }
+            },
+            "jsonSpec": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\", \"data\": {\"name\": \"dataset\"}, \"width\": \"container\", \"height\": \"container\", \"transform\": [{\"filter\": \"datum[''Meses desde 1a Compra''] >= 1 && datum[''Meses desde 1a Compra''] <= 12 && isValid(datum[''Retenção Cohort %'']) && datum[''Tamanho Cohort''] > 0\"}], \"mark\": {\"type\": \"rect\", \"cornerRadius\": 2, \"stroke\": \"#071528\", \"strokeWidth\": 1}, \"encoding\": {\"x\": {\"field\": \"Meses desde 1a Compra\", \"type\": \"ordinal\", \"title\": \"Meses desde a 1ª compra\", \"axis\": {\"labelAngle\": 0, \"orient\": \"top\"}}, \"y\": {\"field\": \"Cohort\", \"type\": \"ordinal\", \"title\": null, \"sort\": \"ascending\", \"axis\": {\"labelFontSize\": 10.8}}, \"color\": {\"field\": \"Retenção Cohort %\", \"type\": \"quantitative\", \"title\": \"Retenção\", \"scale\": {\"range\": [\"#0A2540\", \"#0878C9\", \"#10D4C4\"], \"domainMin\": 0}, \"legend\": {\"orient\": \"right\", \"direction\": \"vertical\", \"format\": \".0%\", \"gradientLength\": 160, \"title\": \"Retenção\"}}, \"tooltip\": [{\"field\": \"Cohort\", \"title\": \"Cohort (1ª compra)\"}, {\"field\": \"Meses desde 1a Compra\", \"title\": \"Mês\"}, {\"field\": \"Retenção Cohort %\", \"title\": \"Retenção\", \"formatType\": \"pbiFormat\", \"format\": \"0%\"}, {\"field\": \"Tamanho Cohort\", \"title\": \"Clientes no cohort\", \"formatType\": \"pbiFormat\", \"format\": \"#,0\"}]}}'"
+                }
+              }
+            },
+            "jsonConfig": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"autosize\": {\"type\": \"fit\", \"contains\": \"padding\"}, \"view\": {\"stroke\": null}, \"font\": \"Segoe UI\", \"background\": null, \"padding\": {\"left\": 4, \"right\": 12, \"top\": 6, \"bottom\": 4}, \"axis\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"titleColor\": \"#A9B9CA\", \"titleFont\": \"Segoe UI\", \"titleFontWeight\": 400, \"gridColor\": \"#173B5C\", \"gridDash\": [2, 3], \"domain\": false, \"ticks\": false, \"labelFontSize\": 12, \"titleFontSize\": 12}, \"legend\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"labelFontSize\": 12, \"orient\": \"top\", \"title\": null, \"symbolType\": \"circle\"}, \"text\": {\"fontSize\": 13}, \"title\": {\"fontSize\": 14}}'"
+                }
+              }
+            },
+            "renderMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'svg'"
+                }
+              }
+            },
+            "enableTooltips": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableContextMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'6.4.3'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stateManagement": [
+        {
+          "properties": {
+            "viewportHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "318D"
+                }
+              }
+            },
+            "viewportWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "859D"
+                }
+              }
+            },
+            "supportFieldConfiguration": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"Cohort\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":false,\"formatted\":false,\"names\":false},\"Meses desde 1a Compra\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":false,\"formatted\":false,\"names\":false},\"Retenção Cohort %\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":true,\"formatted\":true,\"names\":false},\"Tamanho Cohort\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":true,\"formatted\":true,\"names\":false}}'"
+                }
+              }
+            },
+            "denebMetaVersion": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2'"
+                }
+              }
+            },
+            "consolidateFieldParameters": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "developer": [
+        {
+          "properties": {
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2.0.1.0'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Retenção por cohort de 1ª compra (histórico completo, meses 1–12)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fOffset",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dCohortOffset"
+              }
+            },
+            "Property": "Meses desde 1a Compra"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "o",
+              "Entity": "dCohortOffset",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 4,
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "o"
+                        }
+                      },
+                      "Property": "Meses desde 1a Compra"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "12L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

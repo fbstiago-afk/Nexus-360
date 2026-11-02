@@ -1,0 +1,54 @@
+/// Previsao sintetica jan-jun/2027. Nao e realizado.
+table fPrevisao
+	lineageTag: 2ae7f622-fd6d-439b-a5f5-9f11126b5098
+
+	column PrevisaoID
+		dataType: int64
+		formatString: 0
+		lineageTag: a6ca9222-30ea-4c49-91e2-59d267461da9
+		summarizeBy: none
+		sourceColumn: PrevisaoID
+
+	column DataReferencia
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 182856e5-1052-4849-902d-8638a2ca175d
+		summarizeBy: none
+		sourceColumn: DataReferencia
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 71f3fc60-1f2f-436d-b82a-0f8a301d173d
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column ReceitaPrevista
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: b53e5f73-5d3e-4259-9bc0-eb4c25308f5c
+		summarizeBy: sum
+		sourceColumn: ReceitaPrevista
+
+	column MargemErroEstimada
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: c09e3027-fbb2-4da7-ba99-2cfb30dc4a33
+		summarizeBy: none
+		sourceColumn: MargemErroEstimada
+
+	partition fPrevisao = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fPrevisao"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"PrevisaoID", Int64.Type}, {"DataReferencia", type date}, {"FilialID", Int64.Type}, {"ReceitaPrevista", Currency.Type}, {"MargemErroEstimada", type number}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

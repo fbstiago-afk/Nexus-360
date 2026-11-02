@@ -1,0 +1,33 @@
+/// Parametros de negocio expostos ao DAX (fonte unica: parametro M pDataCorte). Limites de churn ficam em tabelas desconectadas Param Limite Ativo / Param Limite Churn.
+table _Parametros
+	isHidden
+	lineageTag: 2bbab9e3-c811-448e-810b-37dd5bb9ae68
+
+	column DataCorte
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 80f8a4a0-0aee-48e7-b920-5df74495af6a
+		summarizeBy: none
+		sourceColumn: DataCorte
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Momento do ultimo refresh do modelo (DateTime.LocalNow no Power Query).
+	column AtualizadoEm
+		dataType: dateTime
+		formatString: dd/MM/yyyy HH:mm
+		lineageTag: 2b77ae8c-ed23-445e-826c-2f998601dfa4
+		summarizeBy: none
+		sourceColumn: AtualizadoEm
+
+	partition _Parametros = m
+		mode: import
+		queryGroup: Parametros
+		source =
+				let
+				    Fonte = #table(type table [DataCorte = date, AtualizadoEm = datetime], {{pDataCorte, DateTime.LocalNow()}})
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+

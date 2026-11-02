@@ -1,0 +1,118 @@
+// ===== resumo_executivo {"inicio": "2026-01-01", "fim": "2026-10-31", "filiais": []}
+DEFINE
+VAR _ini = DATEVALUE ( "2026-01-01" )
+VAR _fim = DATEVALUE ( "2026-10-31" )
+VAR _per = DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+VAR _fil = ALL ( dFilial[Cidade] )
+EVALUATE
+CALCULATETABLE (
+    ROW (
+        "Receita", [Receita Líquida], "Margem Bruta %", [Margem Bruta %], "Meta", [Meta Faturamento],
+        "Atingimento %", [Atingimento Meta Faturamento %], "Resultado Gerencial", [Resultado Gerencial Simplificado],
+        "Taxa de Churn %", [Taxa de Churn %], "OTIF %", [OTIF %]
+    ),
+    _per, _fil
+)
+
+// ===== ranking_filiais {"inicio": "2026-01-01", "fim": "2026-10-31", "metrica": "Atingimento Meta Faturamento %", "ordem": "asc", "top_n": 3}
+DEFINE
+VAR _ini = DATEVALUE ( "2026-01-01" )
+VAR _fim = DATEVALUE ( "2026-10-31" )
+EVALUATE
+TOPN (
+    3,
+    CALCULATETABLE ( ADDCOLUMNS ( VALUES ( dFilial[Cidade] ), "Valor", [Atingimento Meta Faturamento %] ), DATESBETWEEN ( dCalendario[Data], _ini, _fim ) ),
+    [Valor], ASC
+)
+ORDER BY [Valor] ASC
+
+// ===== clientes_em_risco {"data_referencia": "2026-10-31", "filiais": [], "top_n": 5}
+DEFINE
+VAR _ref = DATEVALUE ( "2026-10-31" )
+VAR _fil = ALL ( dFilial[Cidade] )
+VAR _t =
+    CALCULATETABLE (
+        FILTER (
+            ADDCOLUMNS ( VALUES ( dCliente[ClienteID] ), "Dias sem compra", [Dias sem Compra (Data Ref.)], "Receita 12M", [Receita 12M (Data Ref.)] ),
+            [Dias sem compra] >= 180 && [Dias sem compra] < 365
+        ),
+        dCalendario[Data] <= _ref, _fil
+    )
+EVALUATE TOPN ( 5, _t, [Receita 12M], DESC )
+ORDER BY [Receita 12M] DESC
+
+// ===== desempenho_vendedores {"inicio": "2026-01-01", "fim": "2026-10-31", "filiais": ["Campinas"], "top_n": 5}
+DEFINE
+VAR _ini = DATEVALUE ( "2026-01-01" )
+VAR _fim = DATEVALUE ( "2026-10-31" )
+VAR _per = DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+VAR _fil = TREATAS ( { "Campinas" }, dFilial[Cidade] )
+EVALUATE
+TOPN (
+    5,
+    CALCULATETABLE (
+        ADDCOLUMNS ( VALUES ( dVendedor[Vendedor] ), "Receita", [Receita Líquida], "Margem %", [Margem Bruta %], "Desconto %", [Desconto Médio Ponderado %] ),
+        _per, _fil
+    ),
+    [Receita], DESC
+)
+ORDER BY [Receita] DESC
+
+// ===== otif_transportadoras {"inicio": "2026-01-01", "fim": "2026-10-31", "min_entregas": 50, "top_n": 5}
+DEFINE
+VAR _ini = DATEVALUE ( "2026-01-01" )
+VAR _fim = DATEVALUE ( "2026-10-31" )
+EVALUATE
+TOPN (
+    5,
+    FILTER (
+        CALCULATETABLE (
+            ADDCOLUMNS ( VALUES ( dTransportadora[Transportadora] ), "Entregas", [Entregas], "OTIF %", [OTIF %], "Atraso médio", [Atraso Médio (dias)], "Frete/entrega", [Frete por Entrega] ),
+            DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+        ),
+        [Entregas] >= 50
+    ),
+    [OTIF %], ASC
+)
+ORDER BY [OTIF %] ASC
+
+// ===== dre_gerencial {"inicio": "2026-01-01", "fim": "2026-10-31", "filiais": []}
+DEFINE
+VAR _ini = DATEVALUE ( "2026-01-01" )
+VAR _fim = DATEVALUE ( "2026-10-31" )
+VAR _per = DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+VAR _fil = ALL ( dFilial[Cidade] )
+EVALUATE
+CALCULATETABLE (
+    ADDCOLUMNS ( VALUES ( dLinhaDRE[Linha] ), "Valor", [Valor DRE Gerencial], "Ano anterior", [Valor DRE Gerencial LY] ),
+    _per, _fil
+)
+
+// ===== projecao_receita {"filiais": []}
+DEFINE
+VAR _fil = ALL ( dFilial[Cidade] )
+EVALUATE
+CALCULATETABLE (
+    FILTER (
+        ADDCOLUMNS ( VALUES ( dCalendario[AnoMes] ), "Projeção", [Projeção Sazonal Receita], "Inferior 90%", [Projeção Limite Inferior 90%], "Superior 90%", [Projeção Limite Superior 90%] ),
+        NOT ISBLANK ( [Projeção] )
+    ),
+    _fil
+)
+ORDER BY dCalendario[AnoMes]
+
+// ===== simular_cenario {"inicio": "2026-01-01", "fim": "2026-10-31", "filiais": [], "preco": 0.03, "desconto_pp": 1, "volume": -0.05, "custo": 0.02, "frete": 0.1, "despesas": -0.05}
+DEFINE
+VAR _ini = DATEVALUE ( "2026-01-01" )
+VAR _fim = DATEVALUE ( "2026-10-31" )
+VAR _per = DATESBETWEEN ( dCalendario[Data], _ini, _fim )
+VAR _fil = ALL ( dFilial[Cidade] )
+EVALUATE
+CALCULATETABLE (
+    ADDCOLUMNS ( SUMMARIZE ( 'Sim Etapa', 'Sim Etapa'[Ordem], 'Sim Etapa'[Etapa] ), "Efeito", [Sim Valor Etapa] ),
+    _per, _fil,
+    'Sim Preço'[Preço %] = 0.03, 'Sim Desconto'[Desconto p.p.] = 1, 'Sim Volume'[Volume %] = -0.05,
+    'Sim Custo'[Custo %] = 0.02, 'Sim Frete'[Frete %] = 0.1, 'Sim Despesas'[Despesas %] = -0.05
+)
+ORDER BY 'Sim Etapa'[Ordem]
+

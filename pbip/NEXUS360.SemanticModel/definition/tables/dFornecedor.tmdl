@@ -1,0 +1,48 @@
+table dFornecedor
+	lineageTag: 6acb5af7-13c2-4053-b6da-476e8198e056
+
+	column FornecedorID
+		dataType: int64
+		formatString: 0
+		lineageTag: 26ee21dd-2433-40de-82e3-7ab7f650184d
+		summarizeBy: none
+		sourceColumn: FornecedorID
+
+	column Fornecedor
+		dataType: string
+		lineageTag: e0a9f2b9-32cc-419b-9896-1fbf90ef9bca
+		summarizeBy: none
+		sourceColumn: Fornecedor
+
+	column UF
+		dataType: string
+		lineageTag: fdba605a-8ee1-4608-a248-e8891553bc09
+		summarizeBy: none
+		sourceColumn: UF
+
+	column LeadTimeMedio
+		dataType: int64
+		formatString: #,0
+		lineageTag: 47cd9b7f-1830-4a6a-8c48-cfc951b4988c
+		summarizeBy: none
+		sourceColumn: LeadTimeMedio
+
+	column Confiabilidade
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: 0981f40f-d579-4881-a2c9-719e949eab91
+		summarizeBy: none
+		sourceColumn: Confiabilidade
+
+	partition dFornecedor = m
+		mode: import
+		queryGroup: Dimensoes
+		source =
+				let
+				    Fonte = fxLerCsv("dFornecedor"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"FornecedorID", Int64.Type}, {"Fornecedor", type text}, {"UF", type text}, {"LeadTimeMedio", Int64.Type}, {"Confiabilidade", type number}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,209 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "nxSimPonte",
+  "position": {
+    "x": 1178,
+    "y": 212,
+    "z": 1032,
+    "height": 470,
+    "width": 696,
+    "tabOrder": 1032
+  },
+  "visual": {
+    "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sim Etapa"
+                    }
+                  },
+                  "Property": "Etapa"
+                }
+              },
+              "queryRef": "Sim Etapa.Etapa",
+              "nativeQueryRef": "Etapa",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sim Etapa"
+                    }
+                  },
+                  "Property": "Ordem"
+                }
+              },
+              "queryRef": "Sim Etapa.Ordem",
+              "nativeQueryRef": "Ordem",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Sim Valor Etapa"
+                }
+              },
+              "queryRef": "_Medidas.Sim Valor Etapa",
+              "nativeQueryRef": "Sim Valor Etapa",
+              "active": false
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "vega": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'vegaLite'"
+                }
+              }
+            },
+            "jsonSpec": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\", \"data\": {\"name\": \"dataset\"}, \"width\": \"container\", \"height\": \"container\", \"transform\": [{\"filter\": \"isValid(datum[''Sim Valor Etapa''])\"}, {\"calculate\": \"datum[''Sim Valor Etapa''] / 1000\", \"as\": \"v\"}, {\"window\": [{\"op\": \"sum\", \"field\": \"v\", \"as\": \"fim\"}], \"sort\": [{\"field\": \"Ordem\"}], \"frame\": [null, 0]}, {\"calculate\": \"datum.fim - datum.v\", \"as\": \"ini\"}, {\"calculate\": \"datum.Ordem == 1 ? ''total'' : (datum.v >= 0 ? ''pos'' : ''neg'')\", \"as\": \"tipo\"}], \"encoding\": {\"x\": {\"field\": \"Etapa\", \"type\": \"nominal\", \"sort\": [\"Resultado base\", \"Preço\", \"Desconto\", \"Volume\", \"Custo da mercadoria\", \"Frete\", \"Despesas\", \"Resultado simulado\"], \"title\": null, \"scale\": {\"domain\": [\"Resultado base\", \"Preço\", \"Desconto\", \"Volume\", \"Custo da mercadoria\", \"Frete\", \"Despesas\", \"Resultado simulado\"], \"paddingInner\": 0.3}, \"axis\": {\"labelAngle\": 0, \"labelColor\": \"#C9D6E3\", \"labelFontSize\": 12, \"labelLimit\": 120, \"labelExpr\": \"{''Custo da mercadoria'': [''Custo da'', ''mercadoria''], ''Resultado base'': [''Resultado'', ''base''], ''Resultado simulado'': [''Resultado'', ''simulado'']}[datum.label] || datum.label\"}}}, \"layer\": [{\"mark\": {\"type\": \"bar\", \"cornerRadius\": 2}, \"encoding\": {\"y\": {\"field\": \"ini\", \"type\": \"quantitative\", \"title\": null, \"axis\": {\"labelExpr\": \"pbiFormat(datum.value, ''#,0'') + '' mil''\", \"grid\": true, \"tickCount\": 5}}, \"y2\": {\"field\": \"fim\"}, \"color\": {\"field\": \"tipo\", \"type\": \"nominal\", \"legend\": null, \"scale\": {\"domain\": [\"total\", \"pos\", \"neg\"], \"range\": [\"#5FA8E6\", \"#45D5A1\", \"#FF7285\"]}}, \"tooltip\": [{\"field\": \"Etapa\"}, {\"field\": \"Sim Valor Etapa\", \"title\": \"Efeito (R$)\", \"formatType\": \"pbiFormat\", \"format\": \"R$ #,0\"}]}}, {\"mark\": {\"type\": \"text\", \"dy\": -8, \"fontSize\": 13.2, \"color\": \"#FFFFFF\"}, \"encoding\": {\"y\": {\"field\": \"fim\", \"type\": \"quantitative\"}, \"text\": {\"field\": \"v\", \"type\": \"quantitative\", \"formatType\": \"pbiFormat\", \"format\": \"+#,0;-#,0;0\"}}}, {\"transform\": [{\"aggregate\": [{\"op\": \"sum\", \"field\": \"v\", \"as\": \"fim\"}]}, {\"calculate\": \"''Resultado simulado''\", \"as\": \"Etapa\"}, {\"calculate\": \"0\", \"as\": \"ini\"}], \"layer\": [{\"mark\": {\"type\": \"bar\", \"cornerRadius\": 2, \"color\": \"#5FA8E6\"}, \"encoding\": {\"y\": {\"field\": \"ini\", \"type\": \"quantitative\"}, \"y2\": {\"field\": \"fim\"}, \"tooltip\": [{\"field\": \"Etapa\"}, {\"field\": \"fim\", \"title\": \"R$ mil\", \"formatType\": \"pbiFormat\", \"format\": \"#,0\"}]}}, {\"mark\": {\"type\": \"text\", \"dy\": -8, \"fontSize\": 13.2, \"fontWeight\": 600, \"color\": \"#FFFFFF\"}, \"encoding\": {\"y\": {\"field\": \"fim\", \"type\": \"quantitative\"}, \"text\": {\"field\": \"fim\", \"type\": \"quantitative\", \"formatType\": \"pbiFormat\", \"format\": \"#,0\"}}}]}, {\"mark\": {\"type\": \"rule\", \"color\": \"#A9B9CA\"}, \"encoding\": {\"y\": {\"datum\": 0}}}]}'"
+                }
+              }
+            },
+            "jsonConfig": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"autosize\": {\"type\": \"fit\", \"contains\": \"padding\"}, \"view\": {\"stroke\": null}, \"font\": \"Segoe UI\", \"background\": null, \"padding\": {\"left\": 4, \"right\": 12, \"top\": 6, \"bottom\": 4}, \"axis\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"titleColor\": \"#A9B9CA\", \"titleFont\": \"Segoe UI\", \"titleFontWeight\": 400, \"gridColor\": \"#173B5C\", \"gridDash\": [2, 3], \"domain\": false, \"ticks\": false, \"labelFontSize\": 12, \"titleFontSize\": 12}, \"legend\": {\"labelFont\": \"Segoe UI\", \"labelColor\": \"#A9B9CA\", \"labelFontSize\": 12, \"orient\": \"top\", \"title\": null, \"symbolType\": \"circle\"}, \"text\": {\"fontSize\": 13}, \"title\": {\"fontSize\": 14}}'"
+                }
+              }
+            },
+            "renderMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'svg'"
+                }
+              }
+            },
+            "enableTooltips": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableContextMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'6.4.3'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stateManagement": [
+        {
+          "properties": {
+            "viewportHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "403D"
+                }
+              }
+            },
+            "viewportWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "666D"
+                }
+              }
+            },
+            "supportFieldConfiguration": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"Etapa\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":false,\"formatted\":false,\"names\":false},\"Ordem\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":false,\"formatted\":false,\"names\":false},\"Sim Valor Etapa\":{\"highlight\":false,\"highlightStatus\":false,\"highlightComparator\":false,\"format\":true,\"formatted\":true,\"names\":false}}'"
+                }
+              }
+            },
+            "denebMetaVersion": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2'"
+                }
+              }
+            },
+            "consolidateFieldParameters": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "developer": [
+        {
+          "properties": {
+            "version": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2.0.1.0'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Do resultado base ao simulado: efeito de cada premissa (R$ mil)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

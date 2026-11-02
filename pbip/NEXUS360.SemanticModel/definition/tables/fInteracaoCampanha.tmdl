@@ -1,0 +1,65 @@
+table fInteracaoCampanha
+	lineageTag: 5cb72130-ba0a-4933-8deb-9853c7e7f8c9
+
+	column InteracaoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0e4d1938-1dd9-4df5-93d9-5e50f23dd5e0
+		summarizeBy: none
+		sourceColumn: InteracaoID
+
+	column CampanhaID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 62bd8fef-b4d9-4a97-aab1-cee456bbffed
+		summarizeBy: none
+		sourceColumn: CampanhaID
+
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 562c18c5-27b6-4d50-8476-c368e8d3d809
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	column DataInteracao
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 5b801f62-992c-49fc-b948-8ad29b58a22c
+		summarizeBy: none
+		sourceColumn: DataInteracao
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TipoInteracao
+		dataType: string
+		lineageTag: 185a444b-8a43-4367-b93f-2691246844b3
+		summarizeBy: none
+		sourceColumn: TipoInteracao
+
+	/// Filial cadastral do cliente
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d5d3bb81-18cb-4803-8885-d85a07e3c937
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	partition fInteracaoCampanha = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fInteracaoCampanha"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"InteracaoID", Int64.Type}, {"CampanhaID", Int64.Type}, {"ClienteID", Int64.Type}, {"DataInteracao", type date}, {"TipoInteracao", type text}}, "en-US"),
+				    Mesclado = Table.NestedJoin(Tipado, {"ClienteID"}, stgClienteFilial, {"ClienteID"}, "Ref", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(Mesclado, "Ref", {"FilialID"}, {"FilialID"}),
+				    Retipado = Table.TransformColumnTypes(Expandido, {{"FilialID", Int64.Type}}, "en-US")
+				in
+				    Retipado
+
+	annotation PBI_ResultType = Table
+

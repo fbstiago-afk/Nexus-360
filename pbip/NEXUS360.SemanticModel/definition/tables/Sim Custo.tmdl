@@ -1,0 +1,21 @@
+/// Parametro de simulacao: Variacao do custo unitario da mercadoria.
+table 'Sim Custo'
+	lineageTag: b704c88a-8c21-4a32-94d1-e89f4b61debf
+
+	column 'Custo %'
+		dataType: double
+		formatString: +0%;-0%;0%
+		lineageTag: 62705e58-473d-47d0-b2fa-bd1999d0c881
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Custo %]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+	partition 'Sim Custo' = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( -10, 10, 1 ), "Custo %", [Value] / 100 )
+

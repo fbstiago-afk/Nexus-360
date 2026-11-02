@@ -1,0 +1,21 @@
+/// Parametro de simulacao: Variacao de preco sobre a receita liquida.
+table 'Sim Preço'
+	lineageTag: 5ad330dd-1e51-429f-a69f-b803cfc27d31
+
+	column 'Preço %'
+		dataType: double
+		formatString: +0%;-0%;0%
+		lineageTag: a8a6efaa-c733-4f08-9801-415fcc057040
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Preço %]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+	partition 'Sim Preço' = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( -20, 20, 1 ), "Preço %", [Value] / 100 )
+

@@ -1,0 +1,80 @@
+table dProduto
+	lineageTag: 6dbc9477-7088-482f-8b1f-ca325690040f
+
+	column ProdutoID
+		dataType: int64
+		formatString: 0
+		lineageTag: be6cdfa3-dfa4-4023-baf8-1e7ca92d40a8
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column Produto
+		dataType: string
+		lineageTag: 9fb4521b-567e-4599-bbd8-67c5ed4e5efa
+		summarizeBy: none
+		sourceColumn: Produto
+
+	column Categoria
+		dataType: string
+		lineageTag: 1ac87a43-a238-4e89-9b70-a79cfee372c2
+		summarizeBy: none
+		sourceColumn: Categoria
+
+	column Subcategoria
+		dataType: string
+		lineageTag: 820c1c15-db92-437f-bb04-18aa61c983b8
+		summarizeBy: none
+		sourceColumn: Subcategoria
+
+	column Marca
+		dataType: string
+		lineageTag: 5e4db808-1674-4bde-a8c0-7d0999d22f35
+		summarizeBy: none
+		sourceColumn: Marca
+
+	column Unidade
+		dataType: string
+		lineageTag: eef00ef5-7dea-4812-9565-8821d06cb6c1
+		summarizeBy: none
+		sourceColumn: Unidade
+
+	column CustoReferencia
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 7823c0c2-4c5d-4e8e-ad0e-517a3e470492
+		summarizeBy: none
+		sourceColumn: CustoReferencia
+
+	column PrecoTabela
+		dataType: decimal
+		formatString: R$ #,0;-R$ #,0;R$ #,0
+		lineageTag: 6846d51c-2774-4217-9e72-cdd6c83c815b
+		summarizeBy: none
+		sourceColumn: PrecoTabela
+
+	column LeadTimeDias
+		dataType: int64
+		formatString: #,0
+		lineageTag: c8a86e8d-c670-4d83-8f50-f070557735d6
+		summarizeBy: none
+		sourceColumn: LeadTimeDias
+
+	column Descontinuado
+		dataType: int64
+		formatString: 0
+		lineageTag: e9805e20-559d-46ea-9c30-2e001a8d98b5
+		summarizeBy: none
+		sourceColumn: Descontinuado
+
+	partition dProduto = m
+		mode: import
+		queryGroup: Dimensoes
+		source =
+				let
+				    Fonte = fxLerCsv("dProduto"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"ProdutoID", Int64.Type}, {"Produto", type text}, {"Categoria", type text}, {"Subcategoria", type text}, {"Marca", type text}, {"Unidade", type text}, {"CustoReferencia", Currency.Type}, {"PrecoTabela", Currency.Type}, {"LeadTimeDias", Int64.Type}, {"Descontinuado", Int64.Type}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

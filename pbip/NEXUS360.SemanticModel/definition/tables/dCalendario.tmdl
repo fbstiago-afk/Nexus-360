@@ -1,0 +1,183 @@
+/// Calendario: fonte (2024-01-01 a 2027-04-30) + extensao deterministica no PQ ate o fim do mes da ultima previsao (C3).
+table dCalendario
+	lineageTag: 10b18b88-28c3-4260-9b6c-bd144d42693d
+	dataCategory: Time
+
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: dd/MM/yyyy
+		lineageTag: 8663b92c-c089-4cc9-80b8-d3073d2d36a5
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: e5692e68-9c72-4e31-8a4a-2dc75bbea57c
+		summarizeBy: none
+		sourceColumn: Ano
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 448ae18a-2959-4d4e-bedf-eb573cc1ad7d
+		summarizeBy: none
+		sourceColumn: Mes
+
+	column NomeMes
+		dataType: string
+		lineageTag: 362bf432-8b71-4047-b090-bd8f1a407e11
+		summarizeBy: none
+		sourceColumn: NomeMes
+
+	column Trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: bc09bf5c-3713-4e14-8cea-299aba98bf2a
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+	column DiaSemana
+		dataType: int64
+		formatString: 0
+		lineageTag: 1b1801d2-e8d5-4bcd-9439-cb40442ac77e
+		summarizeBy: none
+		sourceColumn: DiaSemana
+
+	column DiaUtil
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ee5d8a9-cfec-4931-ac11-4caa289b508b
+		summarizeBy: none
+		sourceColumn: DiaUtil
+
+	column SemanaISO
+		dataType: int64
+		formatString: 0
+		lineageTag: a1f0e7d8-a5b5-466f-b246-b164d2e0ed6c
+		summarizeBy: none
+		sourceColumn: SemanaISO
+
+	/// Fonte ou Extensao PQ
+	column OrigemLinha
+		dataType: string
+		lineageTag: 8909eb27-c859-4b58-8d47-46bcf07c5b3f
+		summarizeBy: none
+		sourceColumn: OrigemLinha
+
+	/// Nome do mes em portugues
+	column NomeMesPT
+		dataType: string
+		lineageTag: e16fe97a-52f3-463c-a960-525660bc0ebc
+		summarizeBy: none
+		sourceColumn: NomeMesPT
+		sortByColumn: Mes
+
+	/// jan..dez
+	column MesAbrev
+		dataType: string
+		lineageTag: c181a521-b308-4cc5-8793-b15e39916577
+		summarizeBy: none
+		sourceColumn: MesAbrev
+		sortByColumn: Mes
+
+	/// AAAAMM
+	column AnoMes
+		dataType: int64
+		formatString: 0
+		lineageTag: cb77287d-1a9e-4bd6-be26-8f2c55370ada
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+	/// jan/2026
+	column MesAno
+		dataType: string
+		lineageTag: fa2b41cd-8c18-4c5a-bc4e-099823e65c56
+		summarizeBy: none
+		sourceColumn: MesAno
+		sortByColumn: AnoMes
+
+	/// Primeiro dia do mes
+	column InicioMes
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 895a1f96-98e6-4ae5-95ab-afde2ed7bd77
+		summarizeBy: none
+		sourceColumn: InicioMes
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// T1..T4
+	column TrimestreNome
+		dataType: string
+		lineageTag: fdc6a045-37e3-4fe8-8b44-0f13ed02801c
+		summarizeBy: none
+		sourceColumn: TrimestreNome
+		sortByColumn: Trimestre
+
+	/// Segunda..Domingo
+	column DiaSemanaNome
+		dataType: string
+		lineageTag: f2f87e18-90e0-4da9-8f39-7d3c6c6e4843
+		summarizeBy: none
+		sourceColumn: DiaSemanaNome
+		sortByColumn: DiaSemana
+
+	/// Seg..Dom
+	column DiaSemanaAbrev
+		dataType: string
+		lineageTag: 4ac587c3-d293-400b-af09-c8851e3dffe9
+		summarizeBy: none
+		sourceColumn: DiaSemanaAbrev
+		sortByColumn: DiaSemana
+
+	/// Semana do mes, segunda a domingo
+	column SemanaDoMes
+		dataType: int64
+		formatString: 0
+		lineageTag: 16acd0b5-d279-42b4-bc37-f4f4a579aa00
+		summarizeBy: none
+		sourceColumn: SemanaDoMes
+
+	/// 1 quando Data <= pDataCorte
+	column FlagRealizado
+		dataType: int64
+		formatString: 0
+		lineageTag: c8dfa6f8-b654-4ebb-9058-2d3bcd5a438c
+		summarizeBy: none
+		sourceColumn: FlagRealizado
+
+	partition dCalendario = m
+		mode: import
+		queryGroup: Dimensoes
+		source =
+				let
+				    Fonte = fxLerCsv("dCalendario"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"Data", type date}, {"Ano", Int64.Type}, {"Mes", Int64.Type}, {"NomeMes", type text}, {"Trimestre", Int64.Type}, {"DiaSemana", Int64.Type}, {"DiaUtil", Int64.Type}, {"SemanaISO", Int64.Type}}, "en-US"),
+				    UltimaFonte = List.Max(Tipado[Data]),
+				    FimNecessario = List.Max({UltimaFonte, Date.EndOfMonth(List.Max(stgPrevisaoDatas))}),
+				    NovasDatas = if FimNecessario > UltimaFonte then List.Dates(Date.AddDays(UltimaFonte, 1), Duration.Days(FimNecessario - UltimaFonte), #duration(1, 0, 0, 0)) else {},
+				    Extensao = Table.FromRecords(List.Transform(NovasDatas, (d) => let dw = Date.DayOfWeek(d, Day.Monday) + 1 in [Data = d, Ano = Date.Year(d), Mes = Date.Month(d), NomeMes = Date.ToText(d, "MMMM", "en-US"), Trimestre = Date.QuarterOfYear(d), DiaSemana = dw, DiaUtil = if dw <= 5 then 1 else 0, SemanaISO = Number.RoundDown((Date.DayOfYear(d) - dw + 10) / 7)]), type table [Data = date, Ano = Int64.Type, Mes = Int64.Type, NomeMes = text, Trimestre = Int64.Type, DiaSemana = Int64.Type, DiaUtil = Int64.Type, SemanaISO = Int64.Type]),
+				    Origem = Table.AddColumn(Tipado, "OrigemLinha", each "Fonte", type text),
+				    OrigemExt = Table.AddColumn(Extensao, "OrigemLinha", each "Extensao PQ", type text),
+				    Unido = Table.Combine({Origem, OrigemExt}),
+				    MesesPT = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"},
+				    DiasPT = {"Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"},
+				    C1 = Table.AddColumn(Unido, "NomeMesPT", each MesesPT{[Mes] - 1}, type text),
+				    C2 = Table.AddColumn(C1, "MesAbrev", each Text.Start(MesesPT{[Mes] - 1}, 3), type text),
+				    C3 = Table.AddColumn(C2, "AnoMes", each [Ano] * 100 + [Mes], Int64.Type),
+				    C4 = Table.AddColumn(C3, "MesAno", each [MesAbrev] & "/" & Text.From([Ano]), type text),
+				    C5 = Table.AddColumn(C4, "InicioMes", each Date.StartOfMonth([Data]), type date),
+				    C6 = Table.AddColumn(C5, "TrimestreNome", each "T" & Text.From([Trimestre]), type text),
+				    C7 = Table.AddColumn(C6, "DiaSemanaNome", each DiasPT{[DiaSemana] - 1}, type text),
+				    C8 = Table.AddColumn(C7, "DiaSemanaAbrev", each Text.Start(DiasPT{[DiaSemana] - 1}, 3), type text),
+				    C9 = Table.AddColumn(C8, "SemanaDoMes", each Number.RoundDown((Date.Day([Data]) - 1 + Date.DayOfWeek(Date.StartOfMonth([Data]), Day.Monday)) / 7) + 1, Int64.Type),
+				    C10 = Table.AddColumn(C9, "FlagRealizado", each if [Data] <= pDataCorte then 1 else 0, Int64.Type)
+				in
+				    C10
+
+	annotation PBI_ResultType = Table
+

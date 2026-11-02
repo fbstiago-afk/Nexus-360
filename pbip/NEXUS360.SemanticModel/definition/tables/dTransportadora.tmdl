@@ -1,0 +1,41 @@
+table dTransportadora
+	lineageTag: bd5e308d-409f-4a18-9446-3b6918f48b31
+
+	column TransportadoraID
+		dataType: int64
+		formatString: 0
+		lineageTag: 74076903-5f2c-42a3-bd69-6cca44de47cb
+		summarizeBy: none
+		sourceColumn: TransportadoraID
+
+	column Transportadora
+		dataType: string
+		lineageTag: abc5d1b3-8aaa-4273-90c7-39c3f7758070
+		summarizeBy: none
+		sourceColumn: Transportadora
+
+	column Modal
+		dataType: string
+		lineageTag: 67bd6b35-0354-41c0-aa38-39c05021644e
+		summarizeBy: none
+		sourceColumn: Modal
+
+	column IndiceServico
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: 2fbe0894-6a51-433f-a5cb-88f20e3c3e74
+		summarizeBy: none
+		sourceColumn: IndiceServico
+
+	partition dTransportadora = m
+		mode: import
+		queryGroup: Dimensoes
+		source =
+				let
+				    Fonte = fxLerCsv("dTransportadora"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"TransportadoraID", Int64.Type}, {"Transportadora", type text}, {"Modal", type text}, {"IndiceServico", type number}}, "en-US")
+				in
+				    Tipado
+
+	annotation PBI_ResultType = Table
+

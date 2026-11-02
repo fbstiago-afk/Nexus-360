@@ -1,0 +1,82 @@
+/// Amostra WMS (35 posicoes por filial/mes). Grao posicao x produto x mes (C9).
+table fOcupacaoArmazem
+	lineageTag: c446262c-6289-4082-bd2e-32ffacfc8777
+
+	column OcupacaoID
+		dataType: int64
+		formatString: 0
+		lineageTag: a41da0ec-f25a-43f5-894e-e59d9fc28a6a
+		summarizeBy: none
+		sourceColumn: OcupacaoID
+
+	column DataReferencia
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 25227aed-84fc-4cdb-86fc-334dc2ef5702
+		summarizeBy: none
+		sourceColumn: DataReferencia
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column PosicaoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6cb83974-c601-4bb2-9c7f-dcc0bb3d6275
+		summarizeBy: none
+		sourceColumn: PosicaoID
+
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8c1f9113-b5cb-4bec-974b-626a35c3bd55
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column Paletes
+		dataType: int64
+		formatString: #,0
+		lineageTag: 79a5a676-03c2-4de1-aa68-07eef3111723
+		summarizeBy: sum
+		sourceColumn: Paletes
+
+	column StatusPosicao
+		dataType: string
+		lineageTag: d99ef4b6-7ad4-40e3-ab64-b57761411736
+		summarizeBy: none
+		sourceColumn: StatusPosicao
+
+	/// Materializado de dPosicaoArmazem
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ae5c9bdf-e2de-42f3-9e30-2ababe3ed6b0
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	/// 1 quando DataReferencia <= pDataCorte
+	column ElegivelHistorico
+		dataType: int64
+		formatString: 0
+		lineageTag: b27bc5dd-ddce-4d12-840a-d082d127970c
+		summarizeBy: none
+		sourceColumn: ElegivelHistorico
+
+	partition fOcupacaoArmazem = m
+		mode: import
+		queryGroup: Fatos
+		source =
+				let
+				    Fonte = fxLerCsv("fOcupacaoArmazem"),
+				    Tipado = Table.TransformColumnTypes(Fonte, {{"OcupacaoID", Int64.Type}, {"DataReferencia", type date}, {"PosicaoID", Int64.Type}, {"ProdutoID", Int64.Type}, {"Paletes", Int64.Type}, {"StatusPosicao", type text}}, "en-US"),
+				    Mesclado = Table.NestedJoin(Tipado, {"PosicaoID"}, stgPosicao, {"PosicaoID"}, "Ref", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(Mesclado, "Ref", {"FilialID"}, {"FilialID"}),
+				    Retipado = Table.TransformColumnTypes(Expandido, {{"FilialID", Int64.Type}}, "en-US"),
+				    Elegivel = Table.AddColumn(Retipado, "ElegivelHistorico", each if [DataReferencia] <= pDataCorte then 1 else 0, Int64.Type)
+				in
+				    Elegivel
+
+	annotation PBI_ResultType = Table
+

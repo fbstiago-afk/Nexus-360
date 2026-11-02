@@ -1,0 +1,442 @@
+{
+  "versao": "1.0",
+  "modelo": "NEXUS360 (Power BI semantic model)",
+  "modo": "somente leitura",
+  "ferramentas": [
+    {
+      "name": "resumo_executivo",
+      "description": "Receita, margem, atingimento da meta, resultado gerencial e churn do periodo.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "periodo": {
+            "type": "object",
+            "description": "Intervalo de datas (inclusive), limitado a 01/01/2024..31/10/2026 (corte).",
+            "properties": {
+              "inicio": {
+                "type": "string",
+                "format": "date"
+              },
+              "fim": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "inicio",
+              "fim"
+            ],
+            "additionalProperties": false
+          },
+          "filiais": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Belo Horizonte",
+                "Brasília",
+                "Campinas",
+                "Curitiba",
+                "Goiânia",
+                "Joinville",
+                "Maringá",
+                "Porto Alegre",
+                "Ribeirão Preto",
+                "Rio de Janeiro",
+                "Sorocaba",
+                "São Paulo"
+              ]
+            },
+            "description": "Filiais (dFilial[Cidade]). Vazio = todas."
+          }
+        },
+        "required": [
+          "periodo"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ranking_filiais",
+      "description": "Ranking de filiais por uma metrica permitida (allowlist).",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "periodo": {
+            "type": "object",
+            "description": "Intervalo de datas (inclusive), limitado a 01/01/2024..31/10/2026 (corte).",
+            "properties": {
+              "inicio": {
+                "type": "string",
+                "format": "date"
+              },
+              "fim": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "inicio",
+              "fim"
+            ],
+            "additionalProperties": false
+          },
+          "metrica": {
+            "type": "string",
+            "enum": [
+              "Receita Líquida",
+              "Margem Bruta %",
+              "Atingimento Meta Faturamento %",
+              "OTIF %",
+              "Taxa de Churn %"
+            ]
+          },
+          "ordem": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "default": "desc"
+          },
+          "top_n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 5
+          }
+        },
+        "required": [
+          "periodo",
+          "metrica"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "clientes_em_risco",
+      "description": "Clientes em risco (180 a 364 dias sem compra) ordenados pela receita dos ultimos 12 meses.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data_referencia": {
+            "type": "string",
+            "format": "date"
+          },
+          "filiais": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Belo Horizonte",
+                "Brasília",
+                "Campinas",
+                "Curitiba",
+                "Goiânia",
+                "Joinville",
+                "Maringá",
+                "Porto Alegre",
+                "Ribeirão Preto",
+                "Rio de Janeiro",
+                "Sorocaba",
+                "São Paulo"
+              ]
+            },
+            "description": "Filiais (dFilial[Cidade]). Vazio = todas."
+          },
+          "top_n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 5
+          }
+        },
+        "required": [
+          "data_referencia"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "desempenho_vendedores",
+      "description": "Receita, margem e desconto por vendedor.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "periodo": {
+            "type": "object",
+            "description": "Intervalo de datas (inclusive), limitado a 01/01/2024..31/10/2026 (corte).",
+            "properties": {
+              "inicio": {
+                "type": "string",
+                "format": "date"
+              },
+              "fim": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "inicio",
+              "fim"
+            ],
+            "additionalProperties": false
+          },
+          "filiais": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Belo Horizonte",
+                "Brasília",
+                "Campinas",
+                "Curitiba",
+                "Goiânia",
+                "Joinville",
+                "Maringá",
+                "Porto Alegre",
+                "Ribeirão Preto",
+                "Rio de Janeiro",
+                "Sorocaba",
+                "São Paulo"
+              ]
+            },
+            "description": "Filiais (dFilial[Cidade]). Vazio = todas."
+          },
+          "top_n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 5
+          }
+        },
+        "required": [
+          "periodo"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "otif_transportadoras",
+      "description": "OTIF, atraso medio e frete por transportadora (minimo de entregas para entrar no ranking).",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "periodo": {
+            "type": "object",
+            "description": "Intervalo de datas (inclusive), limitado a 01/01/2024..31/10/2026 (corte).",
+            "properties": {
+              "inicio": {
+                "type": "string",
+                "format": "date"
+              },
+              "fim": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "inicio",
+              "fim"
+            ],
+            "additionalProperties": false
+          },
+          "min_entregas": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 50
+          },
+          "top_n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 5
+          }
+        },
+        "required": [
+          "periodo"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "dre_gerencial",
+      "description": "DRE gerencial por linha, com ano anterior.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "periodo": {
+            "type": "object",
+            "description": "Intervalo de datas (inclusive), limitado a 01/01/2024..31/10/2026 (corte).",
+            "properties": {
+              "inicio": {
+                "type": "string",
+                "format": "date"
+              },
+              "fim": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "inicio",
+              "fim"
+            ],
+            "additionalProperties": false
+          },
+          "filiais": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Belo Horizonte",
+                "Brasília",
+                "Campinas",
+                "Curitiba",
+                "Goiânia",
+                "Joinville",
+                "Maringá",
+                "Porto Alegre",
+                "Ribeirão Preto",
+                "Rio de Janeiro",
+                "Sorocaba",
+                "São Paulo"
+              ]
+            },
+            "description": "Filiais (dFilial[Cidade]). Vazio = todas."
+          }
+        },
+        "required": [
+          "periodo"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "projecao_receita",
+      "description": "Projecao sazonal mensal apos o corte, com faixa de 90% (metodo documentado na pagina Predictive).",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "filiais": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Belo Horizonte",
+                "Brasília",
+                "Campinas",
+                "Curitiba",
+                "Goiânia",
+                "Joinville",
+                "Maringá",
+                "Porto Alegre",
+                "Ribeirão Preto",
+                "Rio de Janeiro",
+                "Sorocaba",
+                "São Paulo"
+              ]
+            },
+            "description": "Filiais (dFilial[Cidade]). Vazio = todas."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "simular_cenario",
+      "description": "Resultado operacional sob premissas (preco, desconto, volume, custo, frete, despesas). Nao e previsao.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "periodo": {
+            "type": "object",
+            "description": "Intervalo de datas (inclusive), limitado a 01/01/2024..31/10/2026 (corte).",
+            "properties": {
+              "inicio": {
+                "type": "string",
+                "format": "date"
+              },
+              "fim": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "inicio",
+              "fim"
+            ],
+            "additionalProperties": false
+          },
+          "filiais": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Belo Horizonte",
+                "Brasília",
+                "Campinas",
+                "Curitiba",
+                "Goiânia",
+                "Joinville",
+                "Maringá",
+                "Porto Alegre",
+                "Ribeirão Preto",
+                "Rio de Janeiro",
+                "Sorocaba",
+                "São Paulo"
+              ]
+            },
+            "description": "Filiais (dFilial[Cidade]). Vazio = todas."
+          },
+          "preco": {
+            "type": "number",
+            "minimum": -0.2,
+            "maximum": 0.2,
+            "multipleOf": 0.01,
+            "default": 0
+          },
+          "desconto_pp": {
+            "type": "integer",
+            "minimum": -5,
+            "maximum": 5,
+            "default": 0
+          },
+          "volume": {
+            "type": "number",
+            "minimum": -0.2,
+            "maximum": 0.2,
+            "multipleOf": 0.01,
+            "default": 0
+          },
+          "custo": {
+            "type": "number",
+            "minimum": -0.1,
+            "maximum": 0.1,
+            "multipleOf": 0.01,
+            "default": 0
+          },
+          "frete": {
+            "type": "number",
+            "minimum": -0.2,
+            "maximum": 0.2,
+            "multipleOf": 0.01,
+            "default": 0
+          },
+          "despesas": {
+            "type": "number",
+            "minimum": -0.2,
+            "maximum": 0.2,
+            "multipleOf": 0.01,
+            "default": 0
+          }
+        },
+        "required": [
+          "periodo"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

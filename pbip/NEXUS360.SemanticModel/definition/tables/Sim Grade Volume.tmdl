@@ -1,0 +1,16 @@
+/// Eixo de volume da grade de sensibilidade.
+table 'Sim Grade Volume'
+	lineageTag: 5bf583f6-16d8-41fa-a563-b7470116a208
+
+	column 'Volume grade %'
+		dataType: double
+		formatString: +0%;-0%;0%
+		lineageTag: 3e4ab946-f894-4516-ace9-ca7621ffabca
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Volume grade %]
+
+	partition 'Sim Grade Volume' = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( -10, 10, 2 ), "Volume grade %", [Value] / 100 )
+
